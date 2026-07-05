@@ -3,63 +3,139 @@
 @tailwind utilities;
 
 :root {
-  --cream: #F5F0EA;
-  --navy: #1C2B4B;
-  --gold: #C9A84C;
-  --gold-lt: #E8D5A3;
-  --charcoal: #2D2D2D;
+  --navy-deep: #1B2846;
+  --navy-ink: #14203A;
+  --gold-bright: #E3C285;
+  --gold-mid: #C9A25E;
+  --gold-deep: #8A6B2E;
+  --cream: #F1ECE1;
+  --cream-white: #FAF8F3;
+  
+  /* Legacy/Fallback variables if needed */
+  --navy: var(--navy-deep);
+  --gold: var(--gold-mid);
+  --gold-lt: var(--gold-bright);
+  --charcoal: var(--navy-ink);
   --white: #FFFFFF;
 }
 
 body {
   background-color: var(--cream);
-  color: var(--charcoal);
-  font-family: 'Josefin Sans', sans-serif;
+  color: var(--navy-ink);
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Cormorant Garamond', serif;
-  color: var(--navy);
-}
-
-/* Base resets */
-img {
-  object-fit: cover;
-  display: block;
-  max-width: 100%;
+  color: var(--navy-deep);
 }
 
 /* Custom Selection */
 ::selection {
-  background: var(--gold-lt);
-  color: var(--navy);
+  background: var(--gold-bright);
+  color: var(--navy-ink);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--cream);
+  background: var(--navy-ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--gold);
+  background: var(--gold-mid);
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--navy);
+  background: var(--gold-bright);
 }
 
-/* Loader Path Animation */
-.path-draw {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: draw 1.5s ease forwards;
+/* Shimmer gradient border keyframes */
+@keyframes shimmerBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
+.gold-gradient-text {
+  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-bright) 100%);
+}
+
+.gold-gradient-border {
+  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-bright) 100%);
+  background-size: 200% 200%;
+  animation: shimmerBorder 8s linear infinite;
+}
+
+/* Lenis CSS integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Infinite Marquee animations */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 25s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 25s linear infinite;
+}
+
+/* Custom cursor default styling */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, select, input, textarea, [role="button"], [data-hover-glow] {
+    cursor: none;
   }
 }

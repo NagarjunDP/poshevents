@@ -1,142 +1,319 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
-export default function Hero() {
-  const headline = "Crafting Royal Milestones & Modern Celebrations.";
-  const words = headline.split(" ");
+// Custom Magnetic Container for CTAs (Desktop Only)
+const MagneticButton = ({ children, className, href }) => {
+  const buttonRef = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const springX = useSpring(x, { stiffness: 150, damping: 15 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const handleMouseMove = (e) => {
+    const button = buttonRef.current;
+    if (!button) return;
+    
+    const rect = button.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    const centerX = rect.left + width / 2;
+    const centerY = rect.top + height / 2;
+    
+    const distanceX = e.clientX - centerX;
+    const distanceY = e.clientY - centerY;
+    
+    // Magnetic pull radius is ~60px
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    if (distance < 60) {
+      x.set(distanceX * 0.25); // ~15px pull max
+      y.set(distanceY * 0.25);
+    } else {
+      x.set(0);
+      y.set(0);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <section className="relative min-h-[100svh] bg-cream pt-32 lg:pt-0 overflow-hidden flex items-center border-b border-gold/40">
-      {/* Deep Velvet Charcoal Block for Split Canvas Luxury */}
-      <div className="absolute right-0 top-0 w-full lg:w-[45%] h-full bg-[#111115] -z-10 hidden lg:block" />
-      <div className="absolute left-0 bottom-0 w-full h-[30%] bg-gradient-to-t from-[#EAE3D9] to-transparent -z-10 pointer-events-none lg:hidden" />
+    <motion.div
+      ref={buttonRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+      className="inline-block"
+      whileTap={{ scale: 0.97 }} // touch scale-down feedback
+    >
+      <a href={href} className={className}>
+        {children}
+      </a>
+    </motion.div>
+  );
+};
 
-      {/* Fine Line Decorative Accent Frame */}
-      <div className="absolute inset-x-6 inset-y-24 lg:inset-y-12 lg:inset-x-12 border border-gold/20 pointer-events-none -z-0" />
+export default function Hero() {
+  const containerRef = useRef(null);
+  const { scrollY } = useScroll();
+  
+  // Parallax calculations: Background video scrolls at 0.5x rate
+  const imageY = useTransform(scrollY, [0, 800], [0, 400]);
+  const textY = useTransform(scrollY, [0, 800], [0, 100]);
+  const textOpacity = useTransform(scrollY, [0, 600], [1, 0]);
 
-      <div className="container mx-auto px-6 md:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center lg:min-h-[85vh] relative z-10 mt-8 lg:mt-0">
+  const words = ["Posh", "Events", "By", "Sudee"];
 
-          {/* Text Column */}
-          <div className="relative z-10 flex flex-col justify-center lg:pl-8 xl:pl-12">
+  // State machine for text shimmer states
+  // Phase 0: Entrance (0s - 1.2s)
+  // Phase 1: Shimmer Sweep (1.2s - 3.4s)
+  // Phase 2: Finished sweep, active breathing (3.4s+)
+  const [headlinePhase, setHeadlinePhase] = useState(0);
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="flex items-center space-x-3 mb-6"
-            >
-              <span className="h-px w-8 bg-gold"></span>
-              <p className="font-sans text-gold tracking-[0.3em] text-xs font-semibold uppercase">
-                Bespoke Decor & Wedding Styling
-              </p>
-            </motion.div>
+  useEffect(() => {
+    const sweepStartTimer = setTimeout(() => {
+      setHeadlinePhase(1);
+    }, 1200);
 
-            <h1 className="font-serif text-[11vw] md:text-7xl lg:text-[5.5vw] leading-[1.05] text-navy mb-8 max-w-xl">
-              {words.map((word, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * i, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="inline-block mr-3 lg:mr-4"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
+    const sweepEndTimer = setTimeout(() => {
+      setHeadlinePhase(2);
+    }, 3400);
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 1 }}
-              className="font-sans text-charcoal/80 leading-relaxed max-w-md mb-8 text-sm md:text-base border-l-2 border-gold/40 pl-4"
-            >
-              From viral, contemporary Haldi Carnivals to grand, traditional Muhurthams in Bengaluru.
-              We turn your vision into breathtaking visual poetry.
-            </motion.p>
+    return () => {
+      clearTimeout(sweepStartTimer);
+      clearTimeout(sweepEndTimer);
+    };
+  }, []);
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 1 }}
-              className="font-sans text-navy tracking-[0.2em] text-[10px] md:text-xs font-semibold uppercase border border-gold/50 px-6 py-3 w-fit rounded-full hover:bg-gold hover:text-white transition-colors cursor-pointer"
-            >
-              Discover Our Styling
-            </motion.p>
-          </div>
+  return (
+    <section 
+      ref={containerRef}
+      id="home" 
+      className="relative min-h-[100vh] w-full overflow-hidden flex items-end justify-center bg-[#14203A]"
+    >
+      <style>{`
+        @keyframes kenBurns {
+          0% { transform: scale(1.02); }
+          50% { transform: scale(1.07); }
+          100% { transform: scale(1.02); }
+        }
+        .animate-ken-burns {
+          animation: kenBurns 24s ease-in-out infinite;
+        }
 
-          {/* Images Column */}
-          <div className="relative h-[55vh] md:h-[65vh] lg:h-[85vh] w-full flex items-center justify-end mt-4 lg:mt-0 pb-10 lg:pb-0">
+        @keyframes goldShimmerSweepContinuous {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes goldGlowBreathing {
+          0%, 100% {
+            text-shadow: 0 0 10px rgba(227, 194, 133, 0.25), 0 0 20px rgba(201, 162, 94, 0.15);
+          }
+          50% {
+            text-shadow: 0 0 25px rgba(227, 194, 133, 0.5), 0 0 45px rgba(201, 162, 94, 0.3), 0 0 60px rgba(138, 107, 46, 0.2);
+          }
+        }
+        @keyframes letterBreathing {
+          0%, 100% { letter-spacing: 0.05em; }
+          50% { letter-spacing: 0.055em; }
+        }
+        .headline-glowing-gold {
+          background: linear-gradient(120deg, #E3C285 10%, #FAF8F3 30%, #C9A25E 50%, #E3C285 70%, #FAF8F3 90%);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: 
+            goldShimmerSweepContinuous 8s linear infinite,
+            goldGlowBreathing 4s ease-in-out infinite alternate,
+            letterBreathing 12s ease-in-out infinite;
+        }
 
-            {/* Offset Gold Border Frame */}
-            <div className="absolute right-4 top-[10%] w-[85%] h-[80%] border border-gold/50 rounded-t-full hidden lg:block z-0" />
+        @keyframes liquidText {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .liquid-text-active {
+          background: linear-gradient(270deg, #8A6B2E, #C9A25E, #E3C285, #FAF8F3, #C9A25E, #8A6B2E);
+          background-size: 400% 400%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: liquidText 6s ease-in-out infinite;
+        }
+      `}</style>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, delay: 0.5 }}
-              className="relative w-[90%] lg:w-[85%] h-[85%] z-10 mt-8 lg:mt-16"
-            >
-              {/* Vibrant Indian Wedding Main Image (Grand Floral/Lighting) */}
-              <img
-                src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800"
-                alt="Luxury Royal Wedding Setup"
-                className="w-full h-full object-cover rounded-t-full shadow-[0_20px_50px_rgba(17,17,21,0.5)]"
-              />
+      {/* SVG definitions for liquid displacement filters */}
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <filter id="heroLiquidFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+          <linearGradient id="goldGradientHex" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8A6B2E" />
+            <stop offset="50%" stopColor="#C9A25E" />
+            <stop offset="100%" stopColor="#E3C285" />
+          </linearGradient>
+        </defs>
+      </svg>
 
-              {/* Rotating Circular Luxury Badge */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute top-[15%] -left-12 lg:-left-20 w-32 h-32 lg:w-40 lg:h-40 z-30 bg-cream/90 backdrop-blur-sm rounded-full shadow-xl hidden md:flex items-center justify-center border border-gold/20"
-              >
-                <svg viewBox="0 0 100 100" className="w-full h-full p-2">
-                  <path id="circlePath" fill="none" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
-                  <text className="text-[11px] uppercase font-sans tracking-[0.2em] fill-navy font-semibold">
-                    <textPath href="#circlePath" startOffset="0%">
-                      LUXURY WEDDINGS • PREMIUM STYLING •
-                    </textPath>
-                  </text>
-                </svg>
-                {/* Center Star */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-gold text-2xl">✦</span>
-                </div>
-              </motion.div>
+      {/* 1. Full-Bleed Parallax Background Video (No borders, true edge-to-edge) */}
+      <motion.div 
+        style={{ y: imageY }}
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden"
+      >
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover origin-center scale-[1.02] animate-ken-burns"
+        >
+          <source src="/besthomevid_optimized.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Contrast Scrim Overlay: Gradient from deep navy bottom to transparent/light navy top */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#14203A]/90 via-[#14203A]/55 to-[#14203A]/15 lg:from-[#14203A]/75 lg:via-[#14203A]/40 lg:to-[#14203A]/15 z-10" />
+      </motion.div>
 
-              {/* Offset Small Image (Vibrant Marigold/Yellow Haldi) */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.8 }}
-                className="absolute -bottom-12 -left-8 lg:-bottom-16 lg:-left-12 w-[55%] lg:w-[50%] aspect-[4/5] z-20 p-2 bg-white shadow-2xl"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500"
-                  alt="Vibrant Haldi Floral Detail"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
+      {/* 2. Ambient Liquid Textures purely at top-left and bottom-right corners (5% opacity) */}
+      <div className="absolute top-0 left-0 w-72 h-72 z-10 opacity-5 pointer-events-none overflow-hidden">
+        <svg className="w-full h-full" viewBox="0 0 1000 1000">
+          <circle cx="150" cy="150" r="320" fill="url(#goldGradientHex)" filter="url(#heroLiquidFilter)" className="animate-[spin_35s_linear_infinite]" />
+        </svg>
+      </div>
+      <div className="absolute bottom-0 right-0 w-72 h-72 z-10 opacity-5 pointer-events-none overflow-hidden">
+        <svg className="w-full h-full" viewBox="0 0 1000 1000">
+          <circle cx="850" cy="850" r="320" fill="url(#goldGradientHex)" filter="url(#heroLiquidFilter)" className="animate-[spin_45s_linear_infinite]" />
+        </svg>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* 3. Center Content Container (Centered vertically in lower 60% of viewport) */}
+      <motion.div 
+        style={{ y: textY, opacity: textOpacity }}
+        className="container mx-auto px-6 md:px-12 text-center relative z-20 flex flex-col items-center justify-end min-h-[100vh] pb-20 lg:pb-36 pt-32"
+      >
+        {/* Eyebrow Label (No flanking horizontal rules, no badge container background) */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6"
+        >
+          <span className="font-sans text-[#C9A25E] text-[10px] md:text-xs tracking-[0.22em] uppercase font-bold">
+            CRAFTING EXTRAORDINARY CELEBRATIONS
+          </span>
+        </motion.div>
+
+        {/* Kinetic Title (Staggered slide + blur reveal, gold shimmer sweep & breathing gold glow aura) */}
+        <h1 
+          className="font-serif text-5xl md:text-8xl text-center leading-none mb-4 max-w-[85vw] md:max-w-4xl tracking-[0.05em] flex flex-wrap justify-center gap-x-4 mx-auto select-none"
+        >
+          {words.map((word, idx) => (
+            <span key={idx} className="overflow-hidden inline-block py-2">
+              <motion.span
+                custom={idx}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
+                  visible: (i) => ({
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: {
+                      delay: 0.15 + i * 0.1,
+                      duration: 0.8,
+                      ease: [0.16, 1, 0.3, 1]
+                    }
+                  })
+                }}
+                className="inline-block headline-glowing-gold"
+              >
+                {word}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
+
+        {/* Tagline Subtitle: Turning Visions into Celebrations (Staggered spring blur reveals) */}
+        <div className="overflow-hidden flex flex-wrap justify-center gap-x-3 mb-8 max-w-2xl select-none">
+          {["Turning", "Visions", "into", "Celebrations"].map((word, idx) => {
+            const isCelebrations = word === "Celebrations";
+            return (
+              <motion.span
+                key={idx}
+                initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ delay: 1.1 + idx * 0.15, duration: 0.7, ease: "easeOut" }}
+                className={`font-serif italic text-lg md:text-2xl lg:text-3xl leading-relaxed ${
+                  isCelebrations 
+                    ? 'text-[#E3C285] font-bold liquid-text-active px-2 relative' 
+                    : 'text-[#F1ECE1] opacity-90'
+                }`}
+              >
+                {word}
+                {isCelebrations && (
+                  <motion.span 
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ delay: 1.9, duration: 0.8, ease: "easeOut" }}
+                    className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[#8A6B2E] via-[#E3C285] to-transparent origin-left"
+                  />
+                )}
+              </motion.span>
+            );
+          })}
+        </div>
+
+        {/* CTA Button redesign: Glass fill by default with shimmering border, liquid fill hover */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 1.5 }}
+        >
+          <MagneticButton
+            href="#contact"
+            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full px-10 py-4 font-sans text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-[#E3C285]"
+            style={{
+              border: '1.5px solid transparent',
+              backgroundImage: 'linear-gradient(rgba(20, 32, 58, 0.85), rgba(20, 32, 58, 0.85)), linear-gradient(135deg, #8A6B2E 0%, #C9A25E 50%, #E3C285 100%)',
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'padding-box, border-box',
+              backgroundSize: '200% 200%',
+              animation: 'shimmerBorder 8s linear infinite'
+            }}
+          >
+            {/* Liquid fill backdrop scales from center on hover */}
+            <span className="absolute inset-0 bg-gradient-to-r from-[#C9A25E] to-[#E3C285] scale-0 group-hover:scale-[1.35] transition-transform duration-[450ms] origin-center ease-[0.16,1,0.3,1] -z-10 rounded-full" />
+            
+            {/* Button text with expand letter spacing & color flip */}
+            <span className="relative z-10 flex flex-col items-center group-hover:text-[#14203A] group-hover:tracking-[0.22em] transition-all duration-[450ms] ease-[0.16,1,0.3,1]">
+              Enquire Now
+              {/* Thin gold rule line underscore inside the button text */}
+              <span className="w-full h-[1px] bg-[#14203A] scale-x-0 group-hover:scale-x-100 transition-transform duration-[450ms] ease-[0.16,1,0.3,1] origin-center mt-1" />
+            </span>
+          </MagneticButton>
+        </motion.div>
+      </motion.div>
+
+      {/* 4. Elegant custom eased chevron indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center z-20"
+        animate={{ opacity: 0.7 }}
+        transition={{ delay: 1.9, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none"
       >
-        <span className="text-gold text-[10px] font-sans tracking-[0.3em] mb-2 uppercase font-semibold">Scroll</span>
+        <span className="text-[#C9A25E] text-[10px] font-sans tracking-[0.3em] mb-2 uppercase font-semibold">Scroll</span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: [0.16, 1, 0.3, 1] }}
         >
-          <ChevronDown className="text-gold" size={16} />
+          <ChevronDown className="text-[#C9A25E]" size={16} />
         </motion.div>
       </motion.div>
     </section>

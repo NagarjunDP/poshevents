@@ -4,19 +4,46 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const testimonials = [
   {
-    text: "Sudee transformed our wedding into something out of a dream. Every petal, every light, every throne — pure perfection. Bengaluru has never seen anything like it.",
-    author: "Priya & Arjun R.",
-    event: "Wedding 2024"
+    text: "Really nice experience working with Mr. Sudeep. Just like he has a policy of customer satisfaction, he makes sure all artists and event crew working with him are taken care of throughout the event. Once again thank you Sudeep",
+    author: "Anchor Jhanvi",
+    source: "Review from Google",
+    rating: "⭐⭐⭐⭐⭐ 5/5",
+    date: "6 months ago"
   },
   {
-    text: "Our daughter's half-saree ceremony was breathtaking. The jasmine canopy alone had our guests in tears. Posh Events is in a league of their own.",
-    author: "Mrs. Lakshmi Venkatesh",
-    event: "Half-Saree 2023"
+    text: "Outstanding event management from start to finish! The team handled every detail with precision, creativity, and professionalism. Seamless coordination.",
+    author: "Hemanth Kumar",
+    source: "Review from Google",
+    rating: "⭐⭐⭐⭐⭐ 5/5",
+    date: "6 months ago"
   },
   {
-    text: "The Blue Haldi Carnival theme was absolutely one-of-a-kind. So many compliments, so many memories. Truly luxury at its finest.",
-    author: "Divya M.",
-    event: "Haldi Event 2024"
+    text: "Excellent event management with seamless coordination and attention to detail. The planning, execution, and overall flow of the event were handled very professionally. Truly a well-organized and memorable experience.",
+    author: "Adarsha jain Muppane",
+    source: "Review from Google",
+    rating: "⭐⭐⭐⭐⭐ 5/5",
+    date: "6 months ago"
+  },
+  {
+    text: "😊 Wonderful decoration! Everything looks beautiful and perfectly arranged. Amazing work by Sudee and team.⭐ ✨",
+    author: "Bhavya R",
+    source: "Review from Google",
+    rating: "⭐⭐⭐⭐⭐ 5/5",
+    date: "a month ago"
+  },
+  {
+    text: "The event was handled with great professionalism, featuring smooth coordination, precise planning, and a well-structured flow. Overall, it was an impressive!😊",
+    author: "Chandini S",
+    source: "Review from Google",
+    rating: "⭐⭐⭐⭐⭐ 5/5",
+    date: "6 months ago"
+  },
+  {
+    text: "The event was handled with great professionalism, featuring smooth coordination, precise planning, and a well-structured flow. Overall, it was an impressive!😊",
+    author: "thilak yadav",
+    source: "Review from Google",
+    rating: "⭐⭐⭐⭐⭐ 5/5",
+    date: "6 months ago"
   }
 ];
 
@@ -26,45 +53,62 @@ export default function Testimonials() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    }, 5500);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="py-24 bg-cream relative">
+    <section className="py-14 md:py-24 bg-cream relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 text-center">
         <FadeUp>
-          <h2 className="text-4xl md:text-5xl font-serif text-navy mb-16">Words From Our Beloved Clients</h2>
+          <span className="font-sans text-gold tracking-[0.25em] text-[10px] md:text-xs font-semibold uppercase mb-3 block">
+            VERIFIED FEEDBACK
+          </span>
+          <h2 className="text-4xl md:text-5xl font-serif text-navy mb-16">
+            Words From Our Beloved Clients
+          </h2>
         </FadeUp>
 
-        <div className="max-w-4xl mx-auto relative h-64 md:h-48">
+        <div className="max-w-3xl mx-auto relative min-h-[260px] md:min-h-[200px] flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 flex flex-col items-center justify-center"
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
+              className="w-full flex flex-col items-center justify-center py-4"
             >
-              <span className="text-6xl text-gold font-serif leading-none mb-4">"</span>
-              <p className="text-xl md:text-2xl font-serif italic text-navy mb-8 leading-relaxed">
-                {testimonials[current].text}
-              </p>
-              <div className="flex flex-col items-center">
-                <span className="font-sans text-charcoal tracking-widest uppercase text-sm font-semibold">
-                  — {testimonials[current].author}
+              {/* Rating & Source Metadata block */}
+              <div className="flex items-center justify-center space-x-2 md:space-x-3 mb-6 flex-wrap gap-y-2">
+                <span className="text-gold text-xs font-semibold tracking-wider">
+                  {testimonials[current].rating}
                 </span>
-                <span className="font-sans text-gold tracking-wider uppercase text-xs mt-1">
-                  {testimonials[current].event}
+                <span className="text-gold/30 hidden xs:inline">|</span>
+                <span className="font-sans text-[9px] md:text-[10px] text-navy/70 tracking-widest uppercase font-bold bg-gold/10 px-3 py-1 rounded-full">
+                  {testimonials[current].source}
+                </span>
+                <span className="text-navy/20 hidden xs:inline">|</span>
+                <span className="text-navy/50 text-[10px] font-sans tracking-wide">
+                  {testimonials[current].date}
                 </span>
               </div>
+
+              {/* Review Text */}
+              <p className="text-lg md:text-xl font-serif italic text-navy mb-6 leading-relaxed max-w-2xl text-center">
+                "{testimonials[current].text}"
+              </p>
+
+              {/* Reviewer Name */}
+              <span className="font-sans text-charcoal tracking-widest uppercase text-xs md:text-sm font-bold">
+                — {testimonials[current].author}
+              </span>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Dots */}
-        <div className="flex justify-center space-x-3 mt-8">
+        {/* Paginated Navigation Dots */}
+        <div className="flex justify-center space-x-3 mt-8 z-20 relative">
           {testimonials.map((_, idx) => (
             <button
               key={idx}

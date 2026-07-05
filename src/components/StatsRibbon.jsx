@@ -46,9 +46,9 @@ export default function StatsRibbon() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x-0 md:divide-x divide-gold/30">
           <StatItem end={200} suffix="+" label="Events Crafted" />
-          <StatItem end={8} suffix="+" label="Years of Excellence" />
+          <StatItem end={5} suffix="+" label="Years of Excellence" />
           <StatItem end={500} suffix="+" label="Happy Families" />
-          <StatItem end={1} suffix="" label="Bengaluru's #1 Studio" />
+          <StatItem end={1} suffix="" label="Bengaluru's #1 Planner" />
         </div>
       </div>
     </section>
