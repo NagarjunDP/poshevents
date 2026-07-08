@@ -7,6 +7,16 @@ export default function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [isMobile, setIsMobile] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  // Sync route path state
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Responsive check
   useEffect(() => {
@@ -16,8 +26,13 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // ScrollSpy
+  // ScrollSpy - only run on home page
   useEffect(() => {
+    if (currentPath === '/gallery') {
+      setActiveSection('gallery');
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -37,7 +52,7 @@ export default function Navbar() {
         if (el) observer.unobserve(el);
       });
     };
-  }, []);
+  }, [currentPath]);
 
   // Hide on scroll down, show on scroll up
   useEffect(() => {
@@ -57,12 +72,46 @@ export default function Navbar() {
   const yOffsetSpring = useSpring(visible ? 0 : -100, { stiffness: 300, damping: 30 });
 
   const navLinks = [
-    { label: 'Home', target: '#home', id: 'home' },
-    { label: 'About', target: '#about', id: 'about' },
-    { label: 'Services', target: '#celebrations', id: 'celebrations' },
-    { label: 'Portfolio', target: '#showcase', id: 'showcase' },
-    { label: 'Contact', target: '#contact', id: 'contact' },
+    { label: 'Home',      target: '#home',         id: 'home'         },
+    { label: 'About',     target: '#about',        id: 'about'        },
+    { label: 'Services',  target: '#celebrations', id: 'celebrations' },
+    { label: 'Portfolio', target: '#showcase',     id: 'showcase'     },
+    { label: 'Gallery',   target: '/gallery',      id: 'gallery'      },
+    { label: 'Contact',   target: '#contact',      id: 'contact'      },
   ];
+
+  // Intercept navigation links for smooth SPA transition
+  const handleLinkClick = (e, link) => {
+    if (link.target.startsWith('/')) {
+      e.preventDefault();
+      window.history.pushState({}, '', link.target);
+      window.dispatchEvent(new Event('popstate'));
+    } else {
+      if (currentPath === '/gallery') {
+        e.preventDefault();
+        window.history.pushState({}, '', '/' + link.target);
+        window.dispatchEvent(new Event('popstate'));
+        
+        // Let state commit and elements mount, then scroll to section
+        setTimeout(() => {
+          const el = document.getElementById(link.id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 120);
+      }
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (currentPath !== '/') {
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new Event('popstate'));
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const FoliageIndicator = () => (
     <motion.svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -102,7 +151,7 @@ export default function Navbar() {
       <motion.div
         style={{ y: yOffsetSpring, x: '-50%' }}
         className="fixed top-4 left-1/2 z-40 hidden md:grid grid-cols-[auto_1fr_auto] items-center
-                   w-[780px] max-w-[calc(100vw-48px)]
+                   w-[800px] max-w-[calc(100vw-48px)]
                    px-5 py-2.5
                    rounded-full
                    shadow-2xl pointer-events-auto
@@ -116,15 +165,18 @@ export default function Navbar() {
 
         {/* LEFT — Logo */}
         <div className="flex items-center z-20">
-          <img src="/logo.png" alt="Posh Events" className="h-9 w-auto object-contain" />
+          <a href="/" onClick={handleLogoClick} className="block cursor-pointer">
+            <img src="/logo.png" alt="Posh Events" className="h-9 w-auto object-contain" />
+          </a>
         </div>
 
         {/* CENTER — Nav links */}
-        <nav className="flex items-center justify-center gap-6 z-20">
+        <nav className="flex items-center justify-center gap-5 lg:gap-6 z-20">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.target}
+              onClick={(e) => handleLinkClick(e, link)}
               className={`text-[10px] font-sans tracking-[0.18em] uppercase transition-colors duration-200 relative py-1 whitespace-nowrap hover:scale-105 inline-block
                 ${activeSection === link.id ? 'text-[#C9A25E]' : 'text-[#14203A]'}`}
             >
@@ -159,7 +211,9 @@ export default function Navbar() {
 
         {/* Mobile Logo */}
         <div className="z-20">
-          <img src="/logo.png" alt="Posh Events" className="h-8 w-auto object-contain" />
+          <a href="/" onClick={handleLogoClick} className="block cursor-pointer">
+            <img src="/logo.png" alt="Posh Events" className="h-8 w-auto object-contain" />
+          </a>
         </div>
 
         {/* Mobile Center Brand */}
@@ -193,7 +247,9 @@ export default function Navbar() {
             {/* Header row */}
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center space-x-3">
-                <img src="/logo.png" alt="Posh Events Logo" className="h-10 w-auto object-contain" />
+                <a href="/" onClick={(e) => { handleLogoClick(e); setMobileMenuOpen(false); }} className="block cursor-pointer">
+                  <img src="/logo.png" alt="Posh Events Logo" className="h-10 w-auto object-contain" />
+                </a>
                 <span className="font-serif text-[#14203A] tracking-[0.2em] text-xs uppercase">
                   POSH EVENTS
                 </span>
@@ -223,7 +279,7 @@ export default function Navbar() {
                 >
                   <a
                     href={link.target}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => { handleLinkClick(e, link); setMobileMenuOpen(false); }}
                     className="font-serif text-4xl text-[#14203A] hover:text-[#C9A25E] transition-colors relative py-1 flex items-center"
                   >
                     {link.label}

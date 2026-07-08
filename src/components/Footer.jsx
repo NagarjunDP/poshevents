@@ -6,10 +6,31 @@ const navLinks = [
   { label: 'About',     href: '#about'        },
   { label: 'Services',  href: '#celebrations' },
   { label: 'Portfolio', href: '#showcase'     },
+  { label: 'Gallery',   href: '/gallery'      },
   { label: 'Contact',   href: '#contact'      },
 ];
 
 export default function Footer() {
+  const handleLinkClick = (e, href) => {
+    if (href.startsWith('/')) {
+      e.preventDefault();
+      window.history.pushState({}, '', href);
+      window.dispatchEvent(new Event('popstate'));
+    } else {
+      if (window.location.pathname === '/gallery') {
+        e.preventDefault();
+        window.history.pushState({}, '', '/' + href);
+        window.dispatchEvent(new Event('popstate'));
+        setTimeout(() => {
+          const el = document.getElementById(href.replace('#', ''));
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 120);
+      }
+    }
+  };
+
   return (
     <footer className="bg-[#0E1520] text-[#FAF8F3] relative overflow-hidden">
 
@@ -64,6 +85,7 @@ export default function Footer() {
                 <a
                   key={link.label}
                   href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
                   className="font-sans text-[#FAF8F3]/70 text-sm tracking-[0.12em] uppercase
                              hover:text-[#C9A25E] transition-colors duration-200"
                 >

@@ -147,7 +147,7 @@ export default function ServicesGrid() {
           ease: "none",
           scrollTrigger: {
             trigger: container,
-            pin: true,
+            pin: ".inner-pin-container",
             scrub: 0.8,
             start: "top top",
             end: () => `+=${distanceToScroll * 1.2}`,
@@ -176,7 +176,7 @@ export default function ServicesGrid() {
     >
       
       {/* DESKTOP LAYOUT (GSAP Pinning horizontal scroll) */}
-      <div className="hidden lg:block w-full min-h-screen">
+      <div className="inner-pin-container hidden lg:block w-full min-h-screen">
         
         {/* Absolute Left Sticky Panel */}
         <div className="absolute left-16 top-1/2 -translate-y-1/2 w-[350px] z-20 pointer-events-none">

@@ -14,6 +14,7 @@ import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
 import ServicesGrid from './components/ServicesGrid';
 import BentoShowcase from './components/BentoShowcase';
+import GallerySection from './components/GallerySection';
 import SlidingTabs from './components/SlidingTabs';
 import FeatureStrip from './components/FeatureStrip';
 import FounderSection from './components/FounderSection';
@@ -25,6 +26,17 @@ import Footer from './components/Footer';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  // Sync route path state
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Initialize Lenis Smooth Scroll and sync with GSAP
   useEffect(() => {
@@ -64,7 +76,7 @@ function App() {
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, [loading]);
+  }, [loading, currentPath]);
 
   const handleLoaderComplete = () => {
     setLoading(false);
@@ -85,30 +97,38 @@ function App() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Navbar />
-          <main>
-            <Hero />
-            <AboutSection />
-            <ServicesGrid />
-            <BentoShowcase />
-            <SlidingTabs />
-            <FeatureStrip />
-            <FounderSection />
-            <Testimonials />
-            <StatsRibbon />
-            <ContactSection />
-            <InstagramGallery />
-          </main>
+          
+          {currentPath === '/gallery' ? (
+            <main>
+              <GallerySection />
+            </main>
+          ) : (
+            <main>
+              <Hero />
+              <AboutSection />
+              <ServicesGrid />
+              <BentoShowcase />
+              <SlidingTabs />
+              <FeatureStrip />
+              <FounderSection />
+              <Testimonials />
+              <StatsRibbon />
+              <ContactSection />
+              <InstagramGallery />
+            </main>
+          )}
+
           <Footer />
 
           {/* Premium WhatsApp Sticky Contact FAB */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
             className="fixed bottom-6 right-6 z-50 pointer-events-auto"
           >
             {/* Call / WhatsApp FAB */}
-            <a 
+            <a
               href="https://wa.me/917899243348"
               target="_blank"
               rel="noopener noreferrer"
@@ -121,8 +141,8 @@ function App() {
           </motion.div>
         </motion.div>
       )}
-      </div>
-    );
-  }
+    </div>
+  );
+}
 
 export default App;
