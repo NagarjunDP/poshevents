@@ -23,59 +23,6 @@ import ContactSection from './components/ContactSection';
 import InstagramGallery from './components/InstagramGallery';
 import Footer from './components/Footer';
 
-// Premium Custom Cursor Component for Desktop
-const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [hovered, setHovered] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      if (!visible) setVisible(true);
-    };
-
-    const handleMouseOver = (e) => {
-      const target = e.target;
-      const isHoverable = 
-        target.tagName === 'A' || 
-        target.tagName === 'BUTTON' || 
-        target.closest('a') || 
-        target.closest('button') ||
-        target.closest('[data-hover-glow="true"]');
-      
-      setHovered(!!isHoverable);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseover', handleMouseOver);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, [visible]);
-
-  if (!visible) return null;
-
-  return (
-    <div className="hidden lg:block">
-      {/* Dot Core */}
-      <div 
-        className="fixed pointer-events-none z-50 w-2 h-2 rounded-full bg-[#E3C285] mix-blend-difference transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-75"
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      />
-      {/* Expanding Ring */}
-      <div 
-        className={`fixed pointer-events-none z-50 rounded-full border border-[#E3C285] mix-blend-difference transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-          hovered ? 'w-12 h-12 bg-[#E3C285]/10 border-[#E3C285]' : 'w-6 h-6 border-[#E3C285]/50'
-        }`}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      />
-    </div>
-  );
-};
-
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -83,23 +30,28 @@ function App() {
   useEffect(() => {
     if (loading) return; // Wait until loader finishes to initialize Lenis
 
+    // Detect mobile to skip smooth scroll (improves performance on mobile)
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isMobile ? 0.8 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
+      smoothWheel: !isMobile,
       wheelMultiplier: 1,
-      smoothTouch: false,
+      smoothTouch: false, // Always false — native touch scroll is faster
+      touchMultiplier: 2,
       infinite: false,
     });
 
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // Sync GSAP ScrollTrigger with Lenis scroll updates
     lenis.on('scroll', ScrollTrigger.update);
@@ -109,6 +61,7 @@ function App() {
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, [loading]);
@@ -119,9 +72,6 @@ function App() {
 
   return (
     <div className="bg-[#F1ECE1] min-h-screen text-[#14203A]">
-      {/* Luxury Custom Cursor (hidden on touch screens) */}
-      <CustomCursor />
-
       <AnimatePresence>
         {loading && (
           <Loader onComplete={handleLoaderComplete} />

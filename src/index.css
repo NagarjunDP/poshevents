@@ -130,12 +130,4 @@ html.lenis, html.lenis body {
   animation: marquee-right 25s linear infinite;
 }
 
-/* Custom cursor default styling */
-@media (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  a, button, select, input, textarea, [role="button"], [data-hover-glow] {
-    cursor: none;
-  }
-}
+/* Default cursor restored for native performance */

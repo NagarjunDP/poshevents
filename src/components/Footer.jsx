@@ -46,6 +46,17 @@ export default function Footer() {
         <p className="font-sans text-cream/50 text-xs tracking-widest uppercase">
           © 2026 Posh Events by Sudee. Crafted with love in Bengaluru.
         </p>
+        <p className="font-sans text-cream/30 text-[10px] tracking-widest mt-3">
+          Made with ♥ in Bengaluru by{' '}
+          <a
+            href="https://webibi.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-cream/50 hover:text-[#C9A25E] transition-colors duration-300 underline-offset-2 hover:underline"
+          >
+            webibi.tech
+          </a>
+        </p>
       </div>
 
       {/* Background floral abstraction */}
