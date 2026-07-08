@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaWhatsapp } from 'react-icons/fa';
 
 // Register ScrollTrigger globally
 gsap.registerPlugin(ScrollTrigger);
@@ -151,9 +152,7 @@ function App() {
               className="wa-glow-btn flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#25D366] to-[#128C7E] shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 text-white"
               aria-label="Chat on WhatsApp"
             >
-              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.008.01c-6.61 0-11.948 5.338-11.948 11.948 0 2.097.546 4.142 1.587 5.946l-1.687 6.163 6.309-1.654c1.751.953 3.719 1.454 5.724 1.455 6.612 0 11.948-5.337 11.948-11.948C24.015 5.348 18.679.01 12.008.01zm6.07 16.924c-.25.702-1.24 1.282-1.72 1.344-.48.062-.97.108-3.08-.727-2.7-1.074-4.44-3.829-4.57-4.004-.13-.175-1.09-1.455-1.09-2.781 0-1.326.68-1.98.93-2.24.25-.26.54-.32.72-.32.18 0 .36 0 .51.01.16 0 .37-.06.58.45.22.52.75 1.83.81 1.96.06.13.1.28.01.46-.09.18-.2.39-.39.61-.19.22-.4.49-.57.66-.19.19-.39.4-.17.78.22.38.98 1.62 2.1 2.62 1.44 1.29 2.66 1.69 3.04 1.88.38.19.6.16.82-.1.22-.26.96-1.12 1.22-1.5.26-.38.52-.32.88-.19.36.13 2.27 1.07 2.64 1.25.37.18.62.27.71.43.09.16.09.92-.16 1.62z" />
-              </svg>
+              <FaWhatsapp className="w-7 h-7 text-white" />
             </a>
           </motion.div>
         </motion.div>
