@@ -260,7 +260,7 @@ const rawItems = [
   {
   type: 'photo',
   src: '/po1.jpeg',
-  category: 'Corporate Events',
+  category: 'Corporate Premises',
   title: 'Corporate Office Security',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
 },
@@ -268,21 +268,21 @@ const rawItems = [
   type: 'photo',
   src: '/po2.jpeg',
   category: 'Corporate Events',
-  title: 'Professional Security Team',
+  title: 'Corporate Patrol',
   sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
 },
 {
   type: 'photo',
   src: '/po3.jpeg',
   category: 'Corporate Events',
-  title: 'Corporate Premises Protection',
+  title: 'Corporate Events ',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
 },
 {
   type: 'photo',
   src: '/po4.jpeg',
   category: 'Corporate Events',
-  title: 'Executive Security Services',
+  title: 'Corporate Premises',
   sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
 }
 ];
