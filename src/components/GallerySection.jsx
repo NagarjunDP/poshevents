@@ -260,8 +260,8 @@ const rawItems = [
   {
   type: 'photo',
   src: '/po1.jpeg',
-  category: 'Corporate Premises',
-  title: 'Corporate Office Security',
+  category: 'Corporate Events',
+  title: 'Corporate Premises',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
 },
 {
@@ -275,7 +275,7 @@ const rawItems = [
   type: 'photo',
   src: '/po3.jpeg',
   category: 'Corporate Events',
-  title: 'Corporate Events ',
+  title: 'Corporate Events',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
 },
 {
