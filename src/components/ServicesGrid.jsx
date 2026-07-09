@@ -34,7 +34,7 @@ const servicesList = [
     num: "04",
     title: "Traditional Seemantha",
     type: "video",
-    src: "/babyshower_bento.mp4",
+    src: "/WhatsApp Image 2026-07-08 at 23.03.59.jpeg",
     poster: "/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with-2.jpg",
     description: "Authentic, handcrafted coconut leaf panels, cradle setups, and royal settings."
   },
