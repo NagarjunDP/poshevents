@@ -160,35 +160,35 @@ const rawItems = [
   {
     type: 'photo',
     src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.55%20(2).jpeg',
-    category: 'Bodyguards',
+    category: 'Personal Security Officers',
     title: 'VIP Event Security Coordination',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
     src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56%20(1).jpeg',
-    category: 'Bodyguards',
+    category: 'Personal Security Officers',
     title: 'Elite Bouncers Alignment',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
     src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56%20(2).jpeg',
-    category: 'Bodyguards',
+    category: 'Personal Security Officers',
     title: 'Professional Security Escort',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
     src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56.jpeg',
-    category: 'Bodyguards',
+    category: 'Personal Security Officers',
     title: 'High-Profile Event Protection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
     src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.57.jpeg',
-    category: 'Bodyguards',
+    category: 'Personal Security Officers',
     title: 'Seamless Safe Operations',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
@@ -265,7 +265,7 @@ const categories = [
   'Birthday Celebrations',
   'Naming Ceremony',
   'Weddings & Haldi',
-  'Bodyguards'
+  'Personal Security Officers'
 ];
 
 // Helper video tile player inside bento layout
