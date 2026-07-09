@@ -257,7 +257,7 @@ const rawItems = [
     title: 'Floral Canopy Arrangement',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
-  #Corporate
+  Corporate
   {
   type: 'photo',
   src: '/po1.jpeg',
