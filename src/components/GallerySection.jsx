@@ -257,32 +257,31 @@ const rawItems = [
     title: 'Floral Canopy Arrangement',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
-  Corporate
   {
   type: 'photo',
   src: '/po1.jpeg',
-  category: 'Corporate Security',
+  category: 'Corporate Events',
   title: 'Corporate Office Security',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
 },
 {
   type: 'photo',
   src: '/po2.jpeg',
-  category: 'Corporate Security',
+  category: 'Corporate Events',
   title: 'Professional Security Team',
   sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
 },
 {
   type: 'photo',
   src: '/po3.jpeg',
-  category: 'Corporate Security',
+  category: 'Corporate Events',
   title: 'Corporate Premises Protection',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
 },
 {
   type: 'photo',
   src: '/po4.jpeg',
-  category: 'Corporate Security',
+  category: 'Corporate Events',
   title: 'Executive Security Services',
   sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
 }
@@ -294,6 +293,7 @@ const categories = [
   'Birthday Celebrations',
   'Naming Ceremony',
   'Weddings & Haldi',
+  'Corporate Events',
   'Personal Security Officers'
   
 ];
