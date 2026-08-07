@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeUp } from './FadeUp';
+import { OptimizedImage } from './OptimizedImage';
 
 const showcaseItems = [
   {
@@ -50,8 +51,9 @@ const showcaseItems = [
   }
 ];
 
-const BentoVideoTile = ({ src, poster }) => {
+const BentoVideoTile = React.memo(({ src, poster }) => {
   const videoRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -61,22 +63,21 @@ const BentoVideoTile = ({ src, poster }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            video.play().catch((err) => {
-              console.log("Autoplay check:", err);
-            });
+            setVideoSrc((prev) => prev || src);
+            video.play().catch(() => {});
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.1, rootMargin: '150px' }
     );
 
     observer.observe(video);
     return () => {
       observer.unobserve(video);
     };
-  }, []);
+  }, [src]);
 
   return (
     <video
@@ -84,14 +85,14 @@ const BentoVideoTile = ({ src, poster }) => {
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
       poster={poster}
       className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.05]"
     >
-      <source src={src} type="video/mp4" />
+      {videoSrc && <source src={videoSrc} type="video/mp4" />}
     </video>
   );
-};
+});
 
 export default function BentoShowcase() {
   const containerRef = useRef(null);
@@ -178,10 +179,9 @@ export default function BentoShowcase() {
                   {item.type === 'video' ? (
                     <BentoVideoTile src={item.src} poster={item.poster} />
                   ) : (
-                    <img 
+                    <OptimizedImage 
                       src={item.src} 
                       alt={item.title} 
-                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.05]"
                     />
                   )}

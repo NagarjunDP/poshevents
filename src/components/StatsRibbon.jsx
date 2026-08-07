@@ -26,12 +26,12 @@ const useCountUp = (end, duration = 2000) => {
   return { count, ref };
 };
 
-const StatItem = ({ end, suffix, label }) => {
-  const { count, ref } = useCountUp(end);
+const StatItem = ({ end, suffix, label, displayValue }) => {
+  const { count, ref } = useCountUp(end || 0);
   return (
     <div ref={ref} className="flex flex-col items-center text-center">
       <span className="font-serif text-5xl md:text-6xl text-gold mb-2">
-        {count}{suffix}
+        {displayValue ? displayValue : `${count}${suffix}`}
       </span>
       <span className="font-sans text-cream/80 text-xs md:text-sm tracking-[0.2em] uppercase">
         {label}
@@ -48,7 +48,7 @@ export default function StatsRibbon() {
           <StatItem end={200} suffix="+" label="Events Crafted" />
           <StatItem end={5} suffix="+" label="Years of Excellence" />
           <StatItem end={500} suffix="+" label="Happy Families" />
-          <StatItem end={1} suffix="" label="Bengaluru's #1 Planner" />
+          <StatItem end={100} suffix="%" label="Bengaluru's Best Planner" />
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FadeUp } from './FadeUp';
+import { OptimizedImage } from './OptimizedImage';
 
 export default function FounderSection() {
   return (
@@ -23,7 +24,7 @@ export default function FounderSection() {
                               lg:max-w-[420px]
                               aspect-[3/4]
                               shadow-2xl">
-                <img
+                <OptimizedImage
                   src="/founderpic.jpeg"
                   alt="Sudeep K — Founder of Posh Events By Sudee"
                   className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"

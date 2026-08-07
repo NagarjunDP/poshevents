@@ -16,7 +16,6 @@ import AboutSection from './components/AboutSection';
 import ServicesGrid from './components/ServicesGrid';
 import BentoShowcase from './components/BentoShowcase';
 import GallerySection from './components/GallerySection';
-import SlidingTabs from './components/SlidingTabs';
 import FeatureStrip from './components/FeatureStrip';
 import FounderSection from './components/FounderSection';
 import Testimonials from './components/Testimonials';
@@ -109,7 +108,6 @@ function App() {
               <AboutSection />
               <ServicesGrid />
               <BentoShowcase />
-              <SlidingTabs />
               <FeatureStrip />
               <FounderSection />
               <Testimonials />

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { OptimizedImage } from './OptimizedImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,8 +74,9 @@ const servicesList = [
 ];
 
 // Helper Media Element with viewport intersection observer for fast loading
-const ServiceMedia = ({ type, src, poster, title }) => {
+const ServiceMedia = React.memo(({ type, src, poster, title }) => {
   const videoRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -84,20 +86,21 @@ const ServiceMedia = ({ type, src, poster, title }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            video.play().catch((err) => console.log("Autoplay check:", err));
+            setVideoSrc((prev) => prev || src);
+            video.play().catch(() => {});
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '150px' }
     );
 
     observer.observe(video);
     return () => {
       observer.unobserve(video);
     };
-  }, [type]);
+  }, [type, src]);
 
   if (type === 'video') {
     return (
@@ -106,24 +109,23 @@ const ServiceMedia = ({ type, src, poster, title }) => {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         poster={poster}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
       >
-        <source src={src} type="video/mp4" />
+        {videoSrc && <source src={videoSrc} type="video/mp4" />}
       </video>
     );
   }
 
   return (
-    <img 
+    <OptimizedImage 
       src={src} 
       alt={title} 
-      loading="lazy"
       className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
     />
   );
-};
+});
 
 export default function ServicesGrid() {
   const desktopContainerRef = useRef(null);

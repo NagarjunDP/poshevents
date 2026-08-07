@@ -1,5 +1,6 @@
 import React from 'react';
 import { FadeUp } from './FadeUp';
+import { OptimizedImage } from './OptimizedImage';
 
 const showcaseItems = [
   {
@@ -61,7 +62,7 @@ export default function CuratedSlider() {
           {showcaseItems.map((item, index) => (
             <div key={index} className="min-w-[85vw] md:min-w-[60vw] lg:min-w-[40vw] snap-center group cursor-pointer relative">
               <div className="h-[60vh] overflow-hidden relative border border-gold/20">
-                <img 
+                <OptimizedImage 
                   src={item.img} 
                   alt={item.title} 
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"

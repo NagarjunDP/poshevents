@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X, Play } from 'lucide-react';
 import { FadeUp } from './FadeUp';
+import { OptimizedImage } from './OptimizedImage';
 
 // Raw items with pre-encoded space characters for absolute URL robustness
 const rawItems = [
@@ -300,8 +301,9 @@ const categories = [
 ];
 
 // Helper video tile player inside bento layout
-const BentoVideoTile = ({ src, poster }) => {
+const BentoVideoTile = React.memo(({ src, poster }) => {
   const videoRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -311,20 +313,21 @@ const BentoVideoTile = ({ src, poster }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            setVideoSrc((prev) => prev || src);
             video.play().catch(() => {});
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.1, rootMargin: '150px' }
     );
 
     observer.observe(video);
     return () => {
       observer.unobserve(video);
     };
-  }, []);
+  }, [src]);
 
   return (
     <div className="relative w-full h-full">
@@ -333,18 +336,18 @@ const BentoVideoTile = ({ src, poster }) => {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         poster={poster}
         className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
       >
-        <source src={src} type="video/mp4" />
+        {videoSrc && <source src={videoSrc} type="video/mp4" />}
       </video>
       <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-[#FAF8F3] p-1.5 rounded-full z-10">
         <Play size={12} fill="currentColor" />
       </div>
     </div>
   );
-};
+});
 
 export default function GallerySection() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -452,10 +455,9 @@ export default function GallerySection() {
                   {item.type === 'video' ? (
                     <BentoVideoTile src={item.src} poster={item.poster} />
                   ) : (
-                    <img 
+                    <OptimizedImage 
                       src={item.src} 
                       alt={item.title} 
-                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                     />
                   )}
@@ -537,7 +539,7 @@ export default function GallerySection() {
                         className="max-w-full max-h-full object-contain"
                       />
                     ) : (
-                      <img
+                      <OptimizedImage
                         src={filteredItems[lightboxIndex].src}
                         alt={filteredItems[lightboxIndex].title}
                         className="max-w-full max-h-full object-contain"

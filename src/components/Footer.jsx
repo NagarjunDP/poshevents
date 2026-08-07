@@ -51,6 +51,8 @@ export default function Footer() {
             <img
               src="/logo.png"
               alt="Posh Events"
+              loading="lazy"
+              decoding="async"
               className="h-16 w-auto object-contain mb-4"
               style={{ filter: 'brightness(0) invert(1)' }}
             />

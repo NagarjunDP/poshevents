@@ -166,7 +166,7 @@ export default function Navbar() {
         {/* LEFT — Logo */}
         <div className="flex items-center z-20">
           <a href="/" onClick={handleLogoClick} className="block cursor-pointer">
-            <img src="/logo.png" alt="Posh Events" className="h-9 w-auto object-contain" />
+            <img src="/logo.png" alt="Posh Events" className="h-9 w-auto object-contain" loading="eager" decoding="async" fetchPriority="high" />
           </a>
         </div>
 

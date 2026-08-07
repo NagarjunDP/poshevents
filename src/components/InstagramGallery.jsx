@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaInstagram } from 'react-icons/fa';
+import { FadeUp } from './FadeUp';
+import { OptimizedImage } from './OptimizedImage';
 
 const row1Images = [
   "/welcomeboard1.png",
@@ -49,11 +51,10 @@ export default function InstagramGallery() {
                 key={`r1-${idx}`}
                 className="w-48 h-48 md:w-64 md:h-64 relative rounded-xl overflow-hidden group/item border border-[#C9A25E]/10 cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300"
               >
-                <img 
+                <OptimizedImage 
                   src={img} 
                   alt="Posh Instagram feed" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-105"
-                  loading="lazy"
                 />
                 {/* Custom Overlay on hover */}
                 <div className="absolute inset-0 bg-[#14203A]/60 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -72,11 +73,10 @@ export default function InstagramGallery() {
                 key={`r2-${idx}`}
                 className="w-48 h-48 md:w-64 md:h-64 relative rounded-xl overflow-hidden group/item border border-[#C9A25E]/10 cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300"
               >
-                <img 
+                <OptimizedImage 
                   src={img} 
                   alt="Posh Instagram feed" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-105"
-                  loading="lazy"
                 />
                 {/* Custom Overlay on hover */}
                 <div className="absolute inset-0 bg-[#14203A]/60 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 flex items-center justify-center">
