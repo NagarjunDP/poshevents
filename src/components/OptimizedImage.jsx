@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SIZES_LIST = [320, 480, 640, 768, 1024, 1280, 1600];
 
@@ -43,11 +43,20 @@ export function OptimizedImage({
   loading = 'lazy',
   decoding = 'async',
   fetchpriority = 'low',
+  onError,
   ...props
 }) {
+  const [imgError, setImgError] = useState(false);
   const media = getOptimizedMediaPaths(src);
 
-  if (!media) {
+  const handleError = (e) => {
+    if (!imgError) {
+      setImgError(true);
+    }
+    if (onError) onError(e);
+  };
+
+  if (!media || imgError) {
     return (
       <img
         src={src}
@@ -56,6 +65,7 @@ export function OptimizedImage({
         loading={loading}
         decoding={decoding}
         fetchPriority={fetchpriority}
+        onError={onError}
         {...props}
       />
     );
@@ -72,6 +82,7 @@ export function OptimizedImage({
         loading={loading}
         decoding={decoding}
         fetchPriority={fetchpriority}
+        onError={handleError}
         {...props}
       />
     </picture>

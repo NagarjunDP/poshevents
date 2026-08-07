@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import { execSync } from 'child_process';
 
 const PUBLIC_DIR = path.resolve('public');
-const SIZES = [320, 480, 640, 768, 1024, 1280, 1600, 1920];
+const SIZES = [320, 480, 640, 768, 1024, 1280, 1600];
 
 function getAllFiles(dirPath, arrayOfFiles = []) {
   const files = fs.readdirSync(dirPath);
@@ -25,8 +25,9 @@ async function processImages() {
   const allFiles = getAllFiles(PUBLIC_DIR);
   const imageFiles = allFiles.filter((f) => {
     const ext = path.extname(f).toLowerCase();
-    // Exclude existing generated webp/avif responsive files
-    if (f.includes('_w') && (ext === '.webp' || ext === '.avif')) return false;
+    // Exclude existing generated webp/avif responsive files and tmp files
+    if (f.includes('_w') && (ext === '.webp' || ext === '.avif' || ext === '.jpg' || ext === '.jpeg' || ext === '.png')) return false;
+    if (f.includes('_tmp')) return false;
     return ['.jpg', '.jpeg', '.png'].includes(ext);
   });
 
@@ -40,10 +41,6 @@ async function processImages() {
     console.log(`Processing image: ${path.relative(PUBLIC_DIR, imgPath)}`);
 
     try {
-      const image = sharp(imgPath);
-      const metadata = await image.metadata();
-      const origWidth = metadata.width || 1920;
-
       // 1. Generate full-res AVIF & WebP
       const avifPath = path.join(dir, `${baseName}.avif`);
       const webpPath = path.join(dir, `${baseName}.webp`);
@@ -56,10 +53,8 @@ async function processImages() {
         .webp({ quality: 75, effort: 4 })
         .toFile(webpPath);
 
-      // 2. Generate responsive width variants for AVIF and WebP (don't upscale beyond original width)
+      // 2. Generate all responsive width variants for AVIF, WebP, and JPG (without upscaling pixels)
       for (const w of SIZES) {
-        if (w >= origWidth) continue;
-
         const avifW = path.join(dir, `${baseName}_w${w}.avif`);
         const webpW = path.join(dir, `${baseName}_w${w}.webp`);
         const jpgW = path.join(dir, `${baseName}_w${w}${ext}`);
@@ -101,43 +96,10 @@ async function processImages() {
   }
 }
 
-async function processVideos() {
-  const allFiles = getAllFiles(PUBLIC_DIR);
-  const videoFiles = allFiles.filter((f) => {
-    const ext = path.extname(f).toLowerCase();
-    return ext === '.mp4' && !f.endsWith('_opt.mp4');
-  });
-
-  console.log(`Found ${videoFiles.length} video files to optimize...`);
-
-  for (const vidPath of videoFiles) {
-    const ext = path.extname(vidPath);
-    const dir = path.dirname(vidPath);
-    const baseName = path.basename(vidPath, ext);
-    const tmpOut = path.join(dir, `${baseName}_opt.mp4`);
-
-    console.log(`Optimizing video: ${path.relative(PUBLIC_DIR, vidPath)}`);
-
-    try {
-      // Re-encode video: CRF 26, faststart, 30fps max, remove metadata
-      const cmd = `ffmpeg -y -i "${vidPath}" -vf "scale='min(1280,iw)':-2" -c:v libx264 -preset medium -crf 26 -movflags +faststart -map_metadata -1 "${tmpOut}"`;
-      execSync(cmd, { stdio: 'inherit' });
-
-      // Overwrite original video with optimized video
-      fs.renameSync(tmpOut, vidPath);
-      console.log(`Successfully optimized ${baseName}.mp4`);
-    } catch (err) {
-      console.error(`Error optimizing video ${vidPath}:`, err);
-      if (fs.existsSync(tmpOut)) fs.unlinkSync(tmpOut);
-    }
-  }
-}
-
 async function main() {
-  console.log('Starting Media Optimization Process...');
+  console.log('Starting Image Processing...');
   await processImages();
-  await processVideos();
-  console.log('Media Optimization Finished Successfully!');
+  console.log('Image Processing Finished Successfully!');
 }
 
 main();
