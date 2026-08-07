@@ -34,7 +34,7 @@ const rawItems = [
     src: '/babyshower_reflection.jpg',
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'video',
