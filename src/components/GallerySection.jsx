@@ -8,10 +8,10 @@ const rawItems = [
   // --- BENTO SHOWCASE ITEMS (MOMENTS WE CREATED) ---
   {
     type: 'video',
-    src: '/haldicarnival_bento.mp4',
-    poster: '/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra.jpg',
+    src: '/wedding_haldi_gallery.mp4',
+    poster: '/logo.png',
     category: 'Weddings & Haldi',
-    title: 'Haldi Carnival Twist',
+    title: 'Wedding & Haldi Celebration',
     sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
   },
   {
@@ -31,9 +31,9 @@ const rawItems = [
   },
   {
     type: 'photo',
-    src: '/Rooted%20in%20tradition,%20elevated%20with%20luxury%20✨A%20premium%20coconut%20leaf%20baby%20shower%20decor%20curated%20with.jpg',
+    src: '/babyshower_reflection.jpg',
     category: 'Baby Shower',
-    title: 'Coconut Leaf Mandap',
+    title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
@@ -54,59 +54,54 @@ const rawItems = [
   },
   {
     type: 'video',
-    src: '/wedding_bento.mp4',
+    src: '/wedding_haldi_gallery_2.mp4',
     poster: '/logo.png',
     category: 'Weddings & Haldi',
-    title: 'Flute Staging & Floral Decors',
+    title: 'Traditional Wedding & Haldi Rituals',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
-    type: 'photo',
-    src: '/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra.jpg',
+    type: 'video',
+    src: '/wedding_haldi_gallery_3.mp4',
+    poster: '/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra.jpg',
     category: 'Weddings & Haldi',
     title: 'Floral Cascades & Seating',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
-    src: '/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra-2.jpg',
+    src: '/shower_the_couple.jpg',
     category: 'Weddings & Haldi',
-    title: 'Marigold Swags',
+    title: 'Shower the Couple',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra-4.jpg',
+    src: '/haldi_couple.jpg',
     category: 'Weddings & Haldi',
-    title: 'Traditional Accents',
+    title: 'Haldi Couple Moments',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
 
   // --- BABY SHOWER DIRECTORY PHOTOS ---
   {
     type: 'photo',
-    src: '/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.49.01%20(2).jpeg',
+    src: '/babyshower_mandap.jpg',
     category: 'Baby Shower',
     title: 'Moments of Blessing',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
-    type: 'photo',
-    src: '/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.49.01.jpeg',
+    type: 'video',
+    src: '/babyshower_reel.mp4',
+    poster: '/babyshower_mandap.jpg',
     category: 'Baby Shower',
-    title: 'Divine Decor Close-up',
+    title: 'Elegant Baby Shower Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.49.05.jpeg',
-    category: 'Baby Shower',
-    title: 'Ritual Stage Setting',
-    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
-  },
-  {
-    type: 'photo',
-    src: '/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.49.09.jpeg',
+    src: '/babyshower_cradle.jpg',
     category: 'Baby Shower',
     title: 'Traditional Cradle Details',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
@@ -128,18 +123,42 @@ const rawItems = [
 
   // --- BIRTHDAY CELEBRATIONS ---
   {
+    type: 'video',
+    src: '/birthday_reel.mp4',
+    poster: '/logo.png',
+    category: 'Birthday Celebrations',
+    title: 'Grand Birthday Party Celebration',
+    sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
+  },
+  {
+    type: 'video',
+    src: '/birthday_reel_2.mp4',
+    poster: '/logo.png',
+    category: 'Birthday Celebrations',
+    title: 'Magical Birthday Celebration',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: '/birthday_red_theme.jpg',
+    category: 'Birthday Celebrations',
+    title: 'Crimson Elegance & Photo Booth',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'video',
+    src: '/birthday_reel_3.mp4',
+    poster: '/logo.png',
+    category: 'Birthday Celebrations',
+    title: 'Vibrant Kids Birthday Party',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
     type: 'photo',
     src: '/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.00%20(1).jpeg',
     category: 'Birthday Celebrations',
     title: 'Pastel Dreams Theme',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
-  },
-  {
-    type: 'photo',
-    src: '/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.02%20(1).jpeg',
-    category: 'Birthday Celebrations',
-    title: 'Grand Entrance Pathway',
-    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
@@ -195,6 +214,30 @@ const rawItems = [
 
   // --- NAMING CEREMONY ---
   {
+    type: 'video',
+    src: '/namingceremony_reel.mp4',
+    poster: '/logo.png',
+    category: 'Naming Ceremony',
+    title: 'Grand Naming Ceremony Celebration',
+    sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
+  },
+  {
+    type: 'video',
+    src: '/namingceremony_reel_2.mp4',
+    poster: '/logo.png',
+    category: 'Naming Ceremony',
+    title: 'Traditional Cradle Ceremony Decor',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'video',
+    src: '/namingceremony_reel_3.mp4',
+    poster: '/logo.png',
+    category: 'Naming Ceremony',
+    title: 'Blessed Cradle Setup',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
     type: 'photo',
     src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.00.jpeg',
     category: 'Naming Ceremony',
@@ -217,49 +260,7 @@ const rawItems = [
   },
   {
     type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.05%20(1).jpeg',
-    category: 'Naming Ceremony',
-    title: 'Golden Cradle Details',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
-  },
-  {
-    type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.06.jpeg',
-    category: 'Naming Ceremony',
-    title: 'Blessed Sacred Mandap',
-    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
-  },
-  {
-    type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.07.jpeg',
-    category: 'Naming Ceremony',
-    title: 'Grand Welcoming Board',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
-  },
-  {
-    type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.52.21%20(1).jpeg',
-    category: 'Naming Ceremony',
-    title: 'Glistening Lights & Florals',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
-  },
-  {
-    type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.52.22.jpeg',
-    category: 'Naming Ceremony',
-    title: 'Baby Naming Decor Theme',
-    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
-  },
-  {
-    type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.52.23%20(1).jpeg',
-    category: 'Naming Ceremony',
-    title: 'Floral Canopy Arrangement',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
-  },
-  {
-  type: 'photo',
-  src: '/po1.jpeg',
+    src: '/po1.jpeg',
   category: 'Corporate Events',
   title: 'Corporate Premises',
   sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'

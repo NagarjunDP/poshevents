@@ -5,7 +5,7 @@ import { FadeUp } from './FadeUp';
 const showcaseItems = [
   {
     type: 'video',
-    src: '/haldicarnival_bento.mp4',
+    src: '/haldicarnival_new.mp4',
     poster: '/Wrapped in sunshine and tradition, our Haldi 🌻celebration for Shiv & Siri was filled with vibra.jpg',
     category: 'Haldi Decor',
     title: 'Modern Carnival Twist',
@@ -13,78 +13,38 @@ const showcaseItems = [
     parallaxSpeed: 'slow'
   },
   {
-    type: 'photo',
-    src: '/Step into enchantment with this dreamy pink balloon portal- Lavish arches in blush and violet 🌸.jpg',
-    category: 'Birthday Party',
-    title: 'Dreamy Balloon Arch',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
-    parallaxSpeed: 'fast'
-  },
-  {
     type: 'video',
-    src: '/namingceremony_bento.mp4',
+    src: '/namingceremony_new.mp4',
     poster: '/logo.png',
-    category: 'Naming Ceremony',
-    title: 'Divine Krishna Theme',
+    category: 'Birthday Events',
+    title: 'Birthday Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
     parallaxSpeed: 'slow'
   },
   {
-    type: 'photo',
-    src: '/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with.jpg',
-    category: 'Baby Shower',
-    title: 'Coconut Leaf Mandap',
-    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
-    parallaxSpeed: 'fast'
-  },
-  {
     type: 'video',
-    src: '/bachelorparty_bento.mp4',
+    src: '/halfsaree_bento.mp4',
     poster: '/Bringing bachelor party vibes to life for the creative head of @swara_creationss team! 🎉✨ Decor.jpg',
     category: 'Celebrations',
-    title: 'Bachelor Party Decor',
+    title: 'Half Saree Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
     parallaxSpeed: 'slow'
   },
   {
     type: 'video',
-    src: '/babyshower_bento.mp4',
+    src: '/reception_bento.mp4',
     poster: '/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with-2.jpg',
-    category: 'Baby Shower',
-    title: 'Traditional Cradle Setup',
-    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2',
-    parallaxSpeed: 'slow'
-  },
-  {
-    type: 'video',
-    src: '/wedding_bento.mp4',
-    poster: '/logo.png',
-    category: 'Wedding Decor',
-    title: 'Flute Program Staging',
-    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1',
-    parallaxSpeed: 'fast'
-  },
-  {
-    type: 'photo',
-    src: '/Wrapped in sunshine and tradition, our Haldi 🌻celebration for Shiv & Siri was filled with vibra.jpg',
-    category: 'Haldi Decor',
-    title: 'Floral Cascades & Seating',
-    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1',
-    parallaxSpeed: 'fast'
-  },
-  {
-    type: 'photo',
-    src: '/Wrapped in sunshine and tradition, our Haldi 🌻celebration for Shiv & Siri was filled with vibra-2.jpg',
-    category: 'Haldi Decor',
-    title: 'Marigold Swags',
+    category: 'Reception Decor',
+    title: 'premium outdoor reception decor',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
     parallaxSpeed: 'slow'
   },
   {
-    type: 'photo',
-    src: '/Wrapped in sunshine and tradition, our Haldi 🌻celebration for Shiv & Siri was filled with vibra-4.jpg',
-    category: 'Haldi Decor',
-    title: 'Traditional Accents',
+    type: 'video',
+    src: '/holi_bento.mp4',
+    poster: '/logo.png',
+    category: 'celebration',
+    title: 'Holi Party',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
     parallaxSpeed: 'fast'
   }

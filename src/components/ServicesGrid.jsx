@@ -18,7 +18,7 @@ const servicesList = [
     num: "02",
     title: "Sangeet Production",
     type: "video",
-    src: "/bachelorparty_bento.mp4",
+    src: "/sangeet_production.mp4",
     poster: "/Bringing bachelor party vibes to life for the creative head of @swara_creationss team! 🎉✨ Decor.jpg",
     description: "Immersive soundscapes, cinematic moving light arrays, and customized contemporary modular staging."
   },
@@ -34,30 +34,32 @@ const servicesList = [
     num: "04",
     title: "Traditional Seemantha",
     type: "video",
-    src: "/WhatsApp Image 2026-07-08 at 23.03.59.jpeg",
-    poster: "/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with-2.jpg",
+    src: "/traditional_seemantha.mp4",
+    poster: "/WhatsApp Image 2026-07-08 at 23.03.59.jpeg",
     description: "Authentic, handcrafted coconut leaf panels, cradle setups, and royal settings."
   },
   {
     num: "05",
     title: "Naming Ceremony",
     type: "video",
-    src: "/namingceremony_bento.mp4",
+    src: "/naming_ceremony.mp4",
     poster: "/welcomeboard2.png",
     description: "Divine themes featuring custom cradle decoration, floral halos, and sacred traditional setups."
   },
   {
     num: "06",
     title: "Birthday Events",
-    type: "photo",
-    src: "/Step into enchantment with this dreamy pink balloon portal- Lavish arches in blush and violet 🌸.jpg",
+    type: "video",
+    src: "/birthday_events.mp4",
+    poster: "/Step into enchantment with this dreamy pink balloon portal- Lavish arches in blush and violet 🌸.jpg",
     description: "Creative themes and floral balloon arches styled to make birthdays truly memorable."
   },
   {
     num: "07",
     title: "Corporate Events",
-    type: "photo",
-    src: "/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with.jpg",
+    type: "video",
+    src: "/corporate_events.mp4",
+    poster: "/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with.jpg",
     description: "Professional visual design and end-to-end exhibition management with corporate elegance."
   },
   {
