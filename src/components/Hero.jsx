@@ -211,7 +211,7 @@ export default function Hero() {
 
         {/* Kinetic Title (Staggered slide + blur reveal, gold shimmer sweep & breathing gold glow aura) */}
         <h1 
-          className="font-serif text-5xl md:text-8xl text-center leading-none mb-4 max-w-[85vw] md:max-w-4xl tracking-[0.05em] flex flex-wrap justify-center gap-x-4 mx-auto select-none"
+          className="font-serif text-5xl md:text-8xl text-center leading-none mb-4 max-w-[85%] md:max-w-4xl tracking-[0.05em] flex flex-wrap justify-center gap-x-4 mx-auto select-none"
         >
           {words.map((word, idx) => (
             <span key={idx} className="overflow-hidden inline-block py-2">

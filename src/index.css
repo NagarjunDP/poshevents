@@ -19,11 +19,19 @@
   --white: #FFFFFF;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: var(--cream);
   color: var(--navy-ink);
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -38,19 +46,23 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--navy-ink);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--navy-ink);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--gold-mid);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-bright);
+/* Custom Scrollbar for Chrome/Edge/Blink while preserving native Safari macOS overlay scrollbars */
+@supports selector(::-webkit-scrollbar) {
+  @media screen and (min-width: 768px) {
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-mid);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-bright);
+    }
+  }
 }
 
 /* Shimmer gradient border keyframes */

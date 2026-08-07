@@ -151,7 +151,7 @@ export default function Navbar() {
       <motion.div
         style={{ y: yOffsetSpring, x: '-50%' }}
         className="fixed top-4 left-1/2 z-40 hidden md:grid grid-cols-[auto_1fr_auto] items-center
-                   w-[800px] max-w-[calc(100vw-48px)]
+                   w-[800px] max-w-[calc(100%-48px)]
                    px-5 py-2.5
                    rounded-full
                    shadow-2xl pointer-events-auto
@@ -202,7 +202,7 @@ export default function Navbar() {
       <motion.div
         style={{ y: yOffsetSpring, x: '-50%' }}
         className="fixed top-4 left-1/2 z-40 md:hidden flex items-center justify-between
-                   w-[90vw] px-4 py-2.5 rounded-full shadow-2xl pointer-events-auto overflow-hidden"
+                   w-[calc(100%-2rem)] max-w-[400px] px-4 py-2.5 rounded-full shadow-2xl pointer-events-auto overflow-hidden"
       >
         {/* Gold shimmer border */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#8A6B2E] via-[#C9A25E] to-[#E3C285]
