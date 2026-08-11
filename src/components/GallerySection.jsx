@@ -4,81 +4,221 @@ import { ChevronLeft, ChevronRight, X, Play } from 'lucide-react';
 import { FadeUp } from './FadeUp';
 import { OptimizedImage } from './OptimizedImage';
 
-// Raw items with pre-encoded space characters for absolute URL robustness
+const JSDELIVR_BASE = 'https://cdn.jsdelivr.net/gh/NagarjunDP/poshevents@main/public';
+
+const cdn = (path) => {
+  if (!path) return path;
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${JSDELIVR_BASE}${cleanPath}`;
+};
+
+// Raw items with jsDelivr CDN delivery and proper bento grid span layout
 const rawItems = [
-  // --- BENTO SHOWCASE ITEMS (MOMENTS WE CREATED) ---
+  // --- SANGEET CELEBRATIONS ---
   {
     type: 'video',
-    src: '/wedding_haldi_gallery.mp4',
-    poster: '/logo.png',
+    src: cdn('/sangeet_production.mp4'),
+    poster: cdn('/sangeet01.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Sangeet Production & Light Show',
+    sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/sangeet01.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Enchanting Sangeet Stage',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/sangeet02.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Glamorous Dance Floor Setup',
+    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/sangeeth03.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Royal Musical Night Backdrop',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/sangeeth04.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Starlit Evening Ambience',
+    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/sangeeth05.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Dazzling Entrance Portal',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/sangeeth06.PNG'),
+    category: 'Sangeet Celebrations',
+    title: 'Grand Concert Stage Setup',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+
+  // --- WEDDINGS & HALDI (NEW HALDI COLLECTION) ---
+  {
+    type: 'photo',
+    src: cdn('/hali.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Vibrant Yellow Haldi Arch',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali2.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Traditional Haldi Ceremony Floral Setup',
+    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali3.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Marigold Swags & Traditional Urli',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali4.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Sunny Bloom Haldi Decor',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali5.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Floral Canopy & Cushion Lounge',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali6.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Golden Mandap Festivities',
+    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali7.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Haldi Petal Shower Setup',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali8.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Warm Yellow Ceremony Corner',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali9.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Royal Yellow Archway Portal',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali10.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Sunlit Haldi Festive Stage',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/hali11.PNG'),
+    category: 'Weddings & Haldi',
+    title: 'Grand Floral Cascade Display',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+
+  // --- BENTO SHOWCASE ITEMS ---
+  {
+    type: 'video',
+    src: cdn('/wedding_haldi_gallery.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Weddings & Haldi',
     title: 'Wedding & Haldi Celebration',
     sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
   },
   {
     type: 'photo',
-    src: '/Step%20into%20enchantment%20with%20this%20dreamy%20pink%20balloon%20portal-%20Lavish%20arches%20in%20blush%20and%20violet%20🌸.jpg',
+    src: cdn('/Step%20into%20enchantment%20with%20this%20dreamy%20pink%20balloon%20portal-%20Lavish%20arches%20in%20blush%20and%20violet%20🌸.jpg'),
     category: 'Birthday Celebrations',
     title: 'Dreamy Balloon Arch',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'video',
-    src: '/namingceremony_bento.mp4',
-    poster: '/logo.png',
+    src: cdn('/namingceremony_bento.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Naming Ceremony',
     title: 'Divine Krishna Theme',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/babyshower_reflection.jpg',
+    src: cdn('/babyshower_reflection.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'video',
-    src: '/bachelorparty_bento.mp4',
-    poster: '/Bringing%20bachelor%20party%20vibes%20to%20life%20for%20the%20creative%20head%20of%20@swara_creationss%20team!%20🎉✨%20Decor.jpg',
+    src: cdn('/bachelorparty_bento.mp4'),
+    poster: cdn('/Bringing%20bachelor%20party%20vibes%20to%20life%20for%20the%20creative%20head%20of%20@swara_creationss%20team!%20🎉✨%20Decor.jpg'),
     category: 'Celebrations',
     title: 'Bachelor Party Decor',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'video',
-    src: '/babyshower_bento.mp4',
-    poster: '/Rooted%20in%20tradition,%20elevated%20with%20luxury%20✨A%20premium%20coconut%20leaf%20baby%20shower%20decor%20curated%20with-2.jpg',
+    src: cdn('/babyshower_bento.mp4'),
+    poster: cdn('/Rooted%20in%20tradition,%20elevated%20with%20luxury%20✨A%20premium%20coconut%20leaf%20baby%20shower%20decor%20curated%20with-2.jpg'),
     category: 'Baby Shower',
     title: 'Traditional Cradle Setup',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'video',
-    src: '/wedding_haldi_gallery_2.mp4',
-    poster: '/logo.png',
+    src: cdn('/wedding_haldi_gallery_2.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Weddings & Haldi',
     title: 'Traditional Wedding & Haldi Rituals',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'video',
-    src: '/wedding_haldi_gallery_3.mp4',
-    poster: '/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra.jpg',
+    src: cdn('/wedding_haldi_gallery_3.mp4'),
+    poster: cdn('/Wrapped%20in%20sunshine%20and%20tradition,%20our%20Haldi%20🌻celebration%20for%20Shiv%20&%20Siri%20was%20filled%20with%20vibra.jpg'),
     category: 'Weddings & Haldi',
     title: 'Floral Cascades & Seating',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
-    src: '/shower_the_couple.jpg',
+    src: cdn('/shower_the_couple.jpg'),
     category: 'Weddings & Haldi',
     title: 'Shower the Couple',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/haldi_couple.jpg',
+    src: cdn('/haldi_couple.jpg'),
     category: 'Weddings & Haldi',
     title: 'Haldi Couple Moments',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
@@ -87,36 +227,36 @@ const rawItems = [
   // --- BABY SHOWER DIRECTORY PHOTOS ---
   {
     type: 'photo',
-    src: '/babyshower_mandap.jpg',
+    src: cdn('/babyshower_mandap.jpg'),
     category: 'Baby Shower',
     title: 'Moments of Blessing',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'video',
-    src: '/babyshower_reel.mp4',
-    poster: '/babyshower_mandap.jpg',
+    src: cdn('/babyshower_reel.mp4'),
+    poster: cdn('/babyshower_mandap.jpg'),
     category: 'Baby Shower',
     title: 'Elegant Baby Shower Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/babyshower_cradle.jpg',
+    src: cdn('/babyshower_cradle.jpg'),
     category: 'Baby Shower',
     title: 'Traditional Cradle Details',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.52.20.jpeg',
+    src: cdn('/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.52.20.jpeg'),
     category: 'Baby Shower',
     title: 'Warm Golden Hues',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: '/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.52.23.jpeg',
+    src: cdn('/baby%20shower/WhatsApp%20Image%202026-07-08%20at%2019.52.23.jpeg'),
     category: 'Baby Shower',
     title: 'Showering with Flowers',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
@@ -125,52 +265,52 @@ const rawItems = [
   // --- BIRTHDAY CELEBRATIONS ---
   {
     type: 'video',
-    src: '/birthday_reel.mp4',
-    poster: '/logo.png',
+    src: cdn('/birthday_reel.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Birthday Celebrations',
     title: 'Grand Birthday Party Celebration',
     sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
   },
   {
     type: 'video',
-    src: '/birthday_reel_2.mp4',
-    poster: '/logo.png',
+    src: cdn('/birthday_reel_2.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Birthday Celebrations',
     title: 'Magical Birthday Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/birthday_red_theme.jpg',
+    src: cdn('/birthday_red_theme.jpg'),
     category: 'Birthday Celebrations',
     title: 'Crimson Elegance & Photo Booth',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'video',
-    src: '/birthday_reel_3.mp4',
-    poster: '/logo.png',
+    src: cdn('/birthday_reel_3.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Birthday Celebrations',
     title: 'Vibrant Kids Birthday Party',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.00%20(1).jpeg',
+    src: cdn('/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.00%20(1).jpeg'),
     category: 'Birthday Celebrations',
     title: 'Pastel Dreams Theme',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: '/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.03.jpeg',
+    src: cdn('/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.03.jpeg'),
     category: 'Birthday Celebrations',
     title: 'Delicate Floral Details',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.12%20(1).jpeg',
+    src: cdn('/birthday%20celebrations/WhatsApp%20Image%202026-07-08%20at%2019.49.12%20(1).jpeg'),
     category: 'Birthday Celebrations',
     title: 'Joyous Cake Table Setup',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
@@ -179,35 +319,35 @@ const rawItems = [
   // --- BODYGUARDS ---
   {
     type: 'photo',
-    src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.55%20(2).jpeg',
+    src: cdn('/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.55%20(2).jpeg'),
     category: 'Personal Security Officers',
     title: 'VIP Event Security Coordination',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56%20(1).jpeg',
+    src: cdn('/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56%20(1).jpeg'),
     category: 'Personal Security Officers',
     title: 'Elite Bouncers Alignment',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
-    src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56%20(2).jpeg',
+    src: cdn('/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56%20(2).jpeg'),
     category: 'Personal Security Officers',
     title: 'Professional Security Escort',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56.jpeg',
+    src: cdn('/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.56.jpeg'),
     category: 'Personal Security Officers',
     title: 'High-Profile Event Protection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: '/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.57.jpeg',
+    src: cdn('/bodyguards/WhatsApp%20Image%202026-07-08%20at%2019.48.57.jpeg'),
     category: 'Personal Security Officers',
     title: 'Seamless Safe Operations',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
@@ -216,88 +356,88 @@ const rawItems = [
   // --- NAMING CEREMONY ---
   {
     type: 'video',
-    src: '/namingceremony_reel.mp4',
-    poster: '/logo.png',
+    src: cdn('/namingceremony_reel.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Naming Ceremony',
     title: 'Grand Naming Ceremony Celebration',
     sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
   },
   {
     type: 'video',
-    src: '/namingceremony_reel_2.mp4',
-    poster: '/logo.png',
+    src: cdn('/namingceremony_reel_2.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Naming Ceremony',
     title: 'Traditional Cradle Ceremony Decor',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'video',
-    src: '/namingceremony_reel_3.mp4',
-    poster: '/logo.png',
+    src: cdn('/namingceremony_reel_3.mp4'),
+    poster: cdn('/logo.png'),
     category: 'Naming Ceremony',
     title: 'Blessed Cradle Setup',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.00.jpeg',
+    src: cdn('/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.00.jpeg'),
     category: 'Naming Ceremony',
     title: 'Divine Floral Swing',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.03%20(1).jpeg',
+    src: cdn('/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.03%20(1).jpeg'),
     category: 'Naming Ceremony',
     title: 'Krishna Flute Backdrop',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
-    src: '/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.04%20(1).jpeg',
+    src: cdn('/naming%20ceremony/WhatsApp%20Image%202026-07-08%20at%2019.49.04%20(1).jpeg'),
     category: 'Naming Ceremony',
     title: 'Pristine White Blooms',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
-    src: '/po1.jpeg',
-  category: 'Corporate Events',
-  title: 'Corporate Premises',
-  sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
-},
-{
-  type: 'photo',
-  src: '/po2.jpeg',
-  category: 'Corporate Events',
-  title: 'Corporate Patrol',
-  sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
-},
-{
-  type: 'photo',
-  src: '/po3.jpeg',
-  category: 'Corporate Events',
-  title: 'Corporate Events',
-  sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
-},
-{
-  type: 'photo',
-  src: '/po4.jpeg',
-  category: 'Corporate Events',
-  title: 'Corporate Premises',
-  sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
-}
+    src: cdn('/po1.jpeg'),
+    category: 'Corporate Events',
+    title: 'Corporate Premises',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/po2.jpeg'),
+    category: 'Corporate Events',
+    title: 'Corporate Patrol',
+    sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/po3.jpeg'),
+    category: 'Corporate Events',
+    title: 'Corporate Events',
+    sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
+  },
+  {
+    type: 'photo',
+    src: cdn('/po4.jpeg'),
+    category: 'Corporate Events',
+    title: 'Corporate Premises',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  }
 ];
 
 const categories = [
   'All',
+  'Weddings & Haldi',
+  'Sangeet Celebrations',
   'Baby Shower',
   'Birthday Celebrations',
   'Naming Ceremony',
-  'Weddings & Haldi',
   'Corporate Events',
   'Personal Security Officers'
-  
 ];
 
 // Helper video tile player inside bento layout

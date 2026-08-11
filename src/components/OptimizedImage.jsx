@@ -57,9 +57,16 @@ export function OptimizedImage({
   };
 
   if (!media || imgError) {
+    let fallbackPath = src;
+    if (imgError && typeof src === 'string' && src.includes('cdn.jsdelivr.net')) {
+      const parts = src.split('/public');
+      if (parts.length > 1) {
+        fallbackPath = parts[1];
+      }
+    }
     return (
       <img
-        src={src}
+        src={fallbackPath}
         alt={alt}
         className={className}
         loading={loading}

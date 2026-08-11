@@ -34,9 +34,10 @@ async function processImages() {
   console.log(`Found ${imageFiles.length} image files to process...`);
 
   for (const imgPath of imageFiles) {
-    const ext = path.extname(imgPath);
+    const origExt = path.extname(imgPath);
+    const ext = origExt.toLowerCase();
     const dir = path.dirname(imgPath);
-    const baseName = path.basename(imgPath, ext);
+    const baseName = path.basename(imgPath, origExt);
 
     console.log(`Processing image: ${path.relative(PUBLIC_DIR, imgPath)}`);
 
@@ -53,11 +54,11 @@ async function processImages() {
         .webp({ quality: 75, effort: 4 })
         .toFile(webpPath);
 
-      // 2. Generate all responsive width variants for AVIF, WebP, and JPG (without upscaling pixels)
+      // 2. Generate all responsive width variants for AVIF, WebP, and JPG/PNG
       for (const w of SIZES) {
         const avifW = path.join(dir, `${baseName}_w${w}.avif`);
         const webpW = path.join(dir, `${baseName}_w${w}.webp`);
-        const jpgW = path.join(dir, `${baseName}_w${w}${ext}`);
+        const imgW = path.join(dir, `${baseName}_w${w}${origExt}`);
 
         await sharp(imgPath)
           .resize({ width: w, withoutEnlargement: true })
@@ -69,21 +70,28 @@ async function processImages() {
           .webp({ quality: 75, effort: 4 })
           .toFile(webpW);
 
-        await sharp(imgPath)
-          .resize({ width: w, withoutEnlargement: true })
-          .jpeg({ quality: 80, progressive: true, mozjpeg: true })
-          .toFile(jpgW);
+        if (ext === '.jpg' || ext === '.jpeg') {
+          await sharp(imgPath)
+            .resize({ width: w, withoutEnlargement: true })
+            .jpeg({ quality: 80, progressive: true, mozjpeg: true })
+            .toFile(imgW);
+        } else if (ext === '.png') {
+          await sharp(imgPath)
+            .resize({ width: w, withoutEnlargement: true })
+            .png({ quality: 80, compressionLevel: 9 })
+            .toFile(imgW);
+        }
       }
 
-      // Re-compress original image file in-place with progressive MozJPEG / PNG compression
+      // Re-compress original image file in-place
       if (ext === '.jpg' || ext === '.jpeg') {
-        const tmpJpg = path.join(dir, `${baseName}_tmp${ext}`);
+        const tmpJpg = path.join(dir, `${baseName}_tmp${origExt}`);
         await sharp(imgPath)
           .jpeg({ quality: 80, progressive: true, mozjpeg: true })
           .toFile(tmpJpg);
         fs.renameSync(tmpJpg, imgPath);
       } else if (ext === '.png') {
-        const tmpPng = path.join(dir, `${baseName}_tmp${ext}`);
+        const tmpPng = path.join(dir, `${baseName}_tmp${origExt}`);
         await sharp(imgPath)
           .png({ quality: 80, compressionLevel: 9 })
           .toFile(tmpPng);
