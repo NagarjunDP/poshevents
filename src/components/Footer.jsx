@@ -124,7 +124,7 @@ export default function Footer() {
 
               {/* Email */}
               <a
-                href="mailto:sudee43348@gmail.com"
+                href="mailto:poshevntz2001@gmail.com"
                 className="flex items-start gap-3 group"
               >
                 <div className="w-8 h-8 rounded-full border border-[#C9A25E]/30 flex items-center justify-center flex-shrink-0
@@ -134,7 +134,7 @@ export default function Footer() {
                 <div>
                   <p className="font-sans text-[10px] text-[#FAF8F3]/40 tracking-widest uppercase mb-0.5">Email</p>
                   <p className="font-sans text-[#FAF8F3]/80 text-sm hover:text-[#C9A25E] transition-colors break-all">
-                    sudee43348@gmail.com
+                    poshevntz2001@gmail.com
                   </p>
                 </div>
               </a>
