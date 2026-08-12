@@ -1,4 +1,4 @@
-limport React from 'react';
+import React from 'react';
 import { Instagram, Phone, Mail, MapPin } from 'lucide-react';
 
 const navLinks = [
