@@ -94,7 +94,7 @@ export default function ContactSection() {
               <div className="min-w-0 flex-1">
                 <h4 className="font-jakarta font-bold text-[#8A6B2E] text-[10px] sm:text-xs tracking-[0.2em] uppercase mb-0.5 sm:mb-1">Email</h4>
                 <a href="mailto:sudee43348@gmail.com" className="font-jakarta font-extrabold text-xs sm:text-lg md:text-2xl text-[#0E1B38] tracking-tight group-hover:text-[#8A6B2E] transition-colors truncate block">
-                  sudee43348@gmail.com
+                  poshevntz2001@gmail.com
                 </a>
               </div>
             </div>
