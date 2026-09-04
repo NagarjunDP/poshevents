@@ -73,6 +73,90 @@ const rawItems = [
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
+   {
+    type: 'photo',
+    src: cdn('/i7.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i9.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i10.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i11.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i12.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i13.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i14.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i15.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i16.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i17.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i18.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+   {
+    type: 'photo',
+    src: cdn('/i19.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
   {
     type: 'photo',
     src: cdn('/sangeeth03.PNG'),
