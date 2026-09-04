@@ -40,6 +40,41 @@ const rawItems = [
   },
   {
     type: 'photo',
+    src: cdn('/ii1.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/i2.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/i4.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/i5.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
+    src: cdn('/i6.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
+    type: 'photo',
     src: cdn('/sangeeth03.PNG'),
     category: 'Sangeet Celebrations',
     title: 'Royal Musical Night Backdrop',
