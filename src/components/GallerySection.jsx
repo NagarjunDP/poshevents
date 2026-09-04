@@ -178,6 +178,13 @@ const rawItems = [
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
+    type: 'photo',
+    src: cdn('/i3.jpeg'),
+    category: 'Baby Shower',
+    title: 'Blessed Beginnings & Reflection',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  {
     type: 'video',
     src: cdn('/bachelorparty_bento.mp4'),
     poster: cdn('/Bringing%20bachelor%20party%20vibes%20to%20life%20for%20the%20creative%20head%20of%20@swara_creationss%20team!%20🎉✨%20Decor.jpg'),
