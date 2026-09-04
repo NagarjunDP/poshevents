@@ -180,6 +180,14 @@ const rawItems = [
     title: 'Grand Floral Cascade Display',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
+  {
+    type: 'photo',
+    src: cdn('/i8.jpeg'),
+    category: 'Weddings & Haldi',
+    title: 'Grand Floral Cascade Display',
+    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
+  },
+  
 
   // --- BENTO SHOWCASE ITEMS ---
   {
