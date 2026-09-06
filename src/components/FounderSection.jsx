@@ -80,7 +80,7 @@ export default function FounderSection() {
               {/* Instagram CTA */}
               <div className="pointer-events-auto">
                 <a
-                  href="https://www.instagram.com/posheventsbysudee"
+                  href="https://instagram.com/posh_events_by_sudee"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center space-x-3 px-8 py-3.5

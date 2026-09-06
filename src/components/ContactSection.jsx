@@ -143,13 +143,13 @@ export default function ContactSection() {
                           className="w-full bg-[#FAF8F3] border-2 border-[#C9A25E]/30 px-4 py-3 sm:py-3.5 text-[#0E1B38] font-jakarta font-bold rounded-xl focus:outline-none focus:border-[#8A6B2E] focus:ring-2 focus:ring-[#8A6B2E]/20 transition-all cursor-pointer text-sm sm:text-base"
                         >
                           <option value="Wedding Decor">Wedding Decor</option>
-                          <option value="Sangeet Production">Sangeet Production</option>
+                          <option value="Sangeet Decoration">Sangeet Decoration</option>
                           <option value="Haldi & Mehendi">Haldi & Mehendi</option>
                           <option value="Traditional Seemantha">Traditional Seemantha</option>
                           <option value="Naming Ceremony">Naming Ceremony</option>
                           <option value="Birthday Events">Birthday Events</option>
                           <option value="Corporate Events">Corporate Events</option>
-                          <option value="Stage Production">Stage Production</option>
+                          <option value="Stage Decoration">Stage Decoration</option>
                         </select>
                       </div>
                       <div>

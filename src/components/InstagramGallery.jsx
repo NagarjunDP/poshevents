@@ -90,7 +90,7 @@ export default function InstagramGallery() {
         {/* Floating sticky follow layer overlay (Double-div design to prevent WebKit rendering bugs) */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
           <a 
-            href="https://www.instagram.com/posheventsbysudee" 
+            href="https://instagram.com/posh_events_by_sudee" 
             target="_blank" 
             rel="noopener noreferrer"
             className="relative flex items-center justify-center whitespace-nowrap space-x-2 md:space-x-3 px-5 py-3 md:px-8 md:py-4 rounded-full shadow-2xl group transition-all duration-300 hover:scale-105 active:scale-98 text-[#FAF8F3]"
@@ -105,7 +105,7 @@ export default function InstagramGallery() {
             {/* Content */}
             <FaInstagram className="text-[#E3C285] text-sm md:text-lg z-20 relative transition-transform duration-300 group-hover:rotate-[8deg]" />
             <span className="text-[#FAF8F3] font-sans text-[10px] md:text-sm tracking-wider font-medium z-20 relative">
-              @poshevents.bysudee
+              @posh_events_by_sudee
             </span>
             <span className="text-[#E3C285] font-sans font-bold text-[10px] md:text-sm tracking-widest uppercase z-20 relative">
               — Follow

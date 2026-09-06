@@ -10,65 +10,68 @@ const cdn = (path) => {
   if (!path) return path;
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (cleanPath.endsWith('.mp4')) {
+    return cleanPath;
+  }
   return `${JSDELIVR_BASE}${cleanPath}`;
 };
 
 // Raw items with jsDelivr CDN delivery and proper bento grid span layout
 const rawItems = [
-  // --- SANGEET CELEBRATIONS ---
+  // --- SANGEET DECORATION ---
   {
     type: 'video',
     src: cdn('/sangeet_production.mp4'),
     poster: cdn('/sangeet01.PNG'),
-    category: 'Sangeet Celebrations',
-    title: 'Sangeet Production & Light Show',
+    category: 'Sangeet Decoration',
+    title: 'Sangeet Decor & Light Show',
     sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2'
   },
   {
     type: 'photo',
     src: cdn('/sangeet01.PNG'),
-    category: 'Sangeet Celebrations',
+    category: 'Sangeet Decoration',
     title: 'Enchanting Sangeet Stage',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
     src: cdn('/sangeet02.PNG'),
-    category: 'Sangeet Celebrations',
+    category: 'Sangeet Decoration',
     title: 'Glamorous Dance Floor Setup',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
-    src: cdn('/ii1.jpeg'),
+    src: cdn('/ii1.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: cdn('/i2.jpeg'),
+    src: cdn('/i2.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: cdn('/i4.jpeg'),
+    src: cdn('/i4.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: cdn('/i5.jpeg'),
+    src: cdn('/i5.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
-    src: cdn('/i6.jpeg'),
+    src: cdn('/i6.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
@@ -90,20 +93,6 @@ const rawItems = [
    {
     type: 'photo',
     src: cdn('/i10.jpeg'),
-    category: 'Baby Shower',
-    title: 'Blessed Beginnings & Reflection',
-    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
-  },
-   {
-    type: 'photo',
-    src: cdn('/i11.jpeg'),
-    category: 'Baby Shower',
-    title: 'Blessed Beginnings & Reflection',
-    sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
-  },
-   {
-    type: 'photo',
-    src: cdn('/i12.jpeg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
@@ -160,28 +149,28 @@ const rawItems = [
   {
     type: 'photo',
     src: cdn('/sangeeth03.PNG'),
-    category: 'Sangeet Celebrations',
+    category: 'Sangeet Decoration',
     title: 'Royal Musical Night Backdrop',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1'
   },
   {
     type: 'photo',
     src: cdn('/sangeeth04.PNG'),
-    category: 'Sangeet Celebrations',
+    category: 'Sangeet Decoration',
     title: 'Starlit Evening Ambience',
     sizeClass: 'lg:col-span-2 lg:row-span-1 md:col-span-2 md:row-span-1 col-span-2 row-span-1'
   },
   {
     type: 'photo',
     src: cdn('/sangeeth05.PNG'),
-    category: 'Sangeet Celebrations',
+    category: 'Sangeet Decoration',
     title: 'Dazzling Entrance Portal',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
   {
     type: 'photo',
     src: cdn('/sangeeth06.PNG'),
-    category: 'Sangeet Celebrations',
+    category: 'Sangeet Decoration',
     title: 'Grand Concert Stage Setup',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
   },
@@ -306,7 +295,7 @@ const rawItems = [
   },
   {
     type: 'photo',
-    src: cdn('/i3.jpeg'),
+    src: cdn('/i3.jpg'),
     category: 'Baby Shower',
     title: 'Blessed Beginnings & Reflection',
     sizeClass: 'lg:col-span-1 lg:row-span-2 md:col-span-1 md:row-span-2 col-span-1 row-span-2'
@@ -566,7 +555,8 @@ const rawItems = [
 const categories = [
   'All',
   'Weddings & Haldi',
-  'Sangeet Celebrations',
+  'Sangeet Decoration',
+  'Stage Decoration',
   'Baby Shower',
   'Birthday Celebrations',
   'Naming Ceremony',
@@ -577,7 +567,6 @@ const categories = [
 // Helper video tile player inside bento layout
 const BentoVideoTile = React.memo(({ src, poster }) => {
   const videoRef = useRef(null);
-  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -587,35 +576,37 @@ const BentoVideoTile = React.memo(({ src, poster }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVideoSrc((prev) => prev || src);
-            video.play().catch(() => {});
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.1, rootMargin: '150px' }
+      { threshold: 0.05, rootMargin: '200px' }
     );
 
     observer.observe(video);
     return () => {
       observer.unobserve(video);
     };
-  }, [src]);
+  }, []);
 
   return (
     <div className="relative w-full h-full">
       <video
         ref={videoRef}
+        src={src}
         muted
         loop
         playsInline
-        preload="none"
+        webkit-playsinline="true"
+        preload="metadata"
         poster={poster}
         className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-      >
-        {videoSrc && <source src={videoSrc} type="video/mp4" />}
-      </video>
+      />
       <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-[#FAF8F3] p-1.5 rounded-full z-10">
         <Play size={12} fill="currentColor" />
       </div>
@@ -810,6 +801,9 @@ export default function GallerySection() {
                         src={filteredItems[lightboxIndex].src}
                         controls
                         autoPlay
+                        playsInline
+                        webkit-playsinline="true"
+                        preload="auto"
                         className="max-w-full max-h-full object-contain"
                       />
                     ) : (

@@ -171,6 +171,8 @@ export default function Hero() {
           muted
           loop
           playsInline
+          webkit-playsinline="true"
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover origin-center scale-[1.02] animate-ken-burns"
         >
           <source src="/besthomevid_optimized.mp4" type="video/mp4" />

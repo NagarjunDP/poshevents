@@ -17,7 +17,7 @@ const servicesList = [
   },
   {
     num: "02",
-    title: "Sangeet Production",
+    title: "Sangeet Decoration",
     type: "video",
     src: "/sangeet_production.mp4",
     poster: "/Bringing bachelor party vibes to life for the creative head of @swara_creationss team! 🎉✨ Decor.jpg",
@@ -65,7 +65,7 @@ const servicesList = [
   },
   {
     num: "08",
-    title: "Stage Production",
+    title: "Stage Decoration",
     type: "video",
     src: "/besthomevid_optimized.mp4",
     poster: "/welcomeboard1.png",
@@ -76,7 +76,6 @@ const servicesList = [
 // Helper Media Element with viewport intersection observer for fast loading
 const ServiceMedia = React.memo(({ type, src, poster, title }) => {
   const videoRef = useRef(null);
-  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -86,35 +85,37 @@ const ServiceMedia = React.memo(({ type, src, poster, title }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVideoSrc((prev) => prev || src);
-            video.play().catch(() => {});
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.1, rootMargin: '150px' }
+      { threshold: 0.05, rootMargin: '200px' }
     );
 
     observer.observe(video);
     return () => {
       observer.unobserve(video);
     };
-  }, [type, src]);
+  }, [type]);
 
   if (type === 'video') {
     return (
       <video
         ref={videoRef}
+        src={src}
         muted
         loop
         playsInline
-        preload="none"
+        webkit-playsinline="true"
+        preload="metadata"
         poster={poster}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-      >
-        {videoSrc && <source src={videoSrc} type="video/mp4" />}
-      </video>
+      />
     );
   }
 

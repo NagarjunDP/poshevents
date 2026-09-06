@@ -65,7 +65,7 @@ export default function Footer() {
 
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/posh_events_by_sudee?igsh=MWwwYTQwcmNqenNxeg==/"
+              href="https://instagram.com/posh_events_by_sudee"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 w-10 h-10 rounded-full border border-[#C9A25E]/40 flex items-center justify-center

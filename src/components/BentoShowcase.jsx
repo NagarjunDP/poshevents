@@ -53,7 +53,6 @@ const showcaseItems = [
 
 const BentoVideoTile = React.memo(({ src, poster }) => {
   const videoRef = useRef(null);
-  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -63,34 +62,36 @@ const BentoVideoTile = React.memo(({ src, poster }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVideoSrc((prev) => prev || src);
-            video.play().catch(() => {});
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.1, rootMargin: '150px' }
+      { threshold: 0.05, rootMargin: '200px' }
     );
 
     observer.observe(video);
     return () => {
       observer.unobserve(video);
     };
-  }, [src]);
+  }, []);
 
   return (
     <video
       ref={videoRef}
+      src={src}
       muted
       loop
       playsInline
-      preload="none"
+      webkit-playsinline="true"
+      preload="metadata"
       poster={poster}
       className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.05]"
-    >
-      {videoSrc && <source src={videoSrc} type="video/mp4" />}
-    </video>
+    />
   );
 });
 
