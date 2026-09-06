@@ -59,6 +59,7 @@ const MagneticButton = ({ children, className, href }) => {
 
 export default function Hero() {
   const containerRef = useRef(null);
+  const heroVideoRef = useRef(null);
   const { scrollY } = useScroll();
   
   // Parallax calculations: Background video scrolls at 0.5x rate
@@ -75,6 +76,15 @@ export default function Hero() {
   const [headlinePhase, setHeadlinePhase] = useState(0);
 
   useEffect(() => {
+    const video = heroVideoRef.current;
+    if (video) {
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+
     const sweepStartTimer = setTimeout(() => {
       setHeadlinePhase(1);
     }, 1200);
@@ -167,14 +177,17 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden"
       >
         <video
+          ref={heroVideoRef}
           autoPlay
           muted
           loop
           playsInline
           webkit-playsinline="true"
           preload="auto"
+          poster="/besthomevid_poster.jpg"
           className="absolute inset-0 w-full h-full object-cover origin-center scale-[1.02] animate-ken-burns"
         >
+          <source src="/besthomevid_optimized.webm" type="video/webm" />
           <source src="/besthomevid_optimized.mp4" type="video/mp4" />
         </video>
         

@@ -7,7 +7,7 @@ const showcaseItems = [
   {
     type: 'video',
     src: '/haldicarnival_new.mp4',
-    poster: '/Wrapped in sunshine and tradition, our Haldi 🌻celebration for Shiv & Siri was filled with vibra.jpg',
+    poster: '/haldicarnival_new_poster.jpg',
     category: 'Haldi Decor',
     title: 'Modern Carnival Twist',
     sizeClass: 'lg:col-span-2 lg:row-span-2 md:col-span-2 md:row-span-2 col-span-2 row-span-2',
@@ -16,7 +16,7 @@ const showcaseItems = [
   {
     type: 'video',
     src: '/namingceremony_new.mp4',
-    poster: '/logo.png',
+    poster: '/namingceremony_new_poster.jpg',
     category: 'Birthday Events',
     title: 'Birthday Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
@@ -25,7 +25,7 @@ const showcaseItems = [
   {
     type: 'video',
     src: '/halfsaree_bento.mp4',
-    poster: '/Bringing bachelor party vibes to life for the creative head of @swara_creationss team! 🎉✨ Decor.jpg',
+    poster: '/halfsaree_bento_poster.jpg',
     category: 'Celebrations',
     title: 'Half Saree Celebration',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
@@ -34,7 +34,7 @@ const showcaseItems = [
   {
     type: 'video',
     src: '/reception_bento.mp4',
-    poster: '/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with-2.jpg',
+    poster: '/reception_bento_poster.jpg',
     category: 'Reception Decor',
     title: 'premium outdoor reception decor',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',
@@ -43,7 +43,7 @@ const showcaseItems = [
   {
     type: 'video',
     src: '/holi_bento.mp4',
-    poster: '/logo.png',
+    poster: '/holi_bento_poster.jpg',
     category: 'celebration',
     title: 'Holi Party',
     sizeClass: 'lg:col-span-1 lg:row-span-1 md:col-span-1 md:row-span-1 col-span-1 row-span-1',

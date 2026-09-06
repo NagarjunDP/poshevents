@@ -12,7 +12,7 @@ const servicesList = [
     title: "Wedding Decor",
     type: "video",
     src: "/wedding_bento.mp4",
-    poster: "/welcomeboard1.png",
+    poster: "/wedding_bento_poster.jpg",
     description: "Bespoke high-end setups blending traditional floral cascades, custom arches, and gold monogram detailing."
   },
   {
@@ -20,7 +20,7 @@ const servicesList = [
     title: "Sangeet Decoration",
     type: "video",
     src: "/sangeet_production.mp4",
-    poster: "/Bringing bachelor party vibes to life for the creative head of @swara_creationss team! 🎉✨ Decor.jpg",
+    poster: "/sangeet_production_poster.jpg",
     description: "Immersive soundscapes, cinematic moving light arrays, and customized contemporary modular staging."
   },
   {
@@ -28,7 +28,7 @@ const servicesList = [
     title: "Haldi & Mehendi",
     type: "video",
     src: "/haldicarnival_bento.mp4",
-    poster: "/Wrapped in sunshine and tradition, our Haldi 🌻celebration for Shiv & Siri was filled with vibra.jpg",
+    poster: "/haldicarnival_bento_poster.jpg",
     description: "Vibrant yellow floral installations, marigold wall backdrops, and playful carnival details."
   },
   {
@@ -36,7 +36,7 @@ const servicesList = [
     title: "Traditional Seemantha",
     type: "video",
     src: "/traditional_seemantha.mp4",
-    poster: "/WhatsApp Image 2026-07-08 at 23.03.59.jpeg",
+    poster: "/traditional_seemantha_poster.jpg",
     description: "Authentic, handcrafted coconut leaf panels, cradle setups, and royal settings."
   },
   {
@@ -44,7 +44,7 @@ const servicesList = [
     title: "Naming Ceremony",
     type: "video",
     src: "/naming_ceremony.mp4",
-    poster: "/welcomeboard2.png",
+    poster: "/naming_ceremony_poster.jpg",
     description: "Divine themes featuring custom cradle decoration, floral halos, and sacred traditional setups."
   },
   {
@@ -52,7 +52,7 @@ const servicesList = [
     title: "Birthday Events",
     type: "video",
     src: "/birthday_events.mp4",
-    poster: "/Step into enchantment with this dreamy pink balloon portal- Lavish arches in blush and violet 🌸.jpg",
+    poster: "/birthday_events_poster.jpg",
     description: "Creative themes and floral balloon arches styled to make birthdays truly memorable."
   },
   {
@@ -60,7 +60,7 @@ const servicesList = [
     title: "Corporate Events",
     type: "video",
     src: "/corporate_events.mp4",
-    poster: "/Rooted in tradition, elevated with luxury ✨A premium coconut leaf baby shower decor curated with.jpg",
+    poster: "/corporate_events_poster.jpg",
     description: "Professional visual design and end-to-end exhibition management with corporate elegance."
   },
   {
@@ -68,7 +68,7 @@ const servicesList = [
     title: "Stage Decoration",
     type: "video",
     src: "/besthomevid_optimized.mp4",
-    poster: "/welcomeboard1.png",
+    poster: "/besthomevid_poster.jpg",
     description: "State-of-the-art stage setups, geometric framing, and high-fashion grand scales."
   }
 ];
