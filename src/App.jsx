@@ -3,47 +3,50 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaWhatsapp } from 'react-icons/fa';
 
 // Register ScrollTrigger globally
 gsap.registerPlugin(ScrollTrigger);
 
 // Components
-import Loader from './components/Loader';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import AboutSection from './components/AboutSection';
-import ServicesGrid from './components/ServicesGrid';
-import BentoShowcase from './components/BentoShowcase';
-import GallerySection from './components/GallerySection';
-import FeatureStrip from './components/FeatureStrip';
-import FounderSection from './components/FounderSection';
-import Testimonials from './components/Testimonials';
-import StatsRibbon from './components/StatsRibbon';
-import ContactSection from './components/ContactSection';
-import InstagramGallery from './components/InstagramGallery';
 import Footer from './components/Footer';
 
-function App() {
-  const [loading, setLoading] = useState(true);
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+// Pages
+import Home from './pages/Home';
+import About from './pages/About';
+import Portfolio from './pages/Portfolio';
+import WeddingPlanners from './pages/WeddingPlanners';
+import EventManagement from './pages/EventManagement';
+import Pricing from './pages/Pricing';
+import Contact from './pages/Contact';
 
-  // Sync route path state
+function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
+
+  // Navigate helper for SPA
+  const navigate = (path) => {
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+      setCurrentPath(path);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Sync route path on browser back/forward buttons
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname);
+      setCurrentPath(window.location.pathname || '/');
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Initialize Lenis Smooth Scroll and sync with GSAP
+  // Initialize Lenis Smooth Scroll
   useEffect(() => {
-    if (loading) return; // Wait until loader finishes to initialize Lenis
-
-    // Detect mobile to skip smooth scroll (improves performance on mobile)
-    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const isMobile =
+      /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
 
     const lenis = new Lenis({
       duration: isMobile ? 0.8 : 1.2,
@@ -52,7 +55,7 @@ function App() {
       gestureOrientation: 'vertical',
       smoothWheel: !isMobile,
       wheelMultiplier: 1,
-      smoothTouch: false, // Always false — native touch scroll is faster
+      smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
     });
@@ -65,7 +68,7 @@ function App() {
 
     rafId = requestAnimationFrame(raf);
 
-    // Sync GSAP ScrollTrigger with Lenis scroll updates
+    // Sync GSAP ScrollTrigger with Lenis
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
@@ -76,85 +79,63 @@ function App() {
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, [loading, currentPath]);
+  }, [currentPath]);
 
-  const handleLoaderComplete = () => {
-    setLoading(false);
+  // Route Resolver
+  const renderCurrentPage = () => {
+    // Normalise trailing slash
+    const cleanPath = currentPath.length > 1 && currentPath.endsWith('/')
+      ? currentPath.slice(0, -1)
+      : currentPath;
+
+    switch (cleanPath) {
+      case '/':
+        return <Home navigate={navigate} />;
+      case '/about':
+        return <About navigate={navigate} />;
+      case '/portfolio':
+      case '/gallery': // Alias for legacy compatibility
+        return <Portfolio navigate={navigate} />;
+      case '/wedding-planners-in-bangalore':
+        return <WeddingPlanners navigate={navigate} />;
+      case '/event-management-bangalore':
+        return <EventManagement navigate={navigate} />;
+      case '/pricing':
+        return <Pricing navigate={navigate} />;
+      case '/destination-wedding-guide':
+      case '/destination-weddings':
+        // Immediate SPA redirect for legacy destination wedding links
+        setTimeout(() => navigate('/wedding-planners-in-bangalore'), 0);
+        return <WeddingPlanners navigate={navigate} />;
+      case '/contact':
+        return <Contact navigate={navigate} />;
+      default:
+        return <Home navigate={navigate} />;
+    }
   };
 
   return (
-    <div className="bg-[#F1ECE1] min-h-screen text-[#14203A]">
-      <AnimatePresence>
-        {loading && (
-          <Loader onComplete={handleLoaderComplete} />
-        )}
-      </AnimatePresence>
+    <div className="bg-[#F5F0E8] min-h-screen text-[#2B2B2B] flex flex-col justify-between selection:bg-[#B08D57] selection:text-white">
+      {/* Global Sticky Luxury Header with Floating Action Buttons */}
+      <Navbar currentPath={currentPath} navigate={navigate} />
 
-      {!loading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <Navbar />
-          
-          {currentPath === '/gallery' ? (
-            <main>
-              <GallerySection />
-            </main>
-          ) : (
-            <main>
-              <Hero />
-              <AboutSection />
-              <ServicesGrid />
-              <BentoShowcase />
-              <FeatureStrip />
-              <FounderSection />
-              <Testimonials />
-              <StatsRibbon />
-              <ContactSection />
-              <InstagramGallery />
-            </main>
-          )}
-
-          <Footer />
-
-          {/* Premium WhatsApp Sticky Contact FAB */}
+      {/* Main Page Content with Page Fade Transition */}
+      <main className="flex-1 w-full overflow-hidden">
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="fixed bottom-6 right-6 z-50 flex items-center group pointer-events-auto"
+            key={currentPath}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
           >
-            <style>{`
-              @keyframes waGlow {
-                0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-                70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-              }
-              .wa-glow-btn {
-                animation: waGlow 2.2s infinite ease-in-out;
-              }
-            `}</style>
-
-            {/* Left slide-out hover tooltip */}
-            <span className="mr-3 px-4 py-2 rounded-full bg-[#14203A]/90 backdrop-blur-md text-[#FAF8F3] text-[10px] tracking-widest font-semibold uppercase border border-[#C9A25E]/40 shadow-2xl opacity-0 scale-90 translate-x-4 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap origin-right hidden md:inline-block">
-              Chat on WhatsApp
-            </span>
-
-            {/* Pulsing FAB Action Button */}
-            <a
-              href="https://wa.me/917899243348"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="wa-glow-btn flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#25D366] to-[#128C7E] shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 text-white"
-              aria-label="Chat on WhatsApp"
-            >
-              <FaWhatsapp className="w-7 h-7 text-white" />
-            </a>
+            {renderCurrentPage()}
           </motion.div>
-        </motion.div>
-      )}
+        </AnimatePresence>
+      </main>
+
+      {/* Global Luxury Footer */}
+      <Footer navigate={navigate} />
     </div>
   );
 }

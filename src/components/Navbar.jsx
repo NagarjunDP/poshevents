@@ -1,309 +1,295 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUp, Calendar, Phone } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 
-export default function Navbar() {
+export default function Navbar({ currentPath, navigate }) {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [activeSection, setActiveSection] = useState('home');
-  const [isMobile, setIsMobile] = useState(false);
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // Sync route path state
-  useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname);
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  // Responsive check
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // ScrollSpy - only run on home page
-  useEffect(() => {
-    if (currentPath === '/gallery') {
-      setActiveSection('gallery');
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { threshold: 0.25, rootMargin: '-15% 0px -50% 0px' }
-    );
-    const sections = ['home', 'about', 'celebrations', 'showcase', 'weddings', 'contact'];
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => {
-      sections.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) observer.unobserve(el);
-      });
-    };
-  }, [currentPath]);
-
-  // Hide on scroll down, show on scroll up
+  // Scroll listener for sticky header styling & back-to-top button
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY <= 60) {
-        setVisible(true);
-      } else {
-        setVisible(currentScrollY < lastScrollY);
-      }
-      setLastScrollY(currentScrollY);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+      setShowBackToTop(scrollY > 400);
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
-  const yOffsetSpring = useSpring(visible ? 0 : -100, { stiffness: 300, damping: 30 });
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
+  // Close drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
+  // Nav links in Title Case (Inter, 15-16px, 500 weight)
   const navLinks = [
-    { label: 'Home',      target: '#home',         id: 'home'         },
-    { label: 'About',     target: '#about',        id: 'about'        },
-    { label: 'Services',  target: '#celebrations', id: 'celebrations' },
-    { label: 'Portfolio', target: '#showcase',     id: 'showcase'     },
-    { label: 'Gallery',   target: '/gallery',      id: 'gallery'      },
-    { label: 'Contact',   target: '#contact',      id: 'contact'      },
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Portfolio', path: '/portfolio' },
+    { label: 'Wedding Planners', path: '/wedding-planners-in-bangalore' },
+    { label: 'Event Management', path: '/event-management-bangalore' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'Contact', path: '/contact' },
   ];
 
-  // Intercept navigation links for smooth SPA transition
-  const handleLinkClick = (e, link) => {
-    if (link.target.startsWith('/')) {
-      e.preventDefault();
-      window.history.pushState({}, '', link.target);
-      window.dispatchEvent(new Event('popstate'));
-    } else {
-      if (currentPath === '/gallery') {
-        e.preventDefault();
-        window.history.pushState({}, '', '/' + link.target);
-        window.dispatchEvent(new Event('popstate'));
-        
-        // Let state commit and elements mount, then scroll to section
-        setTimeout(() => {
-          const el = document.getElementById(link.id);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 120);
-      }
-    }
-  };
-
-  const handleLogoClick = (e) => {
+  const handleNavClick = (e, path) => {
     e.preventDefault();
-    if (currentPath !== '/') {
-      window.history.pushState({}, '', '/');
-      window.dispatchEvent(new Event('popstate'));
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    setMobileMenuOpen(false);
+    navigate(path);
   };
 
-  const FoliageIndicator = () => (
-    <motion.svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-      className="inline-block ml-3 w-5 h-5 text-[#8A6B2E]">
-      <motion.path d="M2,18 C8,16 12,12 18,6" stroke="currentColor" strokeWidth="1.5"
-        strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }} />
-      <motion.path d="M12,12 C13,10 16,9 17,11 C15,13 13,13 12,12 Z" stroke="currentColor"
-        strokeWidth="1.2" fill="currentColor" initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 0.15 }} />
-    </motion.svg>
-  );
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
-      <style>{`
-        @keyframes shimmerBorder {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        @keyframes liquidText {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .liquid-text-active {
-          background: linear-gradient(270deg, #8A6B2E, #C9A25E, #E3C285, #FAF8F3, #C9A25E, #8A6B2E);
-          background-size: 400% 400%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: liquidText 6s ease-in-out infinite;
-        }
-      `}</style>
-
-      {/* ── DESKTOP PILL NAVBAR ── always pill, centered via x:'-50%' in framer-motion */}
-      <motion.div
-        style={{ y: yOffsetSpring, x: '-50%' }}
-        className="fixed top-4 left-1/2 z-40 hidden md:grid grid-cols-[auto_1fr_auto] items-center
-                   w-[800px] max-w-[calc(100%-48px)]
-                   px-5 py-2.5
-                   rounded-full
-                   shadow-2xl pointer-events-auto
-                   overflow-hidden"
+      {/* ── STICKY SINGLE-ROW LUXURY HEADER ── */}
+      <header
+        className={`sticky top-0 inset-x-0 z-50 w-full transition-all duration-300 ${
+          isScrolled
+            ? 'bg-[#FAF8F3]/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] border-b border-[#B08D57]/20'
+            : 'bg-[#FAF8F3] border-b border-[#B08D57]/15'
+        }`}
       >
-        {/* Gold shimmer border layer */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#8A6B2E] via-[#C9A25E] to-[#E3C285]
-                        bg-[length:200%_200%] animate-[shimmerBorder_8s_linear_infinite] z-0 rounded-full" />
-        {/* Cream fill (1.5px inset reveals border) */}
-        <div className="absolute inset-[1.5px] bg-[#FAF8F3]/95 backdrop-blur-xl z-10 rounded-full" />
-
-        {/* LEFT — Logo */}
-        <div className="flex items-center z-20">
-          <a href="/" onClick={handleLogoClick} className="block cursor-pointer">
-            <img src="/logo.png" alt="Posh Events" className="h-9 w-auto object-contain" loading="eager" decoding="async" fetchPriority="high" />
-          </a>
-        </div>
-
-        {/* CENTER — Nav links */}
-        <nav className="flex items-center justify-center gap-5 lg:gap-6 z-20">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.target}
-              onClick={(e) => handleLinkClick(e, link)}
-              className={`text-[10px] font-sans tracking-[0.18em] uppercase transition-colors duration-200 relative py-1 whitespace-nowrap hover:scale-105 inline-block
-                ${activeSection === link.id ? 'text-[#C9A25E]' : 'text-[#14203A]'}`}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* RIGHT — Hamburger toggle */}
-        <div className="flex items-center justify-end z-20">
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="flex flex-col justify-center items-center gap-1.5 w-9 h-9 rounded-full
-                       hover:bg-[#14203A]/8 transition-colors focus:outline-none"
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 min-[1180px]:px-10 flex items-center justify-between h-[68px] min-[1180px]:h-[84px]">
+          
+          {/* LEFT: Circular Logo (48-52px desktop, 42px mobile) + Brand Name on ONE line */}
+          <a
+            href="/"
+            onClick={(e) => handleNavClick(e, '/')}
+            className="flex items-center space-x-3 shrink-0 whitespace-nowrap group select-none cursor-pointer"
           >
-            <span className="w-5 h-[1.2px] bg-[#14203A] block" />
-            <span className="w-5 h-[1.2px] bg-[#14203A] block" />
-          </button>
-        </div>
-      </motion.div>
-
-      {/* ── MOBILE PILL NAVBAR ── */}
-      <motion.div
-        style={{ y: yOffsetSpring, x: '-50%' }}
-        className="fixed top-4 left-1/2 z-40 md:hidden flex items-center justify-between
-                   w-[calc(100%-2rem)] max-w-[400px] px-4 py-2.5 rounded-full shadow-2xl pointer-events-auto overflow-hidden"
-      >
-        {/* Gold shimmer border */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#8A6B2E] via-[#C9A25E] to-[#E3C285]
-                        bg-[length:200%_200%] animate-[shimmerBorder_8s_linear_infinite] z-0 rounded-full" />
-        <div className="absolute inset-[1.5px] bg-[#FAF8F3]/95 backdrop-blur-xl z-10 rounded-full" />
-
-        {/* Mobile Logo */}
-        <div className="z-20">
-          <a href="/" onClick={handleLogoClick} className="block cursor-pointer">
-            <img src="/logo.png" alt="Posh Events" className="h-8 w-auto object-contain" />
+            <div className="w-[42px] h-[42px] min-[1180px]:w-[50px] min-[1180px]:h-[50px] rounded-full bg-white p-1 shadow-sm border border-[#B08D57]/30 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <img
+                src="/logo.png"
+                alt="Posh Events Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <span className="font-serif font-bold text-xl sm:text-2xl min-[1180px]:text-[26px] text-[#2B2B2B] tracking-wide whitespace-nowrap group-hover:text-[#B08D57] transition-colors">
+              Posh Events
+            </span>
           </a>
+
+          {/* CENTRE: Nav links in Inter, Title Case, 15-16px, 500 weight (>= 1180px) */}
+          <nav className="hidden min-[1180px]:flex items-center gap-[clamp(14px,1.5vw,28px)] shrink-0 whitespace-nowrap">
+            {navLinks.map((link) => {
+              const isActive =
+                currentPath === link.path ||
+                (link.path === '/portfolio' && currentPath === '/gallery');
+              return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  onClick={(e) => handleNavClick(e, link.path)}
+                  className={`relative font-sans text-[clamp(14px,1.02vw,15.5px)] font-medium whitespace-nowrap py-1 transition-colors duration-200 ${
+                    isActive
+                      ? 'text-[#B08D57] font-semibold'
+                      : 'text-[#2B2B2B] hover:text-[#B08D57]'
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navActiveUnderline"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B08D57] rounded-full"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* RIGHT: CTA Button (>= 1180px) & Hamburger (< 1180px) */}
+          <div className="flex items-center min-[1180px]:ml-6 shrink-0 whitespace-nowrap">
+            <a
+              href="/contact"
+              onClick={(e) => handleNavClick(e, '/contact')}
+              className="hidden min-[1180px]:inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#B08D57] to-[#C4A574] hover:from-[#9C7A45] hover:to-[#B08D57] text-white font-sans text-[15px] font-semibold px-6 py-3 whitespace-nowrap shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+            >
+              Book Consultation
+            </a>
+
+            {/* Mobile / Tablet Hamburger Toggle (< 1180px) - 44x44px accessible tap target */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              className="min-[1180px]:hidden w-11 h-11 rounded-full bg-white border border-[#B08D57]/30 text-[#2B2B2B] flex items-center justify-center hover:bg-[#B08D57]/10 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#B08D57]/40"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
+      </header>
 
-        {/* Mobile Center Brand */}
-        <div className="absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-          <span className="font-serif text-[12px] tracking-[0.18em] uppercase font-bold liquid-text-active">
-            Posh Events
-          </span>
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMobileMenuOpen(true)}
-          className="z-20 flex flex-col justify-center items-center gap-1.5 w-9 h-9 rounded-full
-                     hover:bg-[#14203A]/8 transition-colors focus:outline-none"
-        >
-          <span className="w-5 h-[1.2px] bg-[#14203A] block" />
-          <span className="w-5 h-[1.2px] bg-[#14203A] block" />
-        </button>
-      </motion.div>
-
-      {/* ── FULL SCREEN MOBILE MENU ── */}
+      {/* ── MOBILE SLIDE-IN NAVIGATION DRAWER (< 1280px) ── */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-50 bg-[#FAF8F3] flex flex-col justify-between p-8 md:p-16 select-none"
-          >
-            {/* Header row */}
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center space-x-3">
-                <a href="/" onClick={(e) => { handleLogoClick(e); setMobileMenuOpen(false); }} className="block cursor-pointer">
-                  <img src="/logo.png" alt="Posh Events Logo" className="h-10 w-auto object-contain" />
-                </a>
-                <span className="font-serif text-[#14203A] tracking-[0.2em] text-xs uppercase">
-                  POSH EVENTS
-                </span>
-              </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="relative w-8 h-8 flex items-center justify-center focus:outline-none"
-              >
-                <span className="absolute w-6 h-[1.5px] bg-[#14203A] rotate-45" />
-                <span className="absolute w-6 h-[1.5px] bg-[#14203A] -rotate-45" />
-              </button>
-            </div>
+          <>
+            {/* Dimmed Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 min-[1180px]:hidden"
+              aria-hidden="true"
+            />
 
-            {/* Nav items */}
-            <div className="flex flex-col items-start space-y-5 my-auto max-w-lg">
-              <span className="font-sans text-[#8A6B2E] text-[10px] tracking-[0.25em] uppercase font-semibold">
-                EXPERIENCE GRAND CONCEPTS
-              </span>
-              <div className="w-12 h-[1px] bg-gradient-to-r from-[#C9A25E] to-transparent mb-2" />
-              {navLinks.map((link, idx) => (
-                <motion.div
-                  key={link.label}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 + idx * 0.06, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className="group flex items-center"
-                >
-                  <a
-                    href={link.target}
-                    onClick={(e) => { handleLinkClick(e, link); setMobileMenuOpen(false); }}
-                    className="font-serif text-4xl text-[#14203A] hover:text-[#C9A25E] transition-colors relative py-1 flex items-center"
+            {/* Slide-in Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[#FAF8F3] z-50 shadow-2xl flex flex-col justify-between p-6 overflow-y-auto min-[1180px]:hidden"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation Menu"
+            >
+              {/* Drawer Header */}
+              <div>
+                <div className="flex items-center justify-between pb-5 border-b border-[#B08D57]/20">
+                  <div className="flex items-center space-x-3">
+                    <img
+                      src="/logo.png"
+                      alt="Posh Events"
+                      className="w-10 h-10 object-contain rounded-full bg-white p-1 border border-[#B08D57]/30"
+                    />
+                    <span className="font-serif font-bold text-lg text-[#2B2B2B] tracking-wide whitespace-nowrap">
+                      Posh Events
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Close menu"
+                    className="w-10 h-10 rounded-full bg-white border border-[#B08D57]/30 flex items-center justify-center text-[#2B2B2B] hover:bg-[#B08D57]/10 transition-colors"
                   >
-                    {link.label}
-                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#8A6B2E] transition-all duration-300 group-hover:w-full" />
-                  </a>
-                  {activeSection === link.id && <FoliageIndicator />}
-                </motion.div>
-              ))}
-            </div>
+                    <X size={20} />
+                  </button>
+                </div>
 
-            {/* Footer row */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end
-                            w-full border-t border-[#14203A]/10 pt-5">
-              <div className="mb-3 md:mb-0">
-                <p className="font-sans text-[#14203A]/50 text-[10px] tracking-widest uppercase">Bengaluru, India</p>
-                <p className="font-sans text-[#14203A] text-xs mt-1">sudee43348@gmail.com</p>
+                {/* Drawer Links: 18-20px font, 52px+ row height, thin dividers */}
+                <nav className="flex flex-col mt-4 divide-y divide-[#B08D57]/15">
+                  {navLinks.map((link) => {
+                    const isActive =
+                      currentPath === link.path ||
+                      (link.path === '/portfolio' && currentPath === '/gallery');
+                    return (
+                      <a
+                        key={link.path}
+                        href={link.path}
+                        onClick={(e) => handleNavClick(e, link.path)}
+                        className={`min-h-[52px] flex items-center px-3 py-3.5 font-serif text-[19px] tracking-wide whitespace-nowrap transition-colors ${
+                          isActive
+                            ? 'text-[#B08D57] font-bold'
+                            : 'text-[#2B2B2B] hover:text-[#B08D57]'
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  })}
+                </nav>
               </div>
-              <p className="font-serif italic text-[#8A6B2E] text-sm">
-                ✦ Blending South Indian heritage with global production value.
-              </p>
-            </div>
-          </motion.div>
+
+              {/* Drawer Footer CTA & Direct Contact */}
+              <div className="pt-6 border-t border-[#B08D57]/20 space-y-4">
+                <a
+                  href="/contact"
+                  onClick={(e) => handleNavClick(e, '/contact')}
+                  className="w-full btn-gold-pill py-3.5 text-center text-sm font-semibold shadow-lg flex items-center justify-center space-x-2 whitespace-nowrap"
+                >
+                  <Calendar size={16} />
+                  <span>Book Consultation</span>
+                </a>
+
+                <div className="flex items-center justify-center space-x-6 pt-1 text-xs font-sans text-[#2B2B2B]">
+                  <a
+                    href="tel:+917899243348"
+                    className="flex items-center space-x-1.5 font-semibold text-[#8A6B2E] hover:underline"
+                  >
+                    <Phone size={13} />
+                    <span>+91 78992 43348</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917899243348"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-1.5 font-semibold text-[#25D366] hover:underline"
+                  >
+                    <FaWhatsapp size={15} />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
+
+      {/* ── FLOATING WHATSAPP CHAT BUTTON (FIXED BOTTOM-RIGHT) ── */}
+      <aside aria-label="Quick contact and navigation">
+        <a
+          href="https://wa.me/917899243348?text=Hello%20Posh%20Events%2C%20I%20would%20like%20to%20plan%20a%20luxury%20wedding%20or%20event."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Posh Events on WhatsApp"
+          className="fixed bottom-6 right-6 z-40 group flex items-center"
+        >
+          {/* Slide-out tooltip on hover */}
+          <span className="mr-3 hidden md:inline-block px-3 py-1.5 rounded-full bg-white/95 text-[#2B2B2B] text-[11px] font-sans font-semibold tracking-wider uppercase border border-[#B08D57]/40 shadow-xl opacity-0 scale-90 translate-x-3 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
+            Chat on WhatsApp
+          </span>
+
+          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-transform duration-300">
+            <FaWhatsapp className="w-7 h-7" />
+          </div>
+        </a>
+
+        {/* ── CIRCULAR BACK TO TOP BUTTON ── */}
+        <AnimatePresence>
+          {showBackToTop && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              className="fixed bottom-24 right-7 z-40 w-11 h-11 rounded-full bg-white text-[#2B2B2B] border border-[#B08D57]/30 shadow-lg flex items-center justify-center hover:bg-[#B08D57] hover:text-white hover:border-[#B08D57] transition-all duration-300"
+            >
+              <ArrowUp size={18} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </aside>
     </>
   );
 }

@@ -1,4 +1,22 @@
 {
+  "redirects": [
+    {
+      "source": "/destination-wedding-guide",
+      "destination": "/wedding-planners-in-bangalore",
+      "permanent": true
+    },
+    {
+      "source": "/destination-weddings",
+      "destination": "/wedding-planners-in-bangalore",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*).(avif|webp|png|jpg|jpeg|gif|mp4|webm|svg|woff2)",
