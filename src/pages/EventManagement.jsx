@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Shield, Music, Briefcase, Award, ChevronDown, ChevronUp, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Shield, Music, Briefcase, Award, ChevronDown, ChevronUp, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { media } from '../data/media';
+import SectionHeader from '../components/SectionHeader';
+import PageHero from '../components/PageHero';
 
 export default function EventManagement({ navigate }) {
   const [openFaq, setOpenFaq] = useState(null);
@@ -9,220 +12,198 @@ export default function EventManagement({ navigate }) {
     {
       title: 'Corporate Galas & Leadership Summits',
       eyebrow: 'ENTERPRISE PRODUCTION',
-      desc: 'Flawlessly planned annual meets, corporate gala dinners, award ceremonies, and product launches with stage architecture, branding, and audiovisual production.',
-      image: '/po1.jpeg',
+      desc: 'Annual stakeholder meets, luxury awards banquets, product showcases, and keynotes designed with bespoke stage architecture, LED pixel-mapping, and flawless executive hospitality.',
+      image: media.corporateBreakdown.gala,
     },
     {
-      title: 'Grand Sangeet & Musical Evenings',
-      eyebrow: 'HIGH-VOLTAGE CELEBRATION',
-      desc: 'Concert-grade intelligent beam lighting, custom truss systems, LED pixel mapping, DJ consoles, and choreography stage management for energetic celebrations.',
-      image: '/sangeet01.PNG',
+      title: 'Starlit Sangeet & High-Voltage Nightlife',
+      eyebrow: 'CONCERT-GRADE SPECTACLE',
+      desc: 'Concert-scale lighting rigs, intelligent beam choreography, artist line-up coordination, DJ consoles, and starlit open-air amphitheaters for unforgettable musical nights.',
+      image: media.celebrations.sangeetCard,
     },
     {
-      title: 'Traditional Seemantha & Baby Showers',
+      title: 'Traditional Seemantha & Milestone Showers',
       eyebrow: 'SACRED BLESSINGS',
-      desc: 'Authentic South Indian coconut leaf weaves, fresh jasmine garlands, brass deepams, and cradle canopies celebrating the arrival of new life.',
-      image: '/i3.jpg',
+      desc: 'Authentic South Indian coconut-leaf floral backdrops, fresh jasmine garlands, brass deepams, and bespoke cradles celebrating the arrival of new life with family grace.',
+      image: media.corporateBreakdown.seemantha,
     },
     {
-      title: 'Personal Security Officers & VIP Escorts',
-      eyebrow: 'DISCREET PROTECTION',
-      desc: 'Professional bouncers and elite personal security officers (PSOs) ensuring discreet crowd flow, celebrity protection, and secure artist transits.',
-      image: '/po2.jpeg',
+      title: 'VIP Protocol, Artists & Discreet Security',
+      eyebrow: 'ELITE SAFEGUARDING',
+      desc: 'Professional crowd-flow choreography, private VIP green rooms, discreet personal security officers (PSOs), and secure transit management for celebrity artists and dignitaries.',
+      image: media.corporateBreakdown.security,
     },
   ];
 
   const capabilities = [
     {
       icon: Briefcase,
-      title: 'Corporate Precision',
-      desc: 'Timelines adhered to down to the minute, strict brand guideline fidelity, and executive liaison.',
+      title: 'Executive Precision',
+      desc: 'Timelines executed down to the minute, brand guidelines respected, and polished corporate hospitality.',
     },
     {
       icon: Music,
-      title: 'Concert-Grade Sound',
-      desc: 'Acoustic line-array systems, wireless digital mics, and expert sound technicians.',
+      title: 'Concert-Grade Acoustics',
+      desc: 'Line-array acoustic rigs, wireless digital microphones, and seasoned live audio engineers.',
     },
     {
       icon: Shield,
       title: 'VIP Protocol & Safety',
-      desc: 'Trained security personnel, private green rooms, and seamless artist escort management.',
+      desc: 'Certified security personnel, private holding lounges, and seamless artist escort management.',
     },
     {
       icon: Award,
-      title: 'Signature Decor',
-      desc: 'Uncompromising aesthetic quality and fresh botanicals that make an unforgettable impression.',
+      title: 'Aesthetic Brilliance',
+      desc: 'Bespoke stage installations and immersive atmospheres that elevate your brand prestige.',
     },
   ];
 
   const faqs = [
     {
       q: 'Can Posh Events manage large scale corporate events with 1,000+ attendees?',
-      a: 'Yes, our team has executed corporate summits, annual celebrations, and high-profile exhibitions with over 1,500 delegates across Bangalore’s major convention halls and luxury hotels.',
+      a: 'Yes. Our production network and technical partners have handled large-scale conferences, multi-track symposiums, and gala awards dinners with over 2,500 attendees at premier venues like Bangalore Palace, Sheraton Grand, and The Leela Bhartiya City.',
     },
     {
-      q: 'Do you provide security personnel and bouncers for private celebrations?',
-      a: 'Yes, we have our own vetted, licensed Personal Security Officers (PSOs) and bouncer teams specifically trained for luxury weddings, high-profile celebrity events, and corporate galas.',
+      q: 'Do you provide turnkey audio-visual and stage fabrication?',
+      a: 'We provide full turnkey production: custom stage builds, LED screens, line array sound, intelligent lighting, projection mapping, registration kiosks, and live broadcasting.',
     },
     {
-      q: 'What audiovisual and stage equipment do you provide in-house?',
-      a: 'We provide comprehensive AV packages including P3 LED video walls, moving head beam lighting, haze machines, line-array audio systems, truss structures, and hydraulic stages.',
+      q: 'Can you handle intimate family milestones like 50th birthdays or naming ceremonies?',
+      a: 'Absolutely. We apply the same level of bespoke floral elegance, curated catering coordination, and dedicated floor management to intimate family celebrations as we do to multi-day weddings.',
     },
     {
-      q: 'How do you handle venue permissions and licensing?',
-      a: 'Our operations team handles necessary municipal permissions, fire safety compliance, sound level adherence, and venue NOCs so you have zero legal hassle.',
+      q: 'Do you provide artist curation and celebrity management?',
+      a: 'Yes, our artist relations team books and manages top playback singers, live bands, international fusion instrumentalists, choreographers, and celebrity anchors.',
     },
   ];
 
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
   return (
-    <div className="w-full pt-20">
-      
-      {/* ── 1. HERO BANNER ── */}
-      <section className="relative w-full h-[65vh] min-h-[440px] flex items-center justify-center overflow-hidden bg-black">
-        <img
-          src="/sangeet01.PNG"
-          alt="Event Management in Bangalore"
-          className="w-full h-full object-cover opacity-65 scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-[#F5F0E8]" />
+    <div className="w-full bg-[#FFF9F0] text-[#3D0A14]">
+      {/* ── 1. CINEMATIC HERO ── */}
+      <PageHero
+        image="/media/heroes/event-management-hero.webp"
+        title="EVENT MANAGEMENT"
+        script="in Bangalore"
+        subtitle="CORPORATE GALAS, MILESTONES AND CELEBRATIONS, FLAWLESSLY EXECUTED"
+        ctaText="GET A QUOTE"
+        ctaLink="/contact"
+        alt="Grand Luxury Event Stage and Corporate Gala in Bangalore"
+        navigate={navigate}
+      />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center text-white">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-4">
-            <Sparkles size={13} className="text-[#D8BA84]" />
-            <span className="font-sans text-[11px] tracking-[0.25em] uppercase font-bold text-white">
-              END-TO-END EVENT PRODUCTION
-            </span>
-          </div>
+      {/* ── 2. STORY-LED DIVISIONS ── */}
+      <section className="py-20 lg:py-28 bg-white text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+          <SectionHeader
+            chapter="Our Production Divisions"
+            title="Engineered with precision,"
+            highlightWord="crafted with soul."
+            subtitle="From Fortune 500 summits to intimate traditional Seemanthas, our teams execute with world-class discipline."
+            dark={false}
+            className="mb-16 md:mb-20"
+          />
 
-          <h1 className="font-serif font-bold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-[0.05em] text-white leading-tight mb-4 drop-shadow-md">
-            EVENT MANAGEMENT <br />
-            <span className="text-[#D8BA84]">IN BANGALORE</span>
-          </h1>
+          <div className="space-y-16 lg:space-y-20">
+            {eventServices.map((item, idx) => {
+              const isEven = idx % 2 === 1;
 
-          <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-white/90 max-w-xl mx-auto">
-            CORPORATE GALAS, CONCERT STAGES, AND BESPOKE PRIVATE CELEBRATIONS
-          </p>
-        </div>
-      </section>
-
-
-      {/* ── 2. SERVICES BREAKDOWN (ZIG-ZAG) ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">OUR CAPABILITIES</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              COMPREHENSIVE EVENT PRODUCTION
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
-
-          {eventServices.map((item, idx) => {
-            const isEven = idx % 2 === 1;
-            return (
-              <div
-                key={item.title}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
-              >
-                {/* Image */}
-                <div
-                  className={`relative rounded-[24px] overflow-hidden shadow-luxury border border-[#B08D57]/20 aspect-[4/3] group ${
-                    isEven ? 'order-1 lg:order-2' : ''
-                  }`}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                </div>
-
-                {/* Text */}
-                <div className={`space-y-5 ${isEven ? 'order-2 lg:order-1' : ''}`}>
-                  <span className="eyebrow-label">{item.eyebrow}</span>
-                  <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-                    {item.title}
-                  </h3>
-                  <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
-                    {item.desc}
-                  </p>
-                  <div className="pt-2">
-                    <a
-                      href="/contact"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate('/contact');
-                      }}
-                      className="btn-gold-pill text-xs shadow-md"
-                    >
-                      Enquire for This Event
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-        </div>
-      </section>
-
-
-      {/* ── 3. FOUR CORE CAPABILITIES GRID ── */}
-      <section className="py-20 lg:py-24 bg-[#FAF8F3] border-t border-[#B08D57]/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">WHY POSH EVENTS</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              PRODUCTION EXCELLENCE
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {capabilities.map((cap) => {
-              const Icon = cap.icon;
               return (
                 <div
-                  key={cap.title}
-                  className="bg-white rounded-[24px] p-8 border border-[#B08D57]/20 shadow-sm hover:shadow-luxury transition-all space-y-4"
+                  key={idx}
+                  className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center ${
+                    isEven ? 'lg:flex-row-reverse' : ''
+                  }`}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#B08D57]/15 text-[#8A6B2E] flex items-center justify-center">
-                    <Icon size={22} />
-                  </div>
-                  <h3 className="font-serif font-bold text-xl text-[#2B2B2B]">
-                    {cap.title}
-                  </h3>
-                  <p className="font-sans text-xs text-[#4A4A4A] leading-relaxed">
-                    {cap.desc}
-                  </p>
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className={`lg:col-span-6 ${isEven ? 'lg:order-2' : ''}`}
+                  >
+                    <div className="relative aspect-[16/10] rounded-3xl overflow-hidden border border-[#EEDDC8] shadow-[0_8px_30px_rgba(201,162,75,0.12)] bg-[#FFF9F0]">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        onError={(e) => {
+                          e.target.src = '/media/story/philosophy-stage.jpg';
+                        }}
+                      />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className={`lg:col-span-6 flex flex-col justify-center text-left space-y-4 ${
+                      isEven ? 'lg:order-1' : ''
+                    }`}
+                  >
+                    <span className="text-[11px] uppercase tracking-[0.22em] font-semibold text-gold-dark">
+                      {item.eyebrow}
+                    </span>
+                    <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-[#3D0A14] font-normal leading-snug">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-[#5A2A27] font-light leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </motion.div>
                 </div>
               );
             })}
           </div>
-
         </div>
       </section>
 
+      {/* ── 3. FOUR CORE CAPABILITIES ── */}
+      <section className="py-20 lg:py-28 bg-[#FFF9F0] text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+          <SectionHeader
+            chapter="Technical Excellence"
+            title="Production capabilities built for"
+            highlightWord="flawless results."
+            dark={false}
+            className="mb-14"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {capabilities.map((cap, idx) => {
+              const Icon = cap.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-6 rounded-3xl bg-white border border-[#EEDDC8] flex flex-col justify-between hover:border-gold shadow-sm hover:shadow-[0_12px_35px_rgba(201,162,75,0.15)] transition-all"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-2xl bg-gold/15 text-gold flex items-center justify-center mb-5">
+                      <Icon className="w-6 h-6 stroke-[1.5] text-gold-dark" />
+                    </div>
+                    <h4 className="font-display text-xl text-[#3D0A14] mb-2 font-medium">
+                      {cap.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-[#5A2A27] font-light leading-relaxed">
+                      {cap.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* ── 4. FAQS ACCORDION ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8] border-t border-[#B08D57]/15">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">COMMON QUESTIONS</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              EVENT MANAGEMENT FAQS
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
+      <section className="py-20 lg:py-28 bg-white text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-4xl mx-auto px-6 sm:px-10">
+          <SectionHeader
+            chapter="Client Queries"
+            title="Frequently asked"
+            highlightWord="questions."
+            dark={false}
+            className="mb-12"
+          />
 
           <div className="space-y-4">
             {faqs.map((faq, idx) => {
@@ -230,26 +211,27 @@ export default function EventManagement({ navigate }) {
               return (
                 <div
                   key={idx}
-                  className="bg-white rounded-2xl border border-[#B08D57]/20 overflow-hidden shadow-sm"
+                  className="rounded-2xl border border-[#EEDDC8] bg-[#FFF9F0] overflow-hidden transition-colors"
                 >
                   <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full p-6 text-left flex items-center justify-between font-serif font-bold text-lg text-[#2B2B2B] hover:text-[#B08D57] transition-colors"
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
                   >
-                    <span>{faq.q}</span>
-                    <span className="ml-4 shrink-0 text-[#B08D57]">
-                      {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                    <span className="font-display text-xl text-[#3D0A14] font-medium">
+                      {faq.q}
                     </span>
+                    <div className="w-8 h-8 rounded-full border border-gold/40 flex items-center justify-center text-gold shrink-0 bg-white">
+                      {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </div>
                   </button>
 
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="px-6 pb-6 text-sm text-[#4A4A4A] font-sans leading-relaxed border-t border-[#B08D57]/10 pt-4"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="px-6 pb-6 text-sm text-[#5A2A27] font-light leading-relaxed border-t border-[#EEDDC8] pt-4"
                       >
                         {faq.a}
                       </motion.div>
@@ -259,36 +241,27 @@ export default function EventManagement({ navigate }) {
               );
             })}
           </div>
-
         </div>
       </section>
 
-
-      {/* ── 5. CTA BANNER ── */}
-      <section className="py-20 bg-[#FAF8F3] border-t border-[#B08D57]/20 text-center">
-        <div className="max-w-3xl mx-auto px-4 space-y-5">
-          <span className="eyebrow-label block">PLAN YOUR EVENT</span>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-            DISCUSS YOUR EVENT REQUIREMENTS
-          </h2>
-          <p className="font-sans text-sm text-[#4A4A4A] leading-relaxed">
-            Reach out to our events production desk for customized stage, AV, security, and decor proposals.
-          </p>
-          <div className="pt-2">
-            <a
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/contact');
-              }}
-              className="btn-gold-pill text-sm py-3.5 px-8 shadow-xl"
-            >
-              Get Event Proposal
-            </a>
+      {/* ── 5. CELEBRATORY CTA BAND ── */}
+      <section className="py-16 bg-[#FFF9F0] text-center border-t border-[#EEDDC8]">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left">
+            <h3 className="font-display text-2xl sm:text-3xl text-[#3D0A14]">
+              Planning an executive summit or <span className="gold-glow-word">milestone gala?</span>
+            </h3>
+            <p className="text-xs text-[#5A2A27] mt-1 font-light">Our senior technical directors are ready to engineer your event.</p>
           </div>
+          <button
+            onClick={() => navigate('/contact')}
+            className="btn-gold-pill shrink-0 !text-xs"
+          >
+            <span>Request Proposal</span>
+            <ArrowUpRight className="w-4 h-4 ml-1" />
+          </button>
         </div>
       </section>
-
     </div>
   );
 }

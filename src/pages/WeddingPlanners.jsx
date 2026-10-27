@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, CheckCircle2, ChevronDown, ChevronUp, MapPin, Calendar, Heart } from 'lucide-react';
+import { Sparkles, CheckCircle2, ChevronDown, ChevronUp, MapPin, Calendar, Heart, ArrowUpRight } from 'lucide-react';
+import { media } from '../data/media';
+import SectionHeader from '../components/SectionHeader';
+import PageHero from '../components/PageHero';
 
 export default function WeddingPlanners({ navigate }) {
   const [openFaq, setOpenFaq] = useState(null);
@@ -8,234 +11,182 @@ export default function WeddingPlanners({ navigate }) {
   const servicesBreakdown = [
     {
       title: 'Sacred Mandap & Temple Architecture',
-      eyebrow: 'DECOR & STYLING',
-      desc: 'Bespoke mandap concepts inspired by heritage South Indian temples, featuring hand-carved pillars, floral canopies, brass urlis, and ambient temple bells.',
-      image: '/hali2.PNG',
+      eyebrow: 'DECOR & SACRED STYLING',
+      desc: 'Bespoke mandap concepts inspired by heritage South Indian temples, featuring hand-carved pillars, cascading jasmine canopies, brass urulis, and ambient temple bells.',
+      image: media.weddingsBreakdown.mandap,
     },
     {
-      title: 'Venue Curation & Spatial Flow',
-      eyebrow: 'LOCATIONS & LOGISTICS',
-      desc: 'Assistance in selecting and securing premier Bangalore venues (The Leela, Taj West End, Bangalore Palace, ITC Gardenia) with customized 3D layout planning.',
-      image: '/hali6.PNG',
+      title: 'Artisan Florals & Sacred Scentscapes',
+      eyebrow: 'FINE-ART BOTANICALS',
+      desc: 'Direct ethical sourcing of authentic Madurai mallige (jasmine), royal marigolds, lotus buds, and Dutch garden roses, arranged in sacred geometric canopies.',
+      image: media.weddingsBreakdown.floral,
     },
     {
-      title: 'Artisan Floral & Lighting Mastery',
-      eyebrow: 'SENSORY EXPERIENCE',
-      desc: 'Direct sourcing of premium tuberoses, marigolds, lotus buds, and Dutch roses, paired with warm architectural mood lighting that flatters photography.',
-      image: '/hali11.PNG',
+      title: 'Cinematic Concert Sound & Lighting',
+      eyebrow: 'ACOUSTIC ENGINEERING',
+      desc: 'Architectural mood illumination calibrated to flatter traditional silks and gold jewelry, paired with acoustic sound engineering for Vedic mantras and live nadaswaram.',
+      image: media.weddingsBreakdown.lighting,
     },
     {
-      title: 'Day-of Concierge & Stage Management',
-      eyebrow: 'EFFORTLESS HARMONY',
-      desc: 'Dedicated floor directors ensuring bridal entries, garland exchanges (Varmala), muhurtham timings, and guest refreshments run with clockwork precision.',
-      image: '/sangeet01.PNG',
+      title: 'Day-of Concierge & Muhurtham Protocol',
+      eyebrow: 'FLAWLESS HARMONY',
+      desc: 'Dedicated floor directors managing auspicious muhurtham timings, bridal palanquin entries, varmala garlands, priest requirements, and VIP guest refreshments.',
+      image: media.weddingsBreakdown.concierge,
     },
   ];
 
   const whatsIncluded = [
-    'Comprehensive wedding concept & theme deck',
-    'Customized 3D mandap & stage sketches',
-    'Complete floral procurement & on-site styling',
-    'High-definition sound & acoustic stage design',
-    'Ritual prop sourcing (brass urlis, diyas, cushions)',
+    'Comprehensive wedding design & color palette deck',
+    'Customized 3D mandap & floorplan schematics',
+    'Procurement of fresh premium jasmine & temple flowers',
+    'High-definition acoustic stage & ambient lighting',
+    'Vedic ritual prop curation (brass urulis, diyas, cushions)',
     'Bridal entry & groom baraat coordination',
-    'VIP security and valet hospitality liaison',
-    'Dedicated senior event director on ground',
-    'Photographer & videographer timeline alignment',
-    'End-to-end teardown and venue restoration',
+    'VIP security, guest reception, and hospitality liaison',
+    'Dedicated senior event director on ground throughout',
+    'Vendor timeline alignment (photo, video, catering, makeup)',
+    'End-to-end post-event teardown and venue restoration',
   ];
 
   const faqs = [
     {
       q: 'How far in advance should we book Posh Events for our wedding?',
-      a: 'We recommend booking 4 to 8 months in advance, especially for auspicious muhurtham dates between October and February. However, we also take select curated weddings with 6–8 weeks notice based on team availability.',
+      a: 'We recommend booking 4 to 8 months in advance, especially for auspicious muhurtham dates between October and February. However, we also curate intimate luxury weddings with 6–8 weeks notice based on schedule availability.',
     },
     {
       q: 'Do you only handle decor, or end-to-end wedding planning as well?',
-      a: 'We offer full end-to-end wedding production as well as standalone luxury decor styling. Our end-to-end service covers venue liaison, vendor selection, day-of scheduling, artist bookings, and bridal concierge.',
+      a: 'We offer full end-to-end luxury wedding planning as well as standalone couture decor styling. Our end-to-end service covers venue liaisons, catering curation, day-of scheduling, artist bookings, and bridal concierges.',
     },
     {
       q: 'Can we customize mandap themes and color palettes?',
-      a: 'Absolutely. Every single Posh Events wedding is bespoke. We never replicate standard packages. During our consultation, we craft custom moodboards, 3D floor plans, and sample floral swatches aligned with your attire.',
+      a: 'Every single Posh Events wedding is bespoke. We never replicate standard packages. During your studio consultation, we craft custom moodboards, 3D floor plans, and sample floral swatches tailored to your attire and heritage.',
     },
     {
-      q: 'Do you handle destination weddings outside of Bangalore?',
-      a: 'Yes, we regularly plan and produce destination weddings in Goa, Udaipur, Jaipur, Kerala backwaters, Chikmagalur, and Coorg, as well as international destinations.',
-    },
-    {
-      q: 'What is the consultation process?',
-      a: 'Our initial consultation is complimentary. We discuss your estimated guest count, dates, preferred aesthetics, and budget range. We then present a comprehensive concept proposal and transparent quote.',
+      q: 'Do you plan weddings outside Bangalore?',
+      a: 'Yes, while Bengaluru is our home base, we regularly curate celebrations across Karnataka (Mysuru, Hampi, Coorg) and destination resorts in Goa, Kerala, and Rajasthan.',
     },
   ];
 
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
   return (
-    <div className="w-full">
-      
-      {/* ── 1. HERO BANNER ── */}
-      {/* pt-[68px] on mobile (navbar height), pt-[84px] on desktop */}
-      <section className="relative w-full flex items-center justify-center overflow-hidden bg-black"
-        style={{ minHeight: 'min(65svh, 640px)', paddingTop: '68px' }}
-      >
-        <style>{`@media (min-width: 1180px) { .hero-wp { padding-top: 84px !important; } }`}</style>
-        <div className="hero-wp absolute inset-0" style={{ paddingTop: 0 }} />
-        <img
-          src="/sangeeth04.PNG"
-          alt="Luxury Wedding Planners in Bangalore — Bespoke Mandap and Stage Design"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-          fetchpriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#F5F0E8]" />
+    <div className="w-full bg-[#FFF9F0] text-[#3D0A14]">
+      {/* ── 1. CINEMATIC HERO ── */}
+      <PageHero
+        image="/media/heroes/weddings-hero.webp"
+        title="ROYAL SOUTH INDIAN"
+        script="Weddings"
+        subtitle="TEMPLE-INSPIRED MANDAPS, SACRED RITUALS, TIMELESS ELEGANCE"
+        ctaText="PLAN YOUR WEDDING"
+        ctaLink="/contact"
+        alt="Royal South Indian Temple Mandap by Posh Events"
+        navigate={navigate}
+      />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-5 py-16 text-center text-white">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-5">
-            <Sparkles size={12} className="text-[#D8BA84] shrink-0" />
-            <span className="font-sans text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-bold text-white">
-              BENGALURU'S PREMIER WEDDING STUDIO
-            </span>
-          </div>
+      {/* ── 2. STORY-LED PILLARS ── */}
+      <section className="py-20 lg:py-28 bg-white text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+          <SectionHeader
+            chapter="Our Wedding Craft"
+            title="Every ritual orchestrated with"
+            highlightWord="perfection."
+            subtitle="Explore how our specialized departments bring harmony, architectural majesty, and sanctity to your celebration."
+            dark={false}
+            className="mb-16 md:mb-20"
+          />
 
-          <h1 className="font-serif font-bold text-[clamp(1.75rem,6vw,3.75rem)] uppercase tracking-[0.04em] text-white leading-[1.1] mb-4 drop-shadow-md">
-            Wedding Planners <br />
-            <span className="text-[#D8BA84]">in Bangalore</span>
-          </h1>
+          <div className="space-y-16 lg:space-y-20">
+            {servicesBreakdown.map((item, idx) => {
+              const isEven = idx % 2 === 1;
 
-          <p className="font-sans text-[11px] sm:text-sm uppercase tracking-[0.18em] font-medium text-white/85 max-w-lg mx-auto">
-            Where Royal South Indian Heritage Meets Contemporary Master Production
-          </p>
-        </div>
-      </section>
-
-
-      {/* ── 2. SERVICE BREAKDOWN (ZIG-ZAG SECTIONS) ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">WHAT WE DO</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              BESPOKE WEDDING SERVICES
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
-
-          {servicesBreakdown.map((item, idx) => {
-            const isEven = idx % 2 === 1;
-            return (
-              <div
-                key={item.title}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
-              >
-                {/* Image */}
+              return (
                 <div
-                  className={`relative rounded-[24px] overflow-hidden shadow-luxury border border-[#B08D57]/20 aspect-[4/3] group ${
-                    isEven ? 'order-1 lg:order-2' : ''
+                  key={idx}
+                  className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center ${
+                    isEven ? 'lg:flex-row-reverse' : ''
                   }`}
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className={`lg:col-span-6 ${isEven ? 'lg:order-2' : ''}`}
+                  >
+                    <div className="relative aspect-[16/10] rounded-3xl overflow-hidden border border-[#EEDDC8] shadow-[0_8px_30px_rgba(201,162,75,0.12)] bg-[#FFF9F0]">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        onError={(e) => {
+                          e.target.src = '/media/story/philosophy-tradition.jpg';
+                        }}
+                      />
+                    </div>
+                  </motion.div>
 
-                {/* Text */}
-                <div className={`space-y-5 ${isEven ? 'order-2 lg:order-1' : ''}`}>
-                  <span className="eyebrow-label">{item.eyebrow}</span>
-                  <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-                    {item.title}
-                  </h3>
-                  <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
-                    {item.desc}
-                  </p>
-                  <div className="pt-2">
-                    <a
-                      href="/contact"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate('/contact');
-                      }}
-                      className="btn-gold-pill text-xs shadow-md"
-                    >
-                      Enquire for This Service
-                    </a>
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className={`lg:col-span-6 flex flex-col justify-center text-left space-y-4 ${
+                      isEven ? 'lg:order-1' : ''
+                    }`}
+                  >
+                    <span className="text-[11px] uppercase tracking-[0.22em] font-semibold text-gold-dark">
+                      {item.eyebrow}
+                    </span>
+                    <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-[#3D0A14] font-normal leading-snug">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-[#5A2A27] font-light leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </motion.div>
                 </div>
-              </div>
-            );
-          })}
-
+              );
+            })}
+          </div>
         </div>
       </section>
 
-
       {/* ── 3. WHAT'S INCLUDED CHECKLIST ── */}
-      <section className="py-20 lg:py-24 bg-[#FAF8F3] border-t border-[#B08D57]/15">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">COMPLETE PEACE OF MIND</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              WHAT OUR WEDDING PLANNING INCLUDES
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
+      <section className="py-20 lg:py-28 bg-[#FFF9F0] text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12">
+          <SectionHeader
+            chapter="Flawless Execution"
+            title="What's included in every"
+            highlightWord="Posh wedding."
+            subtitle="Complete end-to-end production coverage so your family enjoys every moment."
+            dark={false}
+            className="mb-14"
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-white p-8 sm:p-12 rounded-[24px] border border-[#B08D57]/25 shadow-luxury">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {whatsIncluded.map((item, idx) => (
-              <div key={idx} className="flex items-start space-x-3.5">
-                <CheckCircle2 size={20} className="text-[#B08D57] shrink-0 mt-0.5" />
-                <span className="font-sans text-sm sm:text-base text-[#2B2B2B] font-medium leading-relaxed">
+              <div
+                key={idx}
+                className="p-5 rounded-2xl bg-white border border-[#EEDDC8] flex items-start gap-4 text-left shadow-sm"
+              >
+                <div className="w-6 h-6 rounded-full bg-gold/15 text-gold flex items-center justify-center shrink-0 mt-0.5">
+                  <CheckCircle2 className="w-4 h-4 text-gold-dark" />
+                </div>
+                <span className="text-sm text-[#3D0A14] font-light leading-relaxed">
                   {item}
                 </span>
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
-
-      {/* ── 4. CURATED GALLERY STRIP ── */}
-      <section className="py-10 bg-[#2B2B2B] overflow-hidden">
-        {/* Double the images so the seamless loop works */}
-        <div className="flex gap-4 animate-marquee-left" style={{ width: 'max-content' }}>
-          {['/IMG_7458.PNG', '/sangeet01.PNG', '/IMG_7453.PNG', '/sangeet02.PNG', '/IMG_7450.PNG', '/sangeeth04.PNG',
-            '/IMG_7458.PNG', '/sangeet01.PNG', '/IMG_7453.PNG', '/sangeet02.PNG', '/IMG_7450.PNG', '/sangeeth04.PNG'].map(
-            (src, idx) => (
-              <div
-                key={idx}
-                className="w-64 sm:w-80 h-48 sm:h-52 shrink-0 rounded-2xl overflow-hidden border border-white/20 shadow-md"
-              >
-                <img
-                  src={src}
-                  alt="Posh Events Wedding Gallery"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            )
-          )}
-        </div>
-      </section>
-
-
-      {/* ── 5. FAQS ACCORDION ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8] border-t border-[#B08D57]/15">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">COMMON QUESTIONS</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              FREQUENTLY ASKED QUESTIONS
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
+      {/* ── 4. FAQS ACCORDION ── */}
+      <section className="py-20 lg:py-28 bg-white text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-4xl mx-auto px-6 sm:px-10">
+          <SectionHeader
+            chapter="Common Inquiries"
+            title="Everything you need to"
+            highlightWord="know."
+            dark={false}
+            className="mb-12"
+          />
 
           <div className="space-y-4">
             {faqs.map((faq, idx) => {
@@ -243,26 +194,27 @@ export default function WeddingPlanners({ navigate }) {
               return (
                 <div
                   key={idx}
-                  className="bg-white rounded-2xl border border-[#B08D57]/20 overflow-hidden shadow-sm transition-all"
+                  className="rounded-2xl border border-[#EEDDC8] bg-[#FFF9F0] overflow-hidden transition-colors"
                 >
                   <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full p-6 text-left flex items-center justify-between font-serif font-bold text-lg text-[#2B2B2B] hover:text-[#B08D57] transition-colors"
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
                   >
-                    <span>{faq.q}</span>
-                    <span className="ml-4 shrink-0 text-[#B08D57]">
-                      {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                    <span className="font-display text-xl text-[#3D0A14] font-medium">
+                      {faq.q}
                     </span>
+                    <div className="w-8 h-8 rounded-full border border-gold/40 flex items-center justify-center text-gold shrink-0 bg-white">
+                      {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </div>
                   </button>
 
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="px-6 pb-6 text-sm text-[#4A4A4A] font-sans leading-relaxed border-t border-[#B08D57]/10 pt-4"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="px-6 pb-6 text-sm text-[#5A2A27] font-light leading-relaxed border-t border-[#EEDDC8] pt-4"
                       >
                         {faq.a}
                       </motion.div>
@@ -272,36 +224,27 @@ export default function WeddingPlanners({ navigate }) {
               );
             })}
           </div>
-
         </div>
       </section>
 
-
-      {/* ── 6. CTA BANNER ── */}
-      <section className="py-20 bg-[#FAF8F3] border-t border-[#B08D57]/20 text-center">
-        <div className="max-w-3xl mx-auto px-4 space-y-5">
-          <span className="eyebrow-label block">PLAN WITH POSH EVENTS</span>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-            READY TO PLAN YOUR WEDDING?
-          </h2>
-          <p className="font-sans text-sm text-[#4A4A4A] leading-relaxed">
-            Connect directly with Sudeep and our senior styling team to review your dates and explore personalized mandap concepts.
-          </p>
-          <div className="pt-2">
-            <a
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/contact');
-              }}
-              className="btn-gold-pill text-sm py-3.5 px-8 shadow-xl"
-            >
-              Book Free Consultation
-            </a>
+      {/* ── 5. CELEBRATORY CTA BAND ── */}
+      <section className="py-16 bg-[#FFF9F0] text-center border-t border-[#EEDDC8]">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left">
+            <h3 className="font-display text-2xl sm:text-3xl text-[#3D0A14]">
+              Ready to plan your <span className="gold-glow-word">Royal Mandap?</span>
+            </h3>
+            <p className="text-xs text-[#5A2A27] mt-1 font-light">Reserve your auspicious wedding muhurtham date today.</p>
           </div>
+          <button
+            onClick={() => navigate('/contact')}
+            className="btn-gold-pill shrink-0 !text-xs"
+          >
+            <span>Plan Your Celebration</span>
+            <ArrowUpRight className="w-4 h-4 ml-1" />
+          </button>
         </div>
       </section>
-
     </div>
   );
 }

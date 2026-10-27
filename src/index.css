@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --cream: #F5F0E8;
-  --cream-light: #FAF8F3;
-  --cream-dark: #EAE3D6;
-  --ivory: #FAF8F3;
-  --gold-primary: #B08D57;
-  --gold-light: #D8BA84;
-  --gold-accent: #C4A574;
-  --gold-dark: #8A6B2E;
-  --crimson: #8B0014;
-  --crimson-dark: #700010;
-  --crimson-light: #9B1B22;
-  --charcoal: #2B2B2B;
-  --charcoal-soft: #4A4A4A;
-  --navy: #14203A;
-  --white: #FFFFFF;
+  --ivory-base: #FFF9F0;
+  --ivory-card: #FFFFFF;
+  --ivory-warm: #FAF3EA;
+  --blush-base: #FBE9E4;
+  --blush-soft: #FDF3F0;
+  --maroon-deep: #3D0A14;
+  --maroon-royal: #5A0F1E;
+  --maroon-text: #4A101D;
+  --gold-primary: #C9A24B;
+  --gold-light: #EAD18C;
+  --gold-dark: #9E7828;
+  --marigold: #F2A900;
+  --rose: #E8A0A8;
+  --jasmine: #FFFDF7;
 }
 
+/* Base resets & typography */
 html,
 body {
   width: 100%;
@@ -27,191 +27,203 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-color: var(--cream);
-  color: var(--charcoal);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--ivory-base);
+  color: var(--maroon-deep);
+  font-family: 'Jost', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: default;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', Georgia, serif;
-  color: var(--charcoal);
-  letter-spacing: 0.02em;
+/* Normal system pointer for interactive elements */
+a, button, [role="button"], input, select, textarea {
+  cursor: pointer;
 }
 
-.font-serif {
-  font-family: 'Playfair Display', Georgia, serif;
+/* Display Serifs */
+.font-display {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
 }
 
-.font-sans {
-  font-family: 'Inter', sans-serif;
-}
-
-.font-script {
-  font-family: 'Great Vibes', cursive;
-}
-
-/* Eyebrow Label standard */
-.eyebrow-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+/* Glowing Gold Keyword */
+.gold-glow-word {
+  background: linear-gradient(135deg, #B8860B 0%, #C9A24B 50%, #E5A823 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-style: italic;
   font-weight: 600;
-  color: var(--gold-dark);
-}
-
-/* Gold Pill CTA */
-.btn-gold-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #B08D57 0%, #C4A574 100%);
-  color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 0.75rem 1.75rem;
-  box-shadow: 0 4px 15px rgba(176, 141, 87, 0.3);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-gold-pill:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(176, 141, 87, 0.45);
-  background: linear-gradient(135deg, #9C7A45 0%, #B08D57 100%);
-}
-
-.btn-outline-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  border: 1px solid var(--gold-primary);
-  background: transparent;
-  color: var(--gold-dark);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 0.75rem 1.75rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-outline-gold:hover {
-  background: var(--gold-primary);
-  color: #FFFFFF;
-  transform: translateY(-2px);
-}
-
-.btn-outline-white {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  background: transparent;
-  color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 0.85rem 2rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-outline-white:hover {
-  background: #FFFFFF;
-  color: var(--charcoal);
-  border-color: #FFFFFF;
-  transform: translateY(-2px);
-}
-
-/* Custom Selection */
-::selection {
-  background: var(--gold-bright);
-  color: var(--navy-ink);
-}
-
-/* Custom Scrollbar for Chrome/Edge/Blink while preserving native Safari macOS overlay scrollbars */
-@supports selector(::-webkit-scrollbar) {
-  @media screen and (min-width: 768px) {
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--gold-mid);
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-bright);
-    }
-  }
-}
-
-/* Shimmer gradient border keyframes */
-@keyframes shimmerBorder {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  filter: drop-shadow(0 1px 2px rgba(201, 162, 75, 0.3));
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-bright) 100%);
+  background: linear-gradient(135deg, #5A0F1E 0%, #C9A24B 50%, #9E7828 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gold-gradient-bg {
-  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-bright) 100%);
+.gold-border-hairline {
+  border: 1px solid rgba(201, 162, 75, 0.35);
 }
 
-.gold-gradient-border {
-  background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-mid) 50%, var(--gold-bright) 100%);
-  background-size: 200% 200%;
-  animation: shimmerBorder 8s linear infinite;
+.gold-border-glow {
+  border: 1px solid rgba(201, 162, 75, 0.5);
+  box-shadow: 0 4px 20px -2px rgba(201, 162, 75, 0.2);
 }
 
-/* Lenis CSS integration */
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overflow: clip;
-}
-
-.lenis.lenis-stopped {
+/* Luxury Buttons System */
+/* 1. Primary Gold Pill with Light Sweep Shine */
+.btn-gold-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #C9A24B 0%, #E2BE6C 50%, #A57C26 100%);
+  color: #FFFFFF;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   overflow: hidden;
+  box-shadow: 0 8px 24px rgba(201, 162, 75, 0.32);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  z-index: 1;
 }
 
-.lenis.lenis-scrolling iframe {
+.btn-gold-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+  z-index: 2;
   pointer-events: none;
 }
 
-/* Infinite Marquee animations */
-@keyframes marquee-left {
+.btn-gold-pill:hover::before {
+  left: 140%;
+}
+
+.btn-gold-pill:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(201, 162, 75, 0.45);
+}
+
+.btn-gold-pill:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* 2. Ghost Outline Pill */
+.btn-ghost-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(201, 162, 75, 0.65);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  color: #4A101D;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-ghost-pill:hover {
+  background: #FFF9F0;
+  border-color: #C9A24B;
+  color: #3D0A14;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 162, 75, 0.2);
+}
+
+.btn-ghost-pill:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Chapter Badge */
+.chapter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #B8860B;
+}
+
+/* Custom Scrollbar for desktop */
+@media screen and (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FFF9F0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #EAD18C;
+    border-radius: 9999px;
+    border: 1.5px solid #FFF9F0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C9A24B;
+  }
+}
+
+/* Film Reel Keyframes */
+@keyframes filmDevelop {
+  0% {
+    opacity: 0;
+    filter: blur(14px) sepia(1);
+    transform: scale(1.35) translateY(18px);
+    text-shadow: -3px 0 rgba(201, 162, 75, 0.5);
+  }
+  60% {
+    opacity: 0.9;
+    filter: blur(4px) sepia(0.4);
+    transform: scale(1.08) translateY(4px);
+    text-shadow: 0 0 15px rgba(201, 162, 75, 0.8);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px) sepia(0);
+    transform: scale(1) translateY(0);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@keyframes filmSlideLeft {
   0% {
     transform: translateX(0%);
   }
@@ -220,7 +232,7 @@ html.lenis, html.lenis body {
   }
 }
 
-@keyframes marquee-right {
+@keyframes filmSlideRight {
   0% {
     transform: translateX(-50%);
   }
@@ -229,12 +241,30 @@ html.lenis, html.lenis body {
   }
 }
 
-.animate-marquee-left {
-  animation: marquee-left 25s linear infinite;
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.animate-marquee-right {
-  animation: marquee-right 25s linear infinite;
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 
-/* Default cursor restored for native performance */
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

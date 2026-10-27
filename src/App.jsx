@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register ScrollTrigger globally
-gsap.registerPlugin(ScrollTrigger);
-
-// Components
+// Global Visual & Luxury Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Preloader from './components/Preloader';
+import ScrollProgress from './components/ScrollProgress';
+import WhatsAppDock from './components/WhatsAppDock';
 
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
 import WeddingPlanners from './pages/WeddingPlanners';
+import DestinationWeddings from './pages/DestinationWeddings';
 import EventManagement from './pages/EventManagement';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
 
-  // Navigate helper for SPA
+  // SPA navigation helper
   const navigate = (path) => {
     if (window.location.pathname !== path) {
       window.history.pushState({}, '', path);
       setCurrentPath(path);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  // Sync route path on browser back/forward buttons
+  // Sync route on browser back/forward buttons
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname || '/');
@@ -43,20 +43,25 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Initialize Lenis Smooth Scroll
+  // Initialize Lenis Smooth Scrolling (Fast, smooth, no delay)
   useEffect(() => {
     const isMobile =
       /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
 
+    if (isMobile) {
+      // Use buttery native momentum scrolling on mobile to eliminate delay
+      return;
+    }
+
     const lenis = new Lenis({
-      duration: isMobile ? 0.8 : 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.85,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -8 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: !isMobile,
-      wheelMultiplier: 1,
+      smoothWheel: true,
+      wheelMultiplier: 1.05,
       smoothTouch: false,
-      touchMultiplier: 2,
+      touchMultiplier: 1.5,
       infinite: false,
     });
 
@@ -65,28 +70,20 @@ function App() {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
-
     rafId = requestAnimationFrame(raf);
-
-    // Sync GSAP ScrollTrigger with Lenis
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
 
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, [currentPath]);
+  }, []);
 
   // Route Resolver
   const renderCurrentPage = () => {
-    // Normalise trailing slash
-    const cleanPath = currentPath.length > 1 && currentPath.endsWith('/')
-      ? currentPath.slice(0, -1)
-      : currentPath;
+    const cleanPath =
+      currentPath.length > 1 && currentPath.endsWith('/')
+        ? currentPath.slice(0, -1)
+        : currentPath;
 
     switch (cleanPath) {
       case '/':
@@ -94,19 +91,19 @@ function App() {
       case '/about':
         return <About navigate={navigate} />;
       case '/portfolio':
-      case '/gallery': // Alias for legacy compatibility
+      case '/gallery':
         return <Portfolio navigate={navigate} />;
       case '/wedding-planners-in-bangalore':
         return <WeddingPlanners navigate={navigate} />;
+      case '/destination-weddings':
+      case '/destination-wedding-guide':
+        return <DestinationWeddings navigate={navigate} />;
       case '/event-management-bangalore':
         return <EventManagement navigate={navigate} />;
       case '/pricing':
         return <Pricing navigate={navigate} />;
-      case '/destination-wedding-guide':
-      case '/destination-weddings':
-        // Immediate SPA redirect for legacy destination wedding links
-        setTimeout(() => navigate('/wedding-planners-in-bangalore'), 0);
-        return <WeddingPlanners navigate={navigate} />;
+      case '/admin':
+        return <Admin navigate={navigate} />;
       case '/contact':
         return <Contact navigate={navigate} />;
       default:
@@ -115,24 +112,33 @@ function App() {
   };
 
   return (
-    <div className="bg-[#F5F0E8] min-h-screen text-[#2B2B2B] flex flex-col justify-between selection:bg-[#B08D57] selection:text-white">
-      {/* Global Sticky Luxury Header with Floating Action Buttons */}
+    <div className="relative min-h-screen bg-[#FFF9F0] text-[#3D0A14] flex flex-col justify-between selection:bg-[#F2A900]/25 selection:text-[#3D0A14]">
+      {/* Luxury Warm Preloader with Gold Monogram */}
+      <Preloader />
+
+      {/* Gold Scroll Progress Indicator */}
+      <ScrollProgress />
+
+      {/* Floating Glass Pill Navbar with Fullscreen Split Overlay */}
       <Navbar currentPath={currentPath} navigate={navigate} />
 
-      {/* Main Page Content with Page Fade Transition */}
-      <main className="flex-1 w-full overflow-hidden">
+      {/* Main Page Content */}
+      <main className="flex-1 w-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPath}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             {renderCurrentPage()}
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* Floating Action Dock (Mobile) & WhatsApp Concierge (Desktop) */}
+      <WhatsAppDock navigate={navigate} />
 
       {/* Global Luxury Footer */}
       <Footer navigate={navigate} />

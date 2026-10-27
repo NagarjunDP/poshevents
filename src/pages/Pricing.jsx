@@ -1,264 +1,138 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, CheckCircle2, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Crown, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { packagesData, packagesFootnote } from '../data/packages';
+import { media } from '../data/media';
+import SectionHeader from '../components/SectionHeader';
+import PageHero from '../components/PageHero';
 
 export default function Pricing({ navigate }) {
-  const [openFaq, setOpenFaq] = useState(null);
-
-  const packages = [
-    {
-      name: 'Essential Styling',
-      tagline: 'Ideal for Intimate Traditions & Single-Day Functions',
-      price: 'Curated Investment',
-      isPopular: false,
-      features: [
-        'Dedicated senior lead planner',
-        'Custom traditional mandap or backdrop styling',
-        'Complete floral procurement & on-site assembly',
-        'Bridal entry & groom arrival coordination',
-        'Stage ambient warm mood lighting',
-        'Ritual prop set (brass urlis, diyas, cushions)',
-        'Up to 300 guests coverage',
-        'Full post-event teardown',
-      ],
-      cta: 'Book Essential Package',
-    },
-    {
-      name: 'Royal Signature',
-      tagline: 'Our Most Coveted Full-Scale Wedding Production',
-      price: 'Bespoke Grandeur',
-      isPopular: true,
-      popularBadge: 'MOST POPULAR',
-      features: [
-        'Complete end-to-end wedding direction',
-        'Multi-day coverage (Haldi, Sangeet & Muhurtham)',
-        'Custom 3D spatial renders & venue layout',
-        'Concert-grade truss stage & intelligent lighting',
-        'Exotic & native botanical floral architecture',
-        'Dedicated bridal concierge & VIP hospitality',
-        'Vendor negotiation & contract management',
-        'Personal Security Officers (PSO) deployment',
-        'Full guest hospitality desk liaison',
-      ],
-      cta: 'Book Royal Signature',
-    },
-    {
-      name: 'Imperial Bespoke',
-      tagline: 'Ultra-Luxury Destination & Palace Celebrations',
-      price: 'Custom Masterwork',
-      isPopular: false,
-      features: [
-        'Founder Sudeep personally oversees execution',
-        'Pan-India destination logistics & hotel buyouts',
-        'Monumental mandap architectural installations',
-        'Celebrity artist & DJ stage production',
-        'Charter travel & luggage escort coordination',
-        'Custom themed photo-booths & interactive lounges',
-        'Drone & multi-camera AV live feed integration',
-        'Round-the-clock family concierge suite',
-        'Unlimited revisions on all design mockups',
-      ],
-      cta: 'Request Private Consultation',
-    },
-  ];
-
-  const faqs = [
-    {
-      q: 'How does Posh Events structure pricing and billing?',
-      a: 'We believe in 100% transparent pricing. Depending on whether you choose our decor styling package or full end-to-end wedding planning, we provide a detailed itemized estimate covering decor fabrication, florals, lighting, audio, and planning fees with no hidden markups.',
-    },
-    {
-      q: 'Are vendor fees included in the package or billed directly?',
-      a: 'Vendor fees (such as hotel catering, celebrity performers, or specific venue rentals) are billed transparently at actuals directly to the vendor or through our consolidated master invoice, whichever you prefer.',
-    },
-    {
-      q: 'Can packages be customized for multi-day South Indian weddings?',
-      a: 'Yes, almost 90% of our weddings are multi-day celebrations comprising Haldi, Mehendi, Sangeet, Muhurtham, and Reception. We tailor package deliverables to match your exact rituals.',
-    },
-    {
-      q: 'What is the payment schedule?',
-      a: 'A 25% retainer secures your wedding date on our calendar. A 50% milestone payment is scheduled upon 3D design approval, with the final 25% balance due prior to wedding week execution.',
-    },
-  ];
-
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
   return (
-    <div className="w-full pt-20">
-      
-      {/* ── 1. HERO BANNER ── */}
-      <section className="bg-[#FAF8F3] py-16 lg:py-24 border-b border-[#B08D57]/20 text-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#B08D57]/15 border border-[#B08D57]/30 mb-4">
-            <Sparkles size={13} className="text-[#8A6B2E]" />
-            <span className="font-sans text-[11px] tracking-[0.22em] uppercase font-bold text-[#8A6B2E]">
-              TRANSPARENT VALUE
-            </span>
-          </div>
+    <div className="w-full bg-[#FFF9F0] text-[#3D0A14]">
+      {/* ── 1. CINEMATIC HERO ── */}
+      <PageHero
+        image="/media/heroes/packages-hero.webp"
+        title="WEDDING PLANNING"
+        script="Packages"
+        subtitle="TRANSPARENT PACKAGES FOR EVERY SCALE OF CELEBRATION"
+        ctaText="GET A CUSTOM QUOTE"
+        ctaLink="/contact"
+        alt="Transparent Luxury Wedding Planning Packages in Bangalore"
+        navigate={navigate}
+      />
 
-          <h1 className="font-serif font-bold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-[0.05em] text-[#2B2B2B] mb-4">
-            Wedding Planner Cost & Packages
-          </h1>
+      {/* ── 2. THREE PACKAGE CARDS ── */}
+      <section className="py-20 lg:py-28 bg-white text-[#3D0A14] border-t border-[#EEDDC8]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+          <SectionHeader
+            chapter="Our Three Signature Tiers"
+            title="Curated packages designed for"
+            highlightWord="your celebration."
+            subtitle="Explore our transparent tiers below. Inclusions are customizable to your vision and venue requirements."
+            dark={false}
+            className="mb-16 md:mb-20"
+          />
 
-          <p className="font-sans text-sm sm:text-base text-[#4A4A4A] max-w-xl mx-auto leading-relaxed">
-            Every love story is unique. We offer curated investment tiers designed to deliver flawless beauty and peace of mind.
-          </p>
-
-          <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-6" />
-        </div>
-      </section>
-
-
-      {/* ── 2. 3-TIER PRICING CARDS ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            {packages.map((pkg) => {
-              const isPop = pkg.isPopular;
-              return (
-                <div
-                  key={pkg.name}
-                  className={`relative rounded-[24px] p-8 lg:p-10 flex flex-col justify-between transition-all duration-500 ${
-                    isPop
-                      ? 'bg-white border-2 border-[#B08D57] shadow-2xl lg:-translate-y-4'
-                      : 'bg-white/80 border border-[#B08D57]/20 shadow-luxury hover:bg-white'
-                  }`}
-                >
-                  {/* Most Popular Badge */}
-                  {isPop && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#B08D57] to-[#C4A574] text-white px-4 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-[0.2em] shadow-md">
-                      {pkg.popularBadge}
-                    </div>
-                  )}
-
-                  <div>
-                    <div className="border-b border-[#B08D57]/15 pb-6 mb-6">
-                      <span className="eyebrow-label block mb-2">{pkg.name}</span>
-                      <p className="font-sans text-xs text-[#4A4A4A] mb-4 min-h-[36px]">
-                        {pkg.tagline}
-                      </p>
-                      <div className="font-serif font-bold text-2xl sm:text-3xl text-[#2B2B2B]">
-                        {pkg.price}
-                      </div>
-                    </div>
-
-                    {/* Features List */}
-                    <ul className="space-y-3.5 mb-8">
-                      {pkg.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm font-sans text-[#2B2B2B]">
-                          <CheckCircle2 size={16} className="text-[#B08D57] shrink-0 mt-0.5" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+            {packagesData.map((pkg) => (
+              <motion.div
+                key={pkg.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`relative rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-400 bg-[#FFF9F0] ${
+                  pkg.isPopular
+                    ? 'border-2 border-gold shadow-[0_12px_45px_rgba(201,162,75,0.22)] -translate-y-2 lg:-translate-y-4 ring-4 ring-gold/10'
+                    : 'border border-[#EEDDC8] shadow-[0_6px_25px_rgba(201,162,75,0.08)] hover:border-gold'
+                }`}
+              >
+                {/* Most Loved Badge */}
+                {pkg.badge && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-white text-[11px] font-bold uppercase tracking-[0.2em] shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                    <Crown className="w-3.5 h-3.5" />
+                    <span>{pkg.badge}</span>
                   </div>
+                )}
 
-                  {/* CTA Button */}
-                  <div className="pt-4">
-                    <a
-                      href="/contact"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate('/contact');
-                      }}
-                      className={`w-full py-3.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider text-center block transition-all shadow-md ${
-                        isPop
-                          ? 'btn-gold-pill'
-                          : 'bg-[#FAF8F3] text-[#2B2B2B] border border-[#B08D57]/40 hover:bg-[#B08D57] hover:text-white'
-                      }`}
-                    >
-                      {pkg.cta}
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                <div>
+                  <span className="text-[11px] uppercase tracking-[0.22em] font-semibold text-gold-dark">
+                    {pkg.tagline}
+                  </span>
 
-        </div>
-      </section>
+                  <h3 className="font-display text-2xl sm:text-3xl text-[#3D0A14] font-normal mt-2 leading-snug">
+                    {pkg.title}
+                  </h3>
 
-
-      {/* ── 3. PRICING FAQS ── */}
-      <section className="py-20 lg:py-28 bg-[#FAF8F3] border-t border-[#B08D57]/15">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">CLARITY & ASSURANCE</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              PRICING & INVESTMENT FAQS
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
-
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl border border-[#B08D57]/20 overflow-hidden shadow-sm"
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full p-6 text-left flex items-center justify-between font-serif font-bold text-lg text-[#2B2B2B] hover:text-[#B08D57] transition-colors"
-                  >
-                    <span>{faq.q}</span>
-                    <span className="ml-4 shrink-0 text-[#B08D57]">
-                      {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                  {/* Price */}
+                  <div className="my-5 py-3 border-y border-[#EEDDC8] flex flex-col">
+                    <span className="font-display text-3xl sm:text-4xl font-semibold text-[#B8860B] tracking-wide">
+                      {pkg.price}
                     </span>
-                  </button>
+                    <span className="text-[10px] tracking-wider uppercase mt-1 font-sans text-[#8C5D53] font-medium">
+                      Starting Investment
+                    </span>
+                  </div>
 
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="px-6 pb-6 text-sm text-[#4A4A4A] font-sans leading-relaxed border-t border-[#B08D57]/10 pt-4"
-                      >
-                        {faq.a}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <p className="text-xs sm:text-sm text-[#5A2A27] font-light leading-relaxed">
+                    {pkg.description}
+                  </p>
+
+                  {/* Inclusions List */}
+                  <div className="space-y-3 mt-6 pt-6 border-t border-[#EEDDC8]">
+                    {pkg.inclusions.map((inc, idx) => (
+                      <div key={idx} className="flex items-start gap-3 text-xs leading-relaxed text-left">
+                        <CheckCircle2 className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+                        <span className="text-[#3D0A14] font-light">
+                          {inc}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              );
-            })}
+
+                {/* Card Bottom CTA */}
+                <div className="pt-8 mt-8 border-t border-[#EEDDC8]">
+                  <button
+                    onClick={() => navigate('/contact')}
+                    className={`w-full py-3.5 px-6 rounded-full text-xs font-semibold uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition-all ${
+                      pkg.isPopular
+                        ? 'btn-gold-pill'
+                        : 'border border-gold text-[#3D0A14] hover:bg-gold hover:text-white bg-white'
+                    }`}
+                  >
+                    <span>{pkg.ctaText}</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
-        </div>
-      </section>
-
-
-      {/* ── 4. CTA BANNER ── */}
-      <section className="py-20 bg-gradient-to-r from-[#FAF8F3] via-[#F5F0E8] to-[#EAE3D6] border-t border-[#B08D57]/20 text-center">
-        <div className="max-w-3xl mx-auto px-4 space-y-5">
-          <span className="eyebrow-label block">REQUEST AN ESTIMATE</span>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-            NEED A BESPOKE PROPOSAL?
-          </h2>
-          <p className="font-sans text-sm text-[#4A4A4A] leading-relaxed">
-            Share your dates, venue, and vision for an itemized estimate tailored to your celebration.
+          {/* Footnote */}
+          <p className="text-xs text-[#8C5D53] font-light text-center max-w-xl mx-auto mt-14 italic font-sans">
+            *{packagesFootnote}
           </p>
-          <div className="pt-2">
-            <a
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/contact');
-              }}
-              className="btn-gold-pill text-sm py-3.5 px-8 shadow-xl"
-            >
-              Get Custom Quote
-            </a>
-          </div>
         </div>
       </section>
 
+      {/* ── 3. CELEBRATORY CTA BAND ── */}
+      <section className="py-16 bg-[#FFF9F0] text-center border-t border-[#EEDDC8]">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left">
+            <h3 className="font-display text-2xl sm:text-3xl text-[#3D0A14]">
+              Need a tailored proposal for your <span className="gold-glow-word">venue?</span>
+            </h3>
+            <p className="text-xs text-[#5A2A27] mt-1 font-light">Book an intimate consultation with Sudee at our Sadashivanagar studio.</p>
+          </div>
+          <button
+            onClick={() => navigate('/contact')}
+            className="btn-gold-pill shrink-0 !text-xs"
+          >
+            <span>Request Custom Proposal</span>
+            <ArrowUpRight className="w-4 h-4 ml-1" />
+          </button>
+        </div>
+      </section>
     </div>
   );
 }

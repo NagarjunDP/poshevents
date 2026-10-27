@@ -1,28 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUp, Calendar, Phone } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { Menu, X, ArrowUpRight, Phone, Calendar, Sparkles } from 'lucide-react';
+import { FaWhatsapp, FaInstagram, FaFacebook } from 'react-icons/fa';
 
 export default function Navbar({ currentPath, navigate }) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState(0);
 
-  // Scroll listener for sticky header styling & back-to-top button
+  // Exact Final Menu Order:
+  // Home, About, Portfolio, Weddings, Destination Weddings, Event Management, Packages, Contact
+  const navLinks = [
+    {
+      label: 'Home',
+      path: '/',
+      preview: '/media/hero/hero-poster.jpg',
+      tagline: 'Where every love story becomes a celebration',
+    },
+    {
+      label: 'About',
+      path: '/about',
+      preview: '/media/about/founder.jpg',
+      tagline: 'Sudee’s vision, heritage & architectural tenets',
+    },
+    {
+      label: 'Portfolio',
+      path: '/portfolio',
+      preview: '/media/gallery/moments-1.jpg',
+      tagline: 'Real celebrations, films & archival moments',
+    },
+    {
+      label: 'Weddings',
+      path: '/wedding-planners-in-bangalore',
+      preview: '/media/weddings/wedding-card.jpg',
+      tagline: 'Bespoke mandaps & royal celebrations',
+    },
+    {
+      label: 'Destination Weddings',
+      path: '/destination-weddings',
+      preview: '/media/destinations/destination-hero.jpg',
+      tagline: 'Turnkey weddings in Goa, Rajasthan & serene destinations',
+    },
+    {
+      label: 'Event Management',
+      path: '/event-management-bangalore',
+      preview: '/media/corporate/corporate-card.jpg',
+      tagline: 'Corporate summits, galas & brand spectacles',
+    },
+    {
+      label: 'Packages',
+      path: '/pricing',
+      preview: '/media/story/philosophy-tradition.jpg',
+      tagline: 'Curated investment tiers starting from ₹3 Lakhs',
+    },
+    {
+      label: 'Contact',
+      path: '/contact',
+      preview: '/media/story/journey-dream.jpg',
+      tagline: 'Sadashivanagar studio consultation with Sudee',
+    },
+  ];
+
+  // Scroll direction detection (hide on down, reveal on up)
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
-      setShowBackToTop(scrollY > 400);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 40);
+
+      if (currentScrollY > lastScrollY && currentScrollY > 120 && !menuOpen) {
+        setIsVisible(false); // scrolling down
+      } else {
+        setIsVisible(true); // scrolling up
+      }
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY, menuOpen]);
 
-  // Lock body scroll when mobile drawer is open
+  // Lock body scroll when overlay menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (menuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -30,266 +91,272 @@ export default function Navbar({ currentPath, navigate }) {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
+  }, [menuOpen]);
 
-  // Close drawer on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mobileMenuOpen]);
-
-  // Nav links in Title Case (Inter, 15-16px, 500 weight)
-  const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
-    { label: 'Portfolio', path: '/portfolio' },
-    { label: 'Wedding Planners', path: '/wedding-planners-in-bangalore' },
-    { label: 'Event Management', path: '/event-management-bangalore' },
-    { label: 'Pricing', path: '/pricing' },
-    { label: 'Contact', path: '/contact' },
-  ];
-
-  const handleNavClick = (e, path) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
+  const handleLinkClick = (path) => {
+    setMenuOpen(false);
     navigate(path);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
-      {/* ── STICKY SINGLE-ROW LUXURY HEADER ── */}
-      <header
-        className={`sticky top-0 inset-x-0 z-50 w-full transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[#FAF8F3]/95 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] border-b border-[#B08D57]/20'
-            : 'bg-[#FAF8F3] border-b border-[#B08D57]/15'
-        }`}
+      {/* ── DESKTOP FLOATING FROSTED GLASS PILL NAVBAR ── */}
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{
+          y: isVisible ? 0 : -100,
+          opacity: isVisible ? 1 : 0,
+        }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-5 inset-x-0 z-40 hidden min-[1180px]:flex justify-center px-4 pointer-events-none"
       >
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 min-[1180px]:px-10 flex items-center justify-between h-[68px] min-[1180px]:h-[84px]">
-          
-          {/* LEFT: Circular Logo (48-52px desktop, 42px mobile) + Brand Name on ONE line */}
-          <a
-            href="/"
-            onClick={(e) => handleNavClick(e, '/')}
-            className="flex items-center space-x-3 shrink-0 whitespace-nowrap group select-none cursor-pointer"
+        <div
+          className={`pointer-events-auto flex items-center justify-between gap-4 xl:gap-6 px-4 py-2.5 rounded-full border transition-all duration-300 ${
+            isScrolled
+              ? 'bg-white/95 backdrop-blur-xl border-[#EEDDC8] shadow-[0_12px_40px_rgba(201,162,75,0.18)]'
+              : 'bg-white/85 backdrop-blur-md border-[#EEDDC8] shadow-[0_6px_25px_rgba(201,162,75,0.1)]'
+          }`}
+        >
+          {/* Brand Monogram Logo */}
+          <button
+            onClick={() => handleLinkClick('/')}
+            className="flex items-center gap-3.5 group pl-1.5 focus:outline-none shrink-0"
           >
-            <div className="w-[42px] h-[42px] min-[1180px]:w-[50px] min-[1180px]:h-[50px] rounded-full bg-white p-1 shadow-sm border border-[#B08D57]/30 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105">
+            <div className="relative w-12 h-12 xl:w-13 xl:h-13 rounded-full overflow-hidden border-[1.5px] border-gold/60 p-0.5 group-hover:border-gold shadow-sm transition-all duration-300">
               <img
                 src="/logo.png"
-                alt="Posh Events Logo"
+                alt="Posh Events by Sudee"
                 className="w-full h-full object-contain"
               />
             </div>
-            <span className="font-serif font-bold text-xl sm:text-2xl min-[1180px]:text-[26px] text-[#2B2B2B] tracking-wide whitespace-nowrap group-hover:text-[#B08D57] transition-colors">
-              Posh Events
-            </span>
-          </a>
+            <div className="flex flex-col text-left">
+              <span className="font-display text-base xl:text-lg tracking-[0.22em] uppercase text-[#3D0A14] font-bold group-hover:text-gold transition-colors whitespace-nowrap">
+                POSH EVENTS
+              </span>
+              <span className="text-[10px] xl:text-[11px] tracking-[0.28em] uppercase text-gold font-sans font-extrabold -mt-0.5">
+                BY SUDEE
+              </span>
+            </div>
+          </button>
 
-          {/* CENTRE: Nav links in Inter, Title Case, 15-16px, 500 weight (>= 1180px) */}
-          <nav className="hidden min-[1180px]:flex items-center gap-[clamp(14px,1.5vw,28px)] shrink-0 whitespace-nowrap">
+          {/* Centered Navigation Links with Gold Active Indicator */}
+          <div className="flex items-center gap-0.5 xl:gap-1.5 px-1">
             {navLinks.map((link) => {
-              const isActive =
-                currentPath === link.path ||
-                (link.path === '/portfolio' && currentPath === '/gallery');
+              const isActive = currentPath === link.path;
+
               return (
-                <a
-                  key={link.path}
-                  href={link.path}
-                  onClick={(e) => handleNavClick(e, link.path)}
-                  className={`relative font-sans text-[clamp(14px,1.02vw,15.5px)] font-medium whitespace-nowrap py-1 transition-colors duration-200 ${
-                    isActive
-                      ? 'text-[#B08D57] font-semibold'
-                      : 'text-[#2B2B2B] hover:text-[#B08D57]'
-                  }`}
+                <button
+                  key={link.label}
+                  onClick={() => handleLinkClick(link.path)}
+                  className="relative px-2.5 xl:px-3 py-1.5 text-[11px] xl:text-[12.5px] tracking-[0.06em] uppercase font-sans font-medium transition-colors focus:outline-none text-[#4A101D] hover:text-gold whitespace-nowrap"
                 >
-                  {link.label}
+                  <span className={isActive ? 'text-gold font-bold' : ''}>
+                    {link.label}
+                  </span>
                   {isActive && (
-                    <motion.span
-                      layoutId="navActiveUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B08D57] rounded-full"
+                    <motion.div
+                      layoutId="activePillUnderline"
+                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-gradient-to-r from-gold-dark via-gold to-gold-light rounded-full"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                </a>
+                </button>
               );
             })}
-          </nav>
+          </div>
 
-          {/* RIGHT: CTA Button (>= 1180px) & Hamburger (< 1180px) */}
-          <div className="flex items-center min-[1180px]:ml-6 shrink-0 whitespace-nowrap">
-            <a
-              href="/contact"
-              onClick={(e) => handleNavClick(e, '/contact')}
-              className="hidden min-[1180px]:inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#B08D57] to-[#C4A574] hover:from-[#9C7A45] hover:to-[#B08D57] text-white font-sans text-[15px] font-semibold px-6 py-3 whitespace-nowrap shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
-            >
-              Book Consultation
-            </a>
-
-            {/* Mobile / Tablet Hamburger Toggle (< 1180px) - 44x44px accessible tap target */}
+          {/* Right Action: Plan CTA & Hamburger Trigger */}
+          <div className="flex items-center gap-2 pr-1 shrink-0">
             <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-expanded={mobileMenuOpen}
-              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              className="min-[1180px]:hidden w-11 h-11 rounded-full bg-white border border-[#B08D57]/30 text-[#2B2B2B] flex items-center justify-center hover:bg-[#B08D57]/10 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#B08D57]/40"
+              onClick={() => handleLinkClick('/contact')}
+              className="btn-gold-pill !py-2 !px-3.5 !text-[11px] !tracking-wider flex items-center gap-1.5 shadow-sm whitespace-nowrap"
             >
-              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              <span>Plan Celebration</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Immersive Menu Trigger */}
+            <button
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open Fullscreen Menu"
+              className="w-9 h-9 rounded-full border border-gold/40 bg-[#FFF9F0] hover:bg-gold/20 flex items-center justify-center text-gold transition-colors focus:outline-none"
+            >
+              <Menu className="w-4 h-4" />
             </button>
           </div>
         </div>
-      </header>
+      </motion.nav>
 
-      {/* ── MOBILE SLIDE-IN NAVIGATION DRAWER (< 1280px) ── */}
+      {/* ── MOBILE / TABLET SLIM TOP BAR ── */}
+      <div
+        className={`fixed top-0 inset-x-0 z-40 min-[1180px]:hidden flex items-center justify-between px-4 py-3 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-white/95 backdrop-blur-xl border-b border-[#EEDDC8] shadow-md'
+            : 'bg-white/90 backdrop-blur-md border-b border-[#EEDDC8]/80'
+        }`}
+      >
+        <button
+          onClick={() => handleLinkClick('/')}
+          className="flex items-center gap-3 focus:outline-none"
+        >
+          <div className="w-11 h-11 rounded-full overflow-hidden border-[1.5px] border-gold/60 p-0.5 shadow-sm">
+            <img src="/logo.png" alt="Posh Events Logo" className="w-full h-full object-contain" />
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="font-display text-base tracking-[0.2em] uppercase text-[#3D0A14] font-bold leading-tight">
+              POSH EVENTS
+            </span>
+            <span className="text-[9.5px] tracking-[0.25em] uppercase text-gold font-sans font-extrabold mt-0.5">
+              BY SUDEE
+            </span>
+          </div>
+        </button>
+
+        {/* Menu Hamburger */}
+        <button
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open Mobile Menu"
+          className="w-10 h-10 rounded-full border border-gold/40 bg-[#FFF9F0] flex items-center justify-center text-gold focus:outline-none"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* ── FULL-SCREEN CELEBRATORY SPLIT OVERLAY MENU ── */}
       <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Dimmed Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 min-[1180px]:hidden"
-              aria-hidden="true"
-            />
-
-            {/* Slide-in Drawer */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[#FAF8F3] z-50 shadow-2xl flex flex-col justify-between p-6 overflow-y-auto min-[1180px]:hidden"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Navigation Menu"
-            >
-              {/* Drawer Header */}
-              <div>
-                <div className="flex items-center justify-between pb-5 border-b border-[#B08D57]/20">
-                  <div className="flex items-center space-x-3">
-                    <img
-                      src="/logo.png"
-                      alt="Posh Events"
-                      className="w-10 h-10 object-contain rounded-full bg-white p-1 border border-[#B08D57]/30"
-                    />
-                    <span className="font-serif font-bold text-lg text-[#2B2B2B] tracking-wide whitespace-nowrap">
-                      Posh Events
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    aria-label="Close menu"
-                    className="w-10 h-10 rounded-full bg-white border border-[#B08D57]/30 flex items-center justify-center text-[#2B2B2B] hover:bg-[#B08D57]/10 transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, clipPath: 'circle(0% at top right)' }}
+            animate={{ opacity: 1, clipPath: 'circle(150% at top right)' }}
+            exit={{ opacity: 0, clipPath: 'circle(0% at top right)' }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-50 bg-[#FFF9F0] text-[#3D0A14] flex flex-col justify-between overflow-y-auto"
+          >
+            {/* Top Bar inside overlay */}
+            <div className="flex items-center justify-between px-6 sm:px-12 py-6 border-b border-[#EEDDC8] bg-white/70 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <img src="/logo.png" alt="Posh Events" className="w-10 h-10 object-contain" />
+                <div className="flex flex-col">
+                  <span className="font-display tracking-[0.2em] text-sm uppercase text-[#3D0A14] font-semibold">
+                    POSH EVENTS BY SUDEE
+                  </span>
+                  <span className="text-[9px] tracking-[0.3em] uppercase text-gold font-bold">
+                    BENGALURU • SOUTH INDIA
+                  </span>
                 </div>
+              </div>
 
-                {/* Drawer Links: 18-20px font, 52px+ row height, thin dividers */}
-                <nav className="flex flex-col mt-4 divide-y divide-[#B08D57]/15">
-                  {navLinks.map((link) => {
-                    const isActive =
-                      currentPath === link.path ||
-                      (link.path === '/portfolio' && currentPath === '/gallery');
-                    return (
-                      <a
-                        key={link.path}
-                        href={link.path}
-                        onClick={(e) => handleNavClick(e, link.path)}
-                        className={`min-h-[52px] flex items-center px-3 py-3.5 font-serif text-[19px] tracking-wide whitespace-nowrap transition-colors ${
-                          isActive
-                            ? 'text-[#B08D57] font-bold'
-                            : 'text-[#2B2B2B] hover:text-[#B08D57]'
-                        }`}
-                      >
+              {/* Close Button */}
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="w-11 h-11 rounded-full border border-gold/50 bg-white hover:bg-gold/15 flex items-center justify-center text-gold transition-colors focus:outline-none shadow-sm"
+                aria-label="Close Menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Split Body */}
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 px-6 sm:px-12 py-8 items-center max-w-7xl mx-auto w-full">
+              {/* Left Column: Giant Serif Menu Links */}
+              <div className="lg:col-span-7 flex flex-col space-y-2 sm:space-y-2.5 text-left">
+                <span className="text-[10px] tracking-[0.3em] uppercase text-gold font-sans font-bold mb-1">
+                  CELEBRATION CHAPTERS
+                </span>
+                {navLinks.map((link, idx) => (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, x: -25 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + idx * 0.03, duration: 0.4 }}
+                    onMouseEnter={() => setHoveredLink(idx)}
+                    className="group"
+                  >
+                    <button
+                      onClick={() => handleLinkClick(link.path)}
+                      className="flex items-baseline gap-4 text-left w-full focus:outline-none py-1"
+                    >
+                      <span className="text-xs font-mono text-gold group-hover:text-gold-dark transition-colors font-semibold">
+                        0{idx + 1}
+                      </span>
+                      <span className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-[#3D0A14] group-hover:text-gold group-hover:italic transition-all duration-300">
                         {link.label}
-                      </a>
-                    );
-                  })}
-                </nav>
+                      </span>
+                      <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-gold" />
+                    </button>
+                  </motion.div>
+                ))}
               </div>
 
-              {/* Drawer Footer CTA & Direct Contact */}
-              <div className="pt-6 border-t border-[#B08D57]/20 space-y-4">
-                <a
-                  href="/contact"
-                  onClick={(e) => handleNavClick(e, '/contact')}
-                  className="w-full btn-gold-pill py-3.5 text-center text-sm font-semibold shadow-lg flex items-center justify-center space-x-2 whitespace-nowrap"
-                >
-                  <Calendar size={16} />
-                  <span>Book Consultation</span>
-                </a>
-
-                <div className="flex items-center justify-center space-x-6 pt-1 text-xs font-sans text-[#2B2B2B]">
-                  <a
-                    href="tel:+917899243348"
-                    className="flex items-center space-x-1.5 font-semibold text-[#8A6B2E] hover:underline"
-                  >
-                    <Phone size={13} />
-                    <span>+91 78992 43348</span>
-                  </a>
-                  <a
-                    href="https://wa.me/917899243348"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-1.5 font-semibold text-[#25D366] hover:underline"
-                  >
-                    <FaWhatsapp size={15} />
-                    <span>WhatsApp</span>
-                  </a>
+              {/* Right Column (Desktop): Dynamic Rotating Photo / Video Preview */}
+              <div className="hidden lg:flex lg:col-span-5 flex-col items-center">
+                <div className="relative w-full aspect-[4/5] max-w-md rounded-3xl overflow-hidden border border-[#EEDDC8] shadow-[0_12px_45px_rgba(201,162,75,0.15)] bg-white group">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={hoveredLink}
+                      src={navLinks[hoveredLink]?.preview}
+                      alt={navLinks[hoveredLink]?.label}
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.35 }}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src = '/media/hero/hero-poster.jpg';
+                      }}
+                    />
+                  </AnimatePresence>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 inset-x-0 p-6 text-left text-white">
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-gold-light font-semibold block">
+                      Featured Preview
+                    </span>
+                    <h3 className="font-display text-2xl mt-1">
+                      {navLinks[hoveredLink]?.label}
+                    </h3>
+                    <p className="text-xs text-white/80 font-light mt-1">
+                      {navLinks[hoveredLink]?.tagline}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          </>
+            </div>
+
+            {/* Bottom Contact & Social Strip */}
+            <div className="px-6 sm:px-12 py-6 border-t border-[#EEDDC8] bg-white/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#5A2A27]">
+              <div className="flex flex-wrap items-center gap-6">
+                <span>Chikkabanavara, Bengaluru</span>
+                <a href="tel:+917899243348" className="hover:text-gold transition-colors font-medium">
+                  +91 78992 43348
+                </a>
+                <a href="mailto:poshevntz2001@gmail.com" className="hover:text-gold transition-colors">
+                  poshevntz2001@gmail.com
+                </a>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://wa.me/917899243348?text=Hello%20Posh%20Events%20by%20Sudee,%20I%20would%20like%20to%20plan%20a%20luxury%20celebration."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gold font-semibold hover:text-gold-dark transition-colors"
+                >
+                  <FaWhatsapp className="w-4 h-4 text-green-600" />
+                  <span>WhatsApp Concierge</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/posheventsbysudee/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full border border-gold/40 flex items-center justify-center hover:text-gold transition-colors bg-white"
+                >
+                  <FaInstagram className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
-
-      {/* ── FLOATING WHATSAPP CHAT BUTTON (FIXED BOTTOM-RIGHT) ── */}
-      <aside aria-label="Quick contact and navigation">
-        <a
-          href="https://wa.me/917899243348?text=Hello%20Posh%20Events%2C%20I%20would%20like%20to%20plan%20a%20luxury%20wedding%20or%20event."
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat with Posh Events on WhatsApp"
-          className="fixed bottom-6 right-6 z-40 group flex items-center"
-        >
-          {/* Slide-out tooltip on hover */}
-          <span className="mr-3 hidden md:inline-block px-3 py-1.5 rounded-full bg-white/95 text-[#2B2B2B] text-[11px] font-sans font-semibold tracking-wider uppercase border border-[#B08D57]/40 shadow-xl opacity-0 scale-90 translate-x-3 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap">
-            Chat on WhatsApp
-          </span>
-
-          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-transform duration-300">
-            <FaWhatsapp className="w-7 h-7" />
-          </div>
-        </a>
-
-        {/* ── CIRCULAR BACK TO TOP BUTTON ── */}
-        <AnimatePresence>
-          {showBackToTop && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              onClick={scrollToTop}
-              aria-label="Back to top"
-              className="fixed bottom-24 right-7 z-40 w-11 h-11 rounded-full bg-white text-[#2B2B2B] border border-[#B08D57]/30 shadow-lg flex items-center justify-center hover:bg-[#B08D57] hover:text-white hover:border-[#B08D57] transition-all duration-300"
-            >
-              <ArrowUp size={18} />
-            </motion.button>
-          )}
-        </AnimatePresence>
-      </aside>
     </>
   );
 }

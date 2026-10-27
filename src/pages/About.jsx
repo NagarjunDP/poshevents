@@ -1,243 +1,151 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Heart, Award, Users, CheckCircle2 } from 'lucide-react';
+import { Heart, Award, Users, CheckCircle2, ArrowUpRight, Compass, Feather } from 'lucide-react';
+import { media } from '../data/media';
+import PageHero from '../components/PageHero';
 
 export default function About({ navigate }) {
-  const values = [
+  const principles = [
     {
-      title: 'Sacred Heritage',
-      description: 'Honoring centuries of South Indian cultural traditions, Vedic rituals, auspicious timing, and authentic regional ceremonies with deep reverence.',
-      icon: Award,
+      number: '01',
+      title: 'Sacred Reverence First',
+      desc: 'Rituals are not decor backdrops; they are the living heartbeat of the wedding. Every mandap is designed to sanctify and elevate the Vedic muhurtham.',
     },
     {
-      title: 'Architectural Grandeur',
-      description: 'Designing bespoke spatial layouts, custom mandap columns, kinetic concert lighting, and cascading florals that feel magnificent from every vantage point.',
-      icon: Sparkles,
+      number: '02',
+      title: 'Architectural Singularity',
+      desc: 'We never duplicate designs. Every celebration is born from a blank canvas, inspired by the couple’s lineage, aesthetics, and architectural taste.',
     },
     {
-      title: 'Flawless Peace of Mind',
-      description: 'Giving couples and their families complete tranquility on the wedding day through single-point concierge leadership, minute-by-minute execution, and hospitality.',
-      icon: Heart,
+      number: '03',
+      title: 'Complete Host Serenity',
+      desc: 'The greatest luxury on your wedding day is tranquility. We absorb every logistical friction so families can immerse themselves in pure joy.',
     },
   ];
 
   return (
-    <div className="w-full pt-20">
-      
-      {/* ── 1. HERO BANNER ── */}
-      <section className="relative w-full h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden bg-black">
-        <img
-          src="/hali2.PNG"
-          alt="Posh Events Luxury Wedding Philosophy"
-          className="w-full h-full object-cover opacity-60 scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#F5F0E8]" />
+    <div className="w-full bg-[#FFF9F0] text-[#3D0A14]">
+      {/* ── 1. CINEMATIC HERO ── */}
+      <PageHero
+        image="/media/heroes/about-hero.webp"
+        title="OUR STORY"
+        script="Posh Events by Sudee"
+        subtitle="BORN IN BENGALURU, BUILT ON TRADITION AND TRUST"
+        ctaText="MEET THE TEAM"
+        ctaLink="#team"
+        alt="Posh Events by Sudee luxury wedding decor and heritage brass lamps"
+        navigate={navigate}
+      />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center text-white">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-4">
-            <Sparkles size={13} className="text-[#D8BA84]" />
-            <span className="font-sans text-[11px] tracking-[0.25em] uppercase font-bold text-white">
-              OUR STORY & PHILOSOPHY
-            </span>
-          </div>
-
-          <h1 className="font-serif font-bold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-[0.05em] text-white leading-tight mb-4 drop-shadow-md">
-            TIMELESS CELEBRATIONS, <br />
-            <span className="text-[#D8BA84]">BEAUTIFULLY DESIGNED</span>
-          </h1>
-
-          <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.2em] font-medium text-white/90 max-w-xl mx-auto">
-            WHERE REVERED TRADITION MEETS CONTEMPORARY OPULENCE IN BANGALORE
-          </p>
-        </div>
-      </section>
-
-
-      {/* ── 2. BRAND STORY (ZIG-ZAG 1) ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            
-            {/* Image Column */}
-            <div className="relative rounded-[24px] overflow-hidden shadow-luxury border border-[#B08D57]/20 aspect-[4/3] group">
-              <img
-                src="/hali6.PNG"
-                alt="Posh Events Mandap Creation"
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#B08D57]/30 text-[10px] font-sans font-bold tracking-widest uppercase text-[#8A6B2E]">
-                CRAFTED IN BENGALURU
-              </div>
-            </div>
-
-            {/* Story Text */}
-            <div className="space-y-6">
-              <span className="eyebrow-label">HOW IT BEGAN</span>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B] leading-tight">
-                CRAFTING MEMORIES THAT <br />
-                <span className="text-[#B08D57]">ENDURE FOR GENERATIONS</span>
-              </h2>
-              <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
-                Founded with a singular dedication to elevating Indian weddings, Posh Events has grown into one of Bangalore’s most trusted and coveted event management and wedding styling studios.
-              </p>
-              <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
-                Our approach rejects cookie-cutter banquet arrangements. Instead, we study the architectural proportions of each venue, source exotic and native blooms directly from the finest growers, and design bespoke structures that frame the sacred rituals of your big day.
-              </p>
-              <div className="pt-2">
-                <a
-                  href="/portfolio"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate('/portfolio');
-                  }}
-                  className="btn-outline-gold text-xs"
-                >
-                  View Our Portfolio
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-
-      {/* ── 3. FOUNDER & TEAM SECTION (ZIG-ZAG 2) ── */}
-      <section className="py-20 lg:py-28 bg-[#FAF8F3] border-t border-[#B08D57]/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            
-            {/* Founder Text */}
-            <div className="space-y-6 order-2 lg:order-1">
-              <span className="eyebrow-label">THE CREATIVE VISIONARY</span>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B] leading-tight">
-                SUDEEP & <br />
-                <span className="text-[#B08D57]">THE POSH EVENTS ENSEMBLE</span>
-              </h2>
-              <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
-                Led by Sudeep, our creative director and founder, the Posh Events team comprises veteran spatial designers, lighting engineers, master floral artisans, and day-of hospitality directors.
-              </p>
-              <p className="font-sans text-sm sm:text-base text-[#4A4A4A] leading-relaxed">
-                "Our promise to every couple is simple: you will never feel like a client navigating a transaction. You will feel like royalty surrounded by a family of artisans dedicated to making your dream celebration come alive."
-              </p>
-              
-              <div className="pt-2 flex items-center space-x-4 border-t border-[#B08D57]/20">
-                <div>
-                  <h4 className="font-serif font-bold text-lg text-[#2B2B2B]">Sudeep</h4>
-                  <span className="font-sans text-xs text-[#8A6B2E] uppercase tracking-wider font-semibold">Founder & Creative Director</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Founder Image */}
-            <div className="order-1 lg:order-2 relative rounded-[24px] overflow-hidden shadow-luxury border border-[#B08D57]/20 aspect-[4/3] group">
-              <img
-                src="/sangeet01.PNG"
-                alt="Posh Events Team and Production"
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#B08D57]/30 text-[10px] font-sans font-bold tracking-widest uppercase text-[#8A6B2E]">
-                CREATIVE DIRECTION & STAGE MASTERY
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-
-      {/* ── 4. VALUES & PILLARS ── */}
-      <section className="py-20 lg:py-28 bg-[#F5F0E8] border-t border-[#B08D57]/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="eyebrow-label block mb-3">OUR CORE VALUES</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-              THE PILLARS OF POSH EXCELLENCE
-            </h2>
-            <div className="w-20 h-[1.5px] bg-[#B08D57] mx-auto mt-5" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((v) => {
-              const Icon = v.icon;
-              return (
-                <div
-                  key={v.title}
-                  className="bg-white rounded-[24px] p-8 border border-[#B08D57]/20 shadow-sm hover:shadow-luxury transition-all duration-300 space-y-4"
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#B08D57]/15 text-[#8A6B2E] flex items-center justify-center">
-                    <Icon size={22} />
-                  </div>
-                  <h3 className="font-serif font-bold text-2xl text-[#2B2B2B]">
-                    {v.title}
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-[#4A4A4A] leading-relaxed">
-                    {v.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
-
-      {/* ── 5. MILESTONE NUMBERS ── */}
-      <section className="py-16 bg-[#2B2B2B] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-            <div className="pt-4 md:pt-0 space-y-2">
-              <span className="font-serif font-bold text-4xl lg:text-5xl text-[#D8BA84] block">250+</span>
-              <span className="font-sans text-xs uppercase tracking-[0.16em] text-white/80">Weddings Styled</span>
-            </div>
-            <div className="pt-4 md:pt-0 space-y-2">
-              <span className="font-serif font-bold text-4xl lg:text-5xl text-[#D8BA84] block">12+</span>
-              <span className="font-sans text-xs uppercase tracking-[0.16em] text-white/80">Years In Industry</span>
-            </div>
-            <div className="pt-4 md:pt-0 space-y-2">
-              <span className="font-serif font-bold text-4xl lg:text-5xl text-[#D8BA84] block">500+</span>
-              <span className="font-sans text-xs uppercase tracking-[0.16em] text-white/80">Celebrations Completed</span>
-            </div>
-            <div className="pt-4 md:pt-0 space-y-2">
-              <span className="font-serif font-bold text-4xl lg:text-5xl text-[#D8BA84] block">15+</span>
-              <span className="font-sans text-xs uppercase tracking-[0.16em] text-white/80">Destinations Curated</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ── 6. CTA BANNER ── */}
-      <section className="py-20 bg-[#FAF8F3] border-t border-[#B08D57]/20 text-center">
-        <div className="max-w-3xl mx-auto px-4 space-y-5">
-          <span className="eyebrow-label block">RESERVE YOUR DATES</span>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl uppercase tracking-[0.04em] text-[#2B2B2B]">
-            LET’S DISCUSS YOUR VISION
-          </h2>
-          <p className="font-sans text-sm text-[#4A4A4A] leading-relaxed">
-            We limit our calendar each wedding season to give each couple our undivided focus and artisanal craftsmanship.
-          </p>
-          <div className="pt-2">
-            <a
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/contact');
-              }}
-              className="btn-gold-pill text-sm py-3.5 px-8 shadow-xl"
+      {/* ── 2. FOUNDER SECTION WITH MANDAP-ARCH MASK & NOTE ── */}
+      <section id="team" className="py-20 lg:py-28 bg-white text-[#3D0A14] overflow-hidden border-t border-[#EEDDC8]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Arched Mandap-Frame Portrait */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-5 relative flex justify-center"
             >
-              Book Complimentary Consultation
-            </a>
+              {/* Elegant Arched Frame */}
+              <div className="relative w-full max-w-sm aspect-[3/4.2] rounded-t-[140px] rounded-b-3xl overflow-hidden border-2 border-gold/50 shadow-2xl bg-[#FFF9F0] p-1.5">
+                <div className="w-full h-full rounded-t-[132px] rounded-b-2xl overflow-hidden relative">
+                  <img
+                    src={media.story.founder}
+                    alt="Sudee, Founder & Creative Director, Posh Events"
+                    className="w-full h-full object-cover filter brightness-[0.98] hover:scale-105 transition-transform duration-700"
+                    onError={(e) => {
+                      e.target.src = '/media/story/philosophy-stage.jpg';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  
+                  {/* Caption */}
+                  <div className="absolute bottom-5 inset-x-5 text-white text-center">
+                    <span className="text-[10px] tracking-[0.25em] uppercase text-gold font-semibold block">
+                      Founder & Creative Director
+                    </span>
+                    <h3 className="font-display text-2xl text-white mt-0.5">Sudee</h3>
+                    <p className="text-[11px] text-white/80 mt-0.5 font-light">Posh Events by Sudee • Bengaluru</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Founder Note & 3 Principles */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-7 flex flex-col justify-center text-left space-y-6"
+            >
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-semibold text-gold-dark">
+                <Feather className="w-4 h-4 text-gold-dark" />
+                <span>A PERSONAL NOTE FROM SUDEE</span>
+              </div>
+
+              {/* Founder's Note in Italic Serif */}
+              <blockquote className="font-display text-2xl sm:text-3xl text-[#3D0A14] font-normal italic leading-snug">
+                "When I founded Posh Events in Bengaluru, my dream was to give South Indian celebrations the cinematic grandeur they truly deserve—without ever losing the sacred warmth of our temple traditions."
+              </blockquote>
+
+              <p className="text-sm sm:text-base text-[#5A2A27] font-light leading-relaxed">
+                Every family that walks into our Sadashivanagar studio brings a unique legacy. We treat that trust as sacred. Whether it is sourcing pure Madurai mallige for a Vedic mandap or orchestrating a starlit concert Sangeet at the palace, we put our heart into every petal and beam of light.
+              </p>
+
+              {/* Signature-style flourish */}
+              <div className="pt-2 font-display text-2xl text-[#5A0F1E] italic font-semibold">
+                ~ Sudee
+              </div>
+
+              {/* 3 Guiding Convictions */}
+              <div className="mt-8 pt-8 border-t border-[#EEDDC8] space-y-4">
+                <span className="text-[10px] tracking-[0.25em] uppercase font-bold text-gold-dark block">
+                  THREE GUIDING CONVICTIONS
+                </span>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {principles.map((pr) => (
+                    <div key={pr.number} className="p-5 rounded-2xl bg-[#FFF9F0] border border-[#EEDDC8] shadow-sm">
+                      <span className="text-xs font-mono text-gold-dark font-bold block mb-1">
+                        {pr.number}
+                      </span>
+                      <h4 className="font-display text-lg text-[#3D0A14] font-medium leading-tight">
+                        {pr.title}
+                      </h4>
+                      <p className="text-xs text-[#5A2A27] font-light mt-1.5 leading-relaxed">
+                        {pr.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
+      {/* ── 3. CELEBRATORY STUDIO CTA BAND ── */}
+      <section className="py-16 bg-[#FFF9F0] text-center border-t border-[#EEDDC8]">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="text-center sm:text-left">
+            <h3 className="font-display text-2xl sm:text-3xl text-[#3D0A14]">
+              Ready to meet Sudee at our <span className="gold-glow-word">Bangalore studio?</span>
+            </h3>
+            <p className="text-xs text-[#5A2A27] mt-1 font-light">Schedule an intimate celebration discovery session.</p>
+          </div>
+          <button
+            onClick={() => navigate('/contact')}
+            className="btn-gold-pill shrink-0 !text-xs"
+          >
+            <span>Plan Your Celebration</span>
+            <ArrowUpRight className="w-4 h-4 ml-1" />
+          </button>
+        </div>
+      </section>
     </div>
   );
 }

@@ -3,6 +3,15 @@ dist/
 .env
 .env.*
 .DS_Store
+*.mp4
+*.mov
+*.webm
+*.avi
+!public/media/hero/hero-mobile.mp4
+!public/media/hero/hero.mp4
+public/*.mp4
+public/*.mov
+public/*.webm
 public/downloaded_post/
 public/downloaded_post_babyshower/
 public/downloaded_post_babyshower2/
