@@ -78,7 +78,12 @@ export default function PhilosophySection({ navigate }) {
                 className="relative w-full h-full rounded-[280px_280px_24px_24px] overflow-hidden shadow-2xl z-10 bg-[#FAF3EA]"
               >
                 <img
-                  src="/stagedesign.jpg"
+                  src="/media/story/philosophy-stage.jpg"
+                  onError={(e) => {
+                    if (e.target.src !== '/stagedesign.jpg') {
+                      e.target.src = '/stagedesign.jpg';
+                    }
+                  }}
                   alt="Fine-Art Temple Mandap Architecture in Bengaluru"
                   className="w-full h-full object-cover object-center filter brightness-[0.98] contrast-[1.02] hover:scale-105 transition-transform duration-700"
                 />
@@ -93,7 +98,12 @@ export default function PhilosophySection({ navigate }) {
                 className="absolute -bottom-6 -right-3 sm:-right-8 w-[46%] aspect-[3/4] rounded-2xl overflow-hidden border-[6px] border-[#FBF6EC] shadow-2xl z-20 bg-[#FAF3EA]"
               >
                 <img
-                  src="/traditionaldesign.jpg"
+                  src="/media/story/philosophy-tradition.jpg"
+                  onError={(e) => {
+                    if (e.target.src !== '/traditionaldesign.jpg') {
+                      e.target.src = '/traditionaldesign.jpg';
+                    }
+                  }}
                   alt="Ancestral South Indian Vedic Muhurtham Decor"
                   className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
                 />
@@ -127,7 +137,12 @@ export default function PhilosophySection({ navigate }) {
                 {/* Badge Center with 3rd Photo */}
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-[#C9A24B] p-1 bg-[#FFF9F0] shadow-lg overflow-hidden flex items-center justify-center">
                   <img
-                    src="/flowerdesign.jpg"
+                    src="/media/story/philosophy-flowers.jpg"
+                    onError={(e) => {
+                      if (e.target.src !== '/flowerdesign.jpg') {
+                        e.target.src = '/flowerdesign.jpg';
+                      }
+                    }}
                     alt="Posh Events Floral Craftsmanship"
                     className="w-full h-full object-cover rounded-full"
                   />

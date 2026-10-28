@@ -539,8 +539,13 @@ function FilmStripTrack({
                 alt={item.title}
                 width={item.width}
                 height={item.height}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
+                onError={(e) => {
+                  if (item.full && e.target.src !== item.full) {
+                    e.target.src = item.full;
+                  }
+                }}
                 style={{
                   filter: isColor
                     ? 'none'

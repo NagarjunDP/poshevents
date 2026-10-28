@@ -109,6 +109,11 @@ export default function MomentsGallery({ navigate }) {
                   width={photo.width}
                   height={photo.height}
                   loading="lazy"
+                  onError={(e) => {
+                    if (photo.full && e.target.src !== photo.full) {
+                      e.target.src = photo.full;
+                    }
+                  }}
                   className="w-full h-auto block object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                 />
               </div>
