@@ -6,7 +6,7 @@ import './celebVideoSlider.css';
 
 export default function CelebVideoSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -27,6 +27,27 @@ export default function CelebVideoSlider() {
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
+
+  // Ensure current active video starts playing immediately (unmuted if allowed, muted fallback if policy requires)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = isMuted;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          // If browser autoplay policy blocked unmuted sound without interaction, mute & play
+          video.muted = true;
+          setIsMuted(true);
+          video.play().catch(() => {});
+        });
+    }
+  }, [currentIndex, isMuted]);
 
   // IntersectionObserver to pause video when off-screen
   useEffect(() => {
@@ -54,20 +75,17 @@ export default function CelebVideoSlider() {
 
   // Navigate functions with wrap-around infinite loop
   const nextSlide = useCallback(() => {
-    setIsMuted(true);
     setIsPlaying(true);
     setCurrentIndex((prev) => (prev + 1) % total);
   }, [total]);
 
   const prevSlide = useCallback(() => {
-    setIsMuted(true);
     setIsPlaying(true);
     setCurrentIndex((prev) => (prev - 1 + total) % total);
   }, [total]);
 
   const goToSlide = (idx) => {
     if (idx === currentIndex) return;
-    setIsMuted(true);
     setIsPlaying(true);
     setCurrentIndex(idx);
   };
@@ -107,10 +125,14 @@ export default function CelebVideoSlider() {
     setTouchEndX(null);
   };
 
-  // Toggle Play/Pause on center card tap
+  // Toggle Play/Pause on center card tap (also unmutes audio on user interaction)
   const togglePlayPause = (e) => {
     e.stopPropagation();
     if (!videoRef.current) return;
+    if (isMuted) {
+      videoRef.current.muted = false;
+      setIsMuted(false);
+    }
     if (isPlaying) {
       videoRef.current.pause();
       setIsPlaying(false);
@@ -154,12 +176,6 @@ export default function CelebVideoSlider() {
       {/* Background soft ambient celebration glows */}
       <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-gold/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 -right-24 w-96 h-96 rounded-full bg-rose/15 blur-[120px] pointer-events-none" />
-
-      {/* Hidden preloader for adjacent videos to guarantee zero-delay transition */}
-      <div className="hidden" aria-hidden="true">
-        <video preload="metadata" src={celebReviewsData[prevIdx].video} />
-        <video preload="metadata" src={celebReviewsData[nextIdx].video} />
-      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         {/* ── Section Heading & Eyebrow (kept exactly as required) ── */}
@@ -226,15 +242,12 @@ export default function CelebVideoSlider() {
               }
 
               const isCenter = offset === 0;
-              const isImmediateSide = Math.abs(offset) === 1;
-              const isFarSide = Math.abs(offset) >= 2;
 
               // Coverflow values
               let xOffset = '0%';
               let scale = 1;
               let rotateY = 0;
               let opacity = 1;
-              let blurAmount = '0px';
               let zIndex = 30;
 
               if (offset === 0) {
@@ -242,7 +255,6 @@ export default function CelebVideoSlider() {
                 scale = 1;
                 rotateY = 0;
                 opacity = 1;
-                blurAmount = '0px';
                 zIndex = 30;
               } else if (offset === 1) {
                 // Immediate Right
@@ -250,7 +262,6 @@ export default function CelebVideoSlider() {
                 scale = 0.82;
                 rotateY = isReducedMotion ? 0 : -10;
                 opacity = 0.75;
-                blurAmount = '7px';
                 zIndex = 20;
               } else if (offset === -1) {
                 // Immediate Left
@@ -258,7 +269,6 @@ export default function CelebVideoSlider() {
                 scale = 0.82;
                 rotateY = isReducedMotion ? 0 : 10;
                 opacity = 0.75;
-                blurAmount = '7px';
                 zIndex = 20;
               } else if (offset > 1) {
                 // Far Right
@@ -266,7 +276,6 @@ export default function CelebVideoSlider() {
                 scale = 0.68;
                 rotateY = isReducedMotion ? 0 : -14;
                 opacity = 0.35;
-                blurAmount = '12px';
                 zIndex = 10;
               } else {
                 // Far Left
@@ -274,7 +283,6 @@ export default function CelebVideoSlider() {
                 scale = 0.68;
                 rotateY = isReducedMotion ? 0 : 14;
                 opacity = 0.35;
-                blurAmount = '12px';
                 zIndex = 10;
               }
 
@@ -289,7 +297,6 @@ export default function CelebVideoSlider() {
                     scale: scale,
                     rotateY: rotateY,
                     opacity: opacity,
-                    filter: `blur(${blurAmount})`,
                     zIndex: zIndex,
                   }}
                   transition={{
@@ -319,9 +326,13 @@ export default function CelebVideoSlider() {
                         src={item.video}
                         poster={item.poster}
                         playsInline
+                        webkit-playsinline="true"
                         muted={isMuted}
                         loop
                         autoPlay
+                        preload="auto"
+                        onPlay={() => setIsPlaying(true)}
+                        onPause={() => setIsPlaying(false)}
                         onEnded={handleVideoEnded}
                         className="w-full h-full object-cover object-center select-none"
                       />
@@ -333,7 +344,7 @@ export default function CelebVideoSlider() {
                       <button
                         onClick={toggleMute}
                         aria-label={isMuted ? 'Unmute testimonial audio' : 'Mute testimonial audio'}
-                        className="absolute top-3.5 right-3.5 z-30 px-2.5 py-1.5 rounded-full bg-black/50 hover:bg-black/75 border border-white/20 backdrop-blur-md text-white flex items-center gap-1.5 text-xs shadow-md transition-colors"
+                        className="absolute top-3.5 right-3.5 z-30 px-2.5 py-1.5 rounded-full bg-black/60 hover:bg-black/85 border border-white/20 backdrop-blur-md text-white flex items-center gap-1.5 text-xs shadow-md transition-colors"
                       >
                         {isMuted ? (
                           <>

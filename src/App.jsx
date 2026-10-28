@@ -47,9 +47,10 @@ function App() {
   useEffect(() => {
     const isMobile =
       /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-    if (isMobile) {
-      // Use buttery native momentum scrolling on mobile to eliminate delay
+    if (isMobile || isSafari) {
+      // Use native momentum scrolling on mobile and Safari to eliminate scroll lag & stutter
       return;
     }
 

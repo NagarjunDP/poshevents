@@ -75,8 +75,6 @@ export default function ParticleCanvas({ className = '', count = 35 }) {
           ctx.beginPath();
           ctx.arc(0, 0, p.size, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(241, 223, 160, ${Math.max(0, p.opacity)})`;
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = 'rgba(201, 162, 75, 0.8)';
           ctx.fill();
         }
 
@@ -86,10 +84,23 @@ export default function ParticleCanvas({ className = '', count = 35 }) {
       animationFrameId = requestAnimationFrame(render);
     };
 
+    let isVisible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(render);
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    });
+
+    observer.observe(canvas);
     render();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
     };
   }, [count]);

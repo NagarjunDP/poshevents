@@ -547,10 +547,8 @@ function FilmStripTrack({
                   }
                 }}
                 style={{
-                  filter: isColor
-                    ? 'none'
-                    : 'grayscale(1) contrast(1.12) brightness(0.92) sepia(0.15)',
-                  transition: 'filter 450ms ease',
+                  filter: isColor ? 'none' : 'grayscale(1)',
+                  transition: 'filter 300ms ease',
                 }}
                 className="w-full h-full object-cover"
               />
