@@ -9,6 +9,7 @@ dist/
 *.avi
 !public/media/hero/hero-mobile.mp4
 !public/media/hero/hero.mp4
+!public/media/reviews/*.mp4
 public/*.mp4
 public/*.mov
 public/*.webm

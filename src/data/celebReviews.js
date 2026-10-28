@@ -10,7 +10,7 @@ export const celebReviewsData = [
     name: 'Rudra Master',
     role: 'Renowned Dance Master & Choreographer',
     event: 'Royal Wedding Reception',
-    video: '/rudramasterreview.mp4',
+    video: '/media/reviews/rudramasterreview.mp4',
     poster: '/media/reviews/rudramaster.jpg',
   },
   {
@@ -18,7 +18,7 @@ export const celebReviewsData = [
     name: 'Madhu Gowda',
     role: 'Celebrity & TV Personality',
     event: 'Whimsical Floral Baby Shower',
-    video: '/madhugowdababyshowerreview.mp4',
+    video: '/media/reviews/madhugowdababyshowerreview.mp4',
     poster: '/media/reviews/madhugowda.jpg',
   },
   {
@@ -26,7 +26,7 @@ export const celebReviewsData = [
     name: 'Sudhir & Family',
     role: 'Executive & Private Host',
     event: 'Bespoke Surprise Birthday Gala',
-    video: '/sudhirbirthdaysurprisereview.mp4',
+    video: '/media/reviews/sudhirbirthdaysurprisereview.mp4',
     poster: '/media/reviews/sudhir.jpg',
   },
   {
@@ -34,7 +34,7 @@ export const celebReviewsData = [
     name: 'Amrutha',
     role: 'Founder, Amrutha Studios',
     event: 'Studio Launch & Wellness Gala',
-    video: '/amruthayogastudioreview.mp4',
+    video: '/media/reviews/amruthayogastudioreview.mp4',
     poster: '/media/reviews/amrutha.jpg',
   },
 ];
