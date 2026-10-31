@@ -15,7 +15,7 @@ export default function CelebVideoSlider() {
 
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
-  const isVisibleRef = useRef(true);
+  const isVisibleRef = useRef(false);
 
   const total = celebReviewsData.length;
 
@@ -28,10 +28,11 @@ export default function CelebVideoSlider() {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  // Ensure current active video starts playing immediately (unmuted if allowed, muted fallback if policy requires)
+  // Try audible playback when the active review is visible; browsers may require
+  // a user gesture before allowing sound, so fall back to muted playback.
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !isVisibleRef.current || isReducedMotion) return;
 
     video.muted = isMuted;
     const playPromise = video.play();
@@ -41,27 +42,28 @@ export default function CelebVideoSlider() {
           setIsPlaying(true);
         })
         .catch(() => {
-          // If browser autoplay policy blocked unmuted sound without interaction, mute & play
           video.muted = true;
           setIsMuted(true);
           video.play().catch(() => {});
         });
     }
-  }, [currentIndex, isMuted]);
+  }, [currentIndex, isMuted, isReducedMotion]);
 
   // IntersectionObserver to pause video when off-screen
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
-        if (videoRef.current) {
-          if (entry.isIntersecting) {
-            if (isPlaying) {
-              videoRef.current.play().catch(() => {});
-            }
-          } else {
-            videoRef.current.pause();
-          }
+        if (!videoRef.current || isReducedMotion) return;
+        if (entry.isIntersecting) {
+          videoRef.current.muted = isMuted;
+          videoRef.current.play().catch(() => {
+            videoRef.current.muted = true;
+            setIsMuted(true);
+            videoRef.current.play().catch(() => {});
+          });
+        } else {
+          videoRef.current.pause();
         }
       },
       { threshold: 0.25 }
@@ -71,7 +73,7 @@ export default function CelebVideoSlider() {
       observer.observe(sectionRef.current);
     }
     return () => observer.disconnect();
-  }, [isPlaying]);
+  }, [isMuted, isReducedMotion]);
 
   // Navigate functions with wrap-around infinite loop
   const nextSlide = useCallback(() => {
@@ -330,7 +332,7 @@ export default function CelebVideoSlider() {
                         muted={isMuted}
                         loop
                         autoPlay
-                        preload="auto"
+                        preload="metadata"
                         onPlay={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
                         onEnded={handleVideoEnded}

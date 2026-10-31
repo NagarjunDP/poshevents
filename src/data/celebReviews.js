@@ -1,7 +1,7 @@
 /**
  * Celebrity Reviews Data
- * 4 client review videos with extracted high-resolution poster frames.
- * Adding a fifth entry in this array will seamlessly display in the coverflow video slider.
+ * Client review videos with extracted poster frames.
+ * Adding another entry in this array will seamlessly display in the coverflow video slider.
  */
 
 export const celebReviewsData = [
@@ -36,5 +36,21 @@ export const celebReviewsData = [
     event: 'Studio Launch & Wellness Gala',
     video: '/media/reviews/amruthayogastudioreview.mp4',
     poster: '/media/reviews/amrutha.jpg',
+  },
+  {
+    id: 'review-naming-ceremony',
+    name: 'Naming Ceremony Family',
+    role: 'Family Celebration',
+    event: 'Traditional Naming Ceremony',
+    video: '/media/reviews/namingceremonyreview.mp4',
+    poster: '/media/reviews/namingceremony.jpg',
+  },
+  {
+    id: 'review-baby-shower',
+    name: 'Baby Shower Family',
+    role: 'Family Celebration',
+    event: 'Elegant Baby Shower',
+    video: '/media/reviews/babyshowerreview.mp4',
+    poster: '/media/reviews/babyshower.jpg',
   },
 ];
