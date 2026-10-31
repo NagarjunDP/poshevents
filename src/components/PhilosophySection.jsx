@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { statsData } from '../data/stats';
+import OptimizedImage from './OptimizedImage';
 
 export default function PhilosophySection({ navigate }) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -77,15 +78,13 @@ export default function PhilosophySection({ navigate }) {
                 viewport={{ once: true, margin: '-50px' }}
                 className="relative w-full h-full rounded-[280px_280px_24px_24px] overflow-hidden shadow-2xl z-10 bg-[#FAF3EA]"
               >
-                <img
-                  src="/media/story/philosophy-stage.jpg"
-                  onError={(e) => {
-                    if (e.target.src !== '/stagedesign.jpg') {
-                      e.target.src = '/stagedesign.jpg';
-                    }
-                  }}
+                <OptimizedImage
+                  src="/20261018_095540.jpg"
                   alt="Fine-Art Temple Mandap Architecture in Bengaluru"
                   className="w-full h-full object-cover object-center filter brightness-[0.98] contrast-[1.02] hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 560px"
+                  loading="lazy"
+                  fetchpriority="low"
                 />
               </motion.div>
 
