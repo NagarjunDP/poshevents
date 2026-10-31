@@ -13,6 +13,10 @@ export const media = {
 
   hero: {
     video: 'https://ik.imagekit.io/7ksvfitos/tr:rt-270/brdy%20vid%20tarun%20anna.mp4',
+    videos: [
+      'https://ik.imagekit.io/7ksvfitos/tr:rt-270/brdy%20vid%20tarun%20anna.mp4',
+      'https://res.cloudinary.com/a1sqx9c5/video/upload/v1793463965/Video-9317.mp4',
+    ],
     poster: 'https://ik.imagekit.io/7ksvfitos/tr:rt-270,so-2/brdy%20vid%20tarun%20anna.mp4/ik-thumbnail.jpg',
     storyModalVideo: '/prana studios.mp4',
   },
