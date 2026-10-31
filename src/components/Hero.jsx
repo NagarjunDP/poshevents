@@ -7,6 +7,9 @@ import { media } from '../data/media';
 
 export default function Hero({ navigate }) {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [heroVideo] = useState(
+    () => media.hero.videos[Math.floor(Math.random() * media.hero.videos.length)]
+  );
   const heroVideoRef = useRef(null);
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function Hero({ navigate }) {
           poster={media.hero.poster}
           className="w-full h-full object-cover object-center scale-[1.03] transition-transform duration-1000 ease-out"
         >
-          <source src={media.hero.video} type="video/mp4" />
+          <source src={heroVideo} type="video/mp4" />
           <source src="/besthomevid_optimized.mp4" type="video/mp4" />
         </video>
 
