@@ -133,8 +133,11 @@ export default function Navbar({ currentPath, navigate }) {
               <span className="font-display text-base xl:text-lg tracking-[0.22em] uppercase text-[#3D0A14] font-bold group-hover:text-gold transition-colors whitespace-nowrap">
                 POSH EVENTS
               </span>
-              <span className="text-[10px] xl:text-[11px] tracking-[0.28em] uppercase text-gold font-sans font-extrabold -mt-0.5">
-                BY SUDEE
+              <span
+                className="text-[24px] xl:text-[27px] leading-none text-gold font-normal -mt-1 whitespace-nowrap"
+                style={{ fontFamily: "'Great Vibes', cursive" }}
+              >
+                By Sudee
               </span>
             </div>
           </button>
@@ -206,8 +209,11 @@ export default function Navbar({ currentPath, navigate }) {
             <span className="font-display text-base tracking-[0.2em] uppercase text-[#3D0A14] font-bold leading-tight">
               POSH EVENTS
             </span>
-            <span className="text-[9.5px] tracking-[0.25em] uppercase text-gold font-sans font-extrabold mt-0.5">
-              BY SUDEE
+            <span
+              className="text-[22px] leading-none text-gold font-normal -mt-0.5 whitespace-nowrap"
+              style={{ fontFamily: "'Great Vibes', cursive" }}
+            >
+              By Sudee
             </span>
           </div>
         </button>
@@ -238,7 +244,13 @@ export default function Navbar({ currentPath, navigate }) {
                 <img src="/logo.png" alt="Posh Events" className="w-10 h-10 object-contain" />
                 <div className="flex flex-col">
                   <span className="font-display tracking-[0.2em] text-sm uppercase text-[#3D0A14] font-semibold">
-                    POSH EVENTS BY SUDEE
+                    POSH EVENTS
+                  </span>
+                  <span
+                    className="text-[24px] leading-none text-gold font-normal -mt-1"
+                    style={{ fontFamily: "'Great Vibes', cursive" }}
+                  >
+                    By Sudee
                   </span>
                   <span className="text-[9px] tracking-[0.3em] uppercase text-gold font-bold">
                     BENGALURU • SOUTH INDIA
