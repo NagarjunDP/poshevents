@@ -71,8 +71,8 @@ const handleCards = [
 
 /* ───────────── Main Page ───────────── */
 export default function DestinationWeddings({ navigate }) {
-  // Pick the best hero image from public
-  const heroImage = '/destinationweddingbg.jpg.avif';
+  const heroImage =
+    '/SaveClip.App_863173775_18030210647856548_5186953821227231369_n.jpg';
 
   useEffect(() => {
     document.title = 'Destination Wedding Planners in Bangalore | Posh Events by Sudee';
@@ -113,8 +113,9 @@ export default function DestinationWeddings({ navigate }) {
         >
           <img
             src={heroImage}
-            alt="Luxury destination wedding mandap with floral canopy at golden hour"
-            className="absolute inset-0 w-full h-full object-cover"
+            alt="Pink rose petals arranged around a destination wedding ceremony pool"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            fetchPriority="high"
           />
           {/* Light bottom-left gradient scrim only */}
           <div

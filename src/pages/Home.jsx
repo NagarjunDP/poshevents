@@ -15,26 +15,28 @@ export default function Home({ navigate }) {
       {/* ── 1. HERO ── */}
       <Hero navigate={navigate} />
 
-      {/* ── 2. CELEBRITY REVIEWS + WHY CHOOSE US (ETHOS) ── */}
-      <CelebVideoSlider />
+      {/* ── 2. HERITAGE & ETHOS ── */}
       <PhilosophySection navigate={navigate} />
 
-      {/* ── 3. BESPOKE SERVICES ── */}
+      {/* ── 3. MASTERPIECES FOR EVERY MILESTONE ── */}
       <BespokeServices navigate={navigate} />
 
-      {/* ── 4. FILM REEL (35mm ENDLESS TAPES) ── */}
+      {/* ── 4. CLIENT REVIEWS ── */}
+      <CelebVideoSlider />
+
+      {/* ── 5. FILM REEL (35mm ENDLESS TAPES) ── */}
       <FilmReelSection navigate={navigate} />
 
-      {/* ── 5. HOW A POSH CELEBRATION UNFOLDS (OUR PROCESS) ── */}
+      {/* ── 6. HOW A POSH CELEBRATION UNFOLDS (OUR PROCESS) ── */}
       <JourneyTimeline />
 
-      {/* ── 6. PACKAGES TEASER ── */}
+      {/* ── 7. PACKAGES TEASER ── */}
       <PackagesTeaser navigate={navigate} />
 
-      {/* ── 7. FAQ ── */}
+      {/* ── 8. FAQ ── */}
       <HomeFaq navigate={navigate} />
 
-      {/* ── 8. CONTACT CTA ── */}
+      {/* ── 9. CONTACT CTA ── */}
       <FinaleSection />
     </div>
   );
